@@ -201,7 +201,7 @@ const PageUser = () => {
   const sortedData = useMemo(() => {
     const search = searchValue.toLowerCase();
 
-    let filtered = users.filter(
+    const filtered = users.filter(
       (item) =>
         item.name.toLowerCase().includes(search) ||
         item.email.toLowerCase().includes(search) ||
@@ -239,20 +239,20 @@ const PageUser = () => {
           icon={<Users className="h-6 w-6 text-primary" />}
           title="Total Users"
           value={stats.totalUsers.toString()}
-          iconBgClass="bg-purple-25"
+          iconBgClass="bg-brand-25"
           loading={isLoading}
         />
         <StatCard
           icon={<UserCheck className="h-6 w-6 text-primary" />}
           title="Active Users"
           value={stats.activeUsers.toString()}
-          iconBgClass="bg-purple-25"
+          iconBgClass="bg-brand-25"
           loading={isLoading}
         />
         <StatCard
           icon={<UserRoundCog className="h-6 w-6 text-primary" />}
           title="Admins"
-          iconBgClass="bg-purple-25"
+          iconBgClass="bg-brand-25"
           value={stats.totalAdmins.toString()}
           loading={isLoading}
         />
@@ -260,7 +260,7 @@ const PageUser = () => {
                     icon={<ClipboardClock className="h-6 w-6 text-primary" />}
                     title="Pending Invites"
                     value="34"
-                    iconBgClass="bg-purple-25"
+                    iconBgClass="bg-brand-25"
                               loading={isLoading}
 
                 /> */}

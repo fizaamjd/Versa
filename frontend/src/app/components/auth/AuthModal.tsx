@@ -15,7 +15,7 @@ export default function AuthModal({ open, onClose }: { open: boolean, onClose: (
                 transform: 'translate(-50%, -50%)',
                 width: 400,
                 bgcolor: 'background.paper',
-                borderRadius: '16px',
+                borderRadius: '6px',
                 boxShadow: 24,
                 p: 4,
                 textAlign: 'center'
@@ -29,7 +29,7 @@ export default function AuthModal({ open, onClose }: { open: boolean, onClose: (
                 <Button
                     fullWidth
                     variant="contained"
-                    sx={{ mb: 2, bgcolor: '#6C2BD7', borderRadius: '999px' }}
+                    sx={{ mb: 2, bgcolor: '#2346D9', borderRadius: '4px' }}
                     onClick={() => router.push('/auth')}
                 >
                     Go to Login/Signup
@@ -37,7 +37,7 @@ export default function AuthModal({ open, onClose }: { open: boolean, onClose: (
                 <Button
                     fullWidth
                     variant="outlined"
-                    sx={{ borderRadius: '999px' }}
+                    sx={{ borderRadius: '4px' }}
                     onClick={onClose}
                 >
                     Cancel

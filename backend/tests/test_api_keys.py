@@ -104,3 +104,14 @@ def test_api_key_auth_flow(monkeypatch):
     resp = client.get("/api/users/me", headers={"X-API-KEY": "invalid-key"})
     assert resp.status_code == 401
     assert resp.json()["detail"] == "Invalid API key"
+
+
+@pytest.mark.parametrize("method,path", [
+    ("post", "/api/users/api-key"),
+    ("delete", "/api/users/api-key"),
+    ("get", "/api/users/me"),
+])
+def test_missing_credentials_rejected(method, path):
+    response = getattr(client, method)(path)
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Not authenticated"

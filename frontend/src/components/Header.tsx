@@ -1,4 +1,5 @@
 "use client";
+import { VersaLogo } from "@/components/brand/VersaLogo";
 import React from 'react';
 import {
   AppBar,
@@ -12,7 +13,6 @@ import {
 import {
   ArrowBack as ArrowBackIcon,
   Download as DownloadIcon,
-  AutoAwesome as AutoAwesomeIcon
 } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { extractApiErrorMessage } from '@/lib/errorMessage';
@@ -92,43 +92,8 @@ const Header = ({ processedImages = [] }: HeaderProps) => {
         }}
       >
         {/* Logo Section */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Box
-            component="img"
-            src="/logo.svg"
-            alt="Logo"
-            sx={{
-              height: { xs: 32, md: 40 },
-              width: 'auto',
-            }}
-          />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography
-              sx={{
-                fontSize: { xs: '14px', md: '16px' },
-                fontWeight: 500,
-                color: '#6b7280',
-                fontStyle: 'normal',
-                display: { xs: 'none', md: 'block' },
-                letterSpacing: '0.05em',
-              }}
-            >
-              presents
-            </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontSize: { xs: '18px', md: '20px' },
-                  fontWeight: 600,
-                  color: '#111827',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Visual Transformation Engine
-              </Typography>
-            </Box>
-          </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <VersaLogo height={30} />
         </Box>
 
         {/* Right Side Actions */}
@@ -140,13 +105,13 @@ const Header = ({ processedImages = [] }: HeaderProps) => {
             variant="contained"
             sx={{
               textTransform: 'none',
-              bgcolor: 'rgba(74, 0, 224, 1)',
+              bgcolor: 'rgba(35, 70, 217, 1)',
               color: 'white',
               fontSize: { xs: '13px', md: '14px' },
               fontWeight: 600,
-              borderRadius: '12px',
+              borderRadius: '4px',
               '&:hover': {
-                bgcolor: 'rgba(74, 0, 224, 0.9)',
+                bgcolor: 'rgba(35, 70, 217, 0.9)',
               },
               '&.Mui-disabled': {
                 bgcolor: '#f3f4f6',

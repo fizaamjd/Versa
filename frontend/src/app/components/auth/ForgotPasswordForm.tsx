@@ -62,7 +62,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordProps> = ({
             component="label"
             htmlFor="email"
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -95,7 +95,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordProps> = ({
           sx={{
             mt: 3,
             mb: 2,
-            backgroundColor: '#0369A1',
+            backgroundColor: '#2346D9',
             borderRadius: 2,
           }}
         >
@@ -106,7 +106,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordProps> = ({
         <Typography
           variant="body2"
           align="center"
-          sx={{ cursor: 'pointer', color: '#0369A1' }}
+          sx={{ cursor: 'pointer', color: '#2346D9' }}
           onClick={() => switchForm('login')}
         >
           Back to Login

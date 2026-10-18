@@ -32,7 +32,7 @@ export function AgencyBar({
   return (
     <div
       className={clsx(
-        "bg-purple-25 p-3 rounded-lg w-full overflow-hidden",
+        "bg-brand-25 p-3 rounded-lg w-full overflow-hidden",
         className,
       )}
     >

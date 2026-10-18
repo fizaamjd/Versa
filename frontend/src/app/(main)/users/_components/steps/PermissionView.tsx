@@ -24,7 +24,7 @@ export function PermissionView({ name, features, selectedPermissons }: Permissio
                     <div className="grid grid-cols-1 gap-4 mt-4">
                         {selectedPermissons?.map((f, idx) => (
                             <div key={`${f}-${idx}`} className="flex items-start gap-2 text-sm text-gray-500">
-                                <div className="w-6 h-6 rounded-full bg-purple-25 flex items-center justify-center">
+                                <div className="w-6 h-6 rounded-full bg-brand-25 flex items-center justify-center">
                                     <Check className="w-4 h-4 text-primary" />
                                 </div>
                                 <span>{f}</span>

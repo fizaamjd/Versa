@@ -1,16 +1,35 @@
 @import "tailwindcss";
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap'); */
+
+/*
+ * Versa design tokens.
+ * World: the media owner's spec sheet. Ink and paper, one spec blue for
+ * action and selection, hatch yellow reserved for safe zones and warnings.
+ */
 :root {
-  --foreground-rgb: 31, 41, 55;
-  --background-start-rgb: 249, 250, 251;
-  --background-end-rgb: 243, 244, 246;
-  --accent-primary: #0369A1;
-  --accent-secondary: #0EA5E9;
+  --foreground-rgb: 16, 20, 24;
+  --background-start-rgb: 246, 247, 249;
+  --background-end-rgb: 238, 240, 243;
+  --accent-primary: #2346D9;
+  --accent-secondary: #4F6CE1;
 
   /* Basic colors */
-  --foreground: #111827;
+  --foreground: #101418;
   --background: #ffffff;
   --color-white: #ffffff;
+
+  /* Spec sheet palette */
+  --ink: #101418;
+  --ink-2: #4A5260;
+  --ink-3: #6B7380;
+  --paper: #ffffff;
+  --sheet: #F6F7F9;
+  --rule: #E3E6EB;
+  --rule-strong: #C7CCD5;
+  --spec: #2346D9;
+  --spec-deep: #162D8F;
+  --spec-tint: #E8EDFC;
+  --hatch: #F2B705;
+  --hatch-ink: #6B4E00;
 
   /* Typography */
   --font-size-heading-h1: 30px;
@@ -69,17 +88,30 @@
 }
 
 @theme {
-  --color-primary: #0369A1;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #2346D9;
   --color-primary-foreground: #ffffff;
-  --color-purple-25: #F0F9FF;
-  --color-purple-50: #E0F2FE;
-  --color-purple-75: #BAE6FD;
-  --color-purple-100: #7DD3FC;
-  --color-purple-200: #38BDF8;
-  --color-purple-300: #0EA5E9;
-  --color-purple-400: #0284C7;
-  --color-purple-500: #0369A1;
-  --color-purple-600: #075985;
+  --color-brand-25: #F4F6FE;
+  --color-brand-50: #E8EDFC;
+  --color-brand-75: #CDD7F8;
+  --color-brand-100: #A9B9F2;
+  --color-brand-200: #7B92EA;
+  --color-brand-300: #4F6CE1;
+  --color-brand-400: #3456DC;
+  --color-brand-500: #2346D9;
+  --color-brand-600: #1B38B4;
+  --color-brand-700: #162D8F;
+  --color-brand-800: #11226B;
+
+  --color-ink: #101418;
+  --color-ink-2: #4A5260;
+  --color-ink-3: #6B7380;
+  --color-sheet: #F6F7F9;
+  --color-rule: #E3E6EB;
+  --color-rule-strong: #C7CCD5;
+  --color-hatch: #F2B705;
+  --color-hatch-ink: #6B4E00;
 
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
@@ -90,7 +122,7 @@
   --color-gray-600: #4b5563;
   --color-gray-700: #374151;
   --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  --color-gray-900: #101418;
 
   --color-success-500: #10b981;
   --color-success-50: #ecfcf5;
@@ -113,9 +145,36 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: var(--color-white);
-  font-family: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01";
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  caret-color: var(--spec);
+}
+
+/* Measurements read like a spec sheet: condensed, tabular figures */
+.spec-figure {
+  font-stretch: 78%;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+/* Safe-zone hatch, the one place yellow lives besides warnings */
+.spec-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--hatch) 55%, transparent) 0 2px,
+    transparent 2px 7px
+  );
+}
+
+:focus-visible {
+  outline: 2px solid var(--spec);
+  outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 0.2em;
 }
 
 /* Enforce Font Weight Limit */
@@ -132,67 +191,8 @@ strong,
 }
 
 ::selection {
-  background-color: var(--color-purple-200);
-  color: white;
-}
-
-/* Premium Mesh Background Animation */
-@keyframes meshGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.premium-mesh-bg {
-  background: linear-gradient(-45deg, #f9fafb, #ffffff, #f5f3ff, #fdf2f8);
-  background-size: 400% 400%;
-  animation: meshGradient 20s ease infinite;
-}
-
-/* Floating Animation */
-@keyframes floating {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.animate-floating {
-  animation: floating 6s ease-in-out infinite;
-}
-
-/* Glow Pulse */
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 0 5px rgba(3, 105, 161, 0.2);
-  }
-
-  50% {
-    box-shadow: 0 0 25px rgba(3, 105, 161, 0.4);
-  }
-
-  100% {
-    box-shadow: 0 0 5px rgba(3, 105, 161, 0.2);
-  }
-}
-
-.premium-glow {
-  animation: glowPulse 4s ease-in-out infinite;
+  background-color: var(--color-brand-75);
+  color: var(--ink);
 }
 
 /* Custom scrollbar */
@@ -201,16 +201,16 @@ strong,
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--sheet);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+  background: var(--rule-strong);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--ink-3);
 }
 
 /* Scrollbar Hide Utility */

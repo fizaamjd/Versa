@@ -47,12 +47,12 @@ export function ColumnVisibilityDropdown({
         </DropdownButton>
         <DropdownMenu
           anchor="bottom start"
-          className="min-w-0 p-1 bg-white border border-gray-200 shadow-lg rounded-xl z-[100] focus:outline-none scrollbar-hide"
+          className="min-w-0 p-1 bg-white border border-gray-200 shadow-lg rounded-md z-[100] focus:outline-none scrollbar-hide"
         >
           {ordered.map((column, idx) => (
             <DropdownItem
               key={column.key}
-              className="!text-body !text-gray-600 font-medium hover:bg-purple-25 rounded-lg scrollbar-hide"
+              className="!text-body !text-gray-600 font-medium hover:bg-brand-25 rounded-lg scrollbar-hide"
               draggable
               onDragStart={
                 onColumnDragStart ? onColumnDragStart(idx) : undefined

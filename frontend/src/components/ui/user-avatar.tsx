@@ -47,7 +47,7 @@ export function UserAvatar({
             className={clsx("rounded-full object-cover", sizeClasses[size])}
           />
         ) : (
-          <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+          <div className="w-full h-full rounded-full bg-brand-500 flex items-center justify-center">
             <span
               className={clsx(
                 "text-white font-semibold",

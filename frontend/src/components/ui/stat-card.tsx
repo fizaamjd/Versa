@@ -22,7 +22,7 @@ export function StatCard({
   title,
   value,
   subtitle,
-  iconBgClass = "bg-purple-25",
+  iconBgClass = "bg-brand-25",
   className,
   valueClassName,
   subtitleClassName,

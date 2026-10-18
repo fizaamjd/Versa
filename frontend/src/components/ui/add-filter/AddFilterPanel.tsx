@@ -58,7 +58,7 @@ export default function AddFilterPanel({
               <button
                 type="button"
                 onClick={() => setActiveId(null)}
-                className="p-2 rounded-md text-gray-900 bg-purple-25 cursor-pointer"
+                className="p-2 rounded-md text-gray-900 bg-brand-25 cursor-pointer"
                 aria-label="Back"
               >
                 <ArrowLeft className="h-5 w-5" />
@@ -81,7 +81,7 @@ export default function AddFilterPanel({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="p-2 rounded-md text-gray-900 bg-purple-25 flex items-center justify-center cursor-pointer"
+            className="p-2 rounded-md text-gray-900 bg-brand-25 flex items-center justify-center cursor-pointer"
           >
             <X className="h-6 w-6 text-gray-900" />
           </button>

@@ -111,7 +111,7 @@ export function InputWithButton({
         onClick={onAction}
         className="inline-flex items-center gap-1.5 text-gray-600 hover:bg-gray-50"
       >
-        <Plus className="w-4 h-4 text-purple-500" />
+        <Plus className="w-4 h-4 text-brand-500" />
         Add Action
       </Button>
     );
@@ -189,10 +189,10 @@ export function InputWithButton({
                 {showBadge && (
                   <>
                     <span className="text-gray-600">and</span>
-                    <div className="inline-flex items-center justify-center px-1.5 py-0.5 bg-purple-25 rounded-full">
+                    <div className="inline-flex items-center justify-center px-1.5 py-0.5 bg-brand-25 rounded-full">
                       <span
                         className="text-xs font-medium"
-                        style={{ color: "#7F56D9" }}
+                        style={{ color: "#2346D9" }}
                       >
                         +{hiddenChipsCount}
                       </span>
@@ -238,7 +238,7 @@ export function InputWithButton({
               isButtonFocused &&
               "!border-transparent !outline-none [&]:!border-0",
               rightButton.iconOnly &&
-              "!box-border !m-0 !w-full !h-full !p-0 !shadow-none !border-0 data-hover:!border-transparent data-active:!border-transparent !text-purple-25",
+              "!box-border !m-0 !w-full !h-full !p-0 !shadow-none !border-0 data-hover:!border-transparent data-active:!border-transparent !text-brand-25",
               !rightButton.iconOnly && "!shadow-[0px_1px_2px_0px_#0000000D]",
               rightButton.className
             )}

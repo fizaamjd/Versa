@@ -1,29 +1,36 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ASPECT_RATIO_PRESETS } from '../types/models';
+import { RatioGlyph } from './spec';
+import { colors, radius } from '../theme';
 
 interface Props {
   value: string;
   onChange: (ratio: string) => void;
 }
 
+/* Each preset is a tile with its frame drawn and dimensioned. */
 export default function AspectRatioPicker({ value, onChange }: Props) {
   return (
-    <View style={styles.row}>
+    <View style={styles.grid}>
       {ASPECT_RATIO_PRESETS.map((preset) => {
         const selected = preset.ratio === value;
         return (
           <TouchableOpacity
             key={preset.key}
-            style={[styles.chip, selected && styles.chipSelected]}
+            style={[styles.tile, selected && styles.tileSelected]}
             onPress={() => onChange(preset.ratio)}
+            accessibilityRole="radio"
+            accessibilityState={{ selected }}
+            accessibilityLabel={`${preset.label} ${preset.ratio}`}
           >
-            <Text style={[styles.chipText, selected && styles.chipTextSelected]}>
-              {preset.label}
-            </Text>
-            <Text style={[styles.chipSubtext, selected && styles.chipTextSelected]}>
-              {preset.ratio}
-            </Text>
+            <RatioGlyph ratio={preset.ratio} selected={selected} />
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.label, selected && styles.labelSelected]}>{preset.label}</Text>
+              <Text style={styles.ratio}>{preset.ratio}</Text>
+            </View>
+            {/* selection is a mark in a fixed cell, never colour alone */}
+            <View style={[styles.mark, selected && styles.markOn]} />
           </TouchableOpacity>
         );
       })}
@@ -32,35 +39,24 @@ export default function AspectRatioPicker({ value, onChange }: Props) {
 }
 
 const styles = StyleSheet.create({
-  row: {
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  tile: {
+    flexBasis: '48%',
+    flexGrow: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  chip: {
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(3, 105, 161, 0.2)',
-    backgroundColor: '#fff',
     alignItems: 'center',
+    gap: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: radius.control,
+    borderWidth: 1,
+    borderColor: colors.rule,
+    backgroundColor: colors.paper,
   },
-  chipSelected: {
-    backgroundColor: 'rgba(3, 105, 161, 1)',
-    borderColor: 'rgba(3, 105, 161, 1)',
-  },
-  chipText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#111827',
-  },
-  chipSubtext: {
-    fontSize: 11,
-    color: '#6b7280',
-    marginTop: 2,
-  },
-  chipTextSelected: {
-    color: '#fff',
-  },
+  tileSelected: { borderColor: colors.spec, backgroundColor: '#F4F6FE' },
+  label: { fontSize: 14, fontWeight: '500', color: colors.ink },
+  labelSelected: { color: colors.spec, fontWeight: '600' },
+  ratio: { fontSize: 12, color: colors.ink3, marginTop: 1, fontVariant: ['tabular-nums'] },
+  mark: { width: 12, height: 12, borderRadius: 6, borderWidth: 2, borderColor: colors.ruleStrong },
+  markOn: { borderColor: colors.spec, backgroundColor: colors.spec },
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
+import { colors, radius } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Result'>;
 
@@ -20,18 +21,18 @@ export default function ResultScreen({ route }: Props) {
     <View style={styles.container}>
       <Image source={{ uri: result.url }} style={styles.image} resizeMode="contain" />
       <TouchableOpacity style={styles.button} onPress={onShare}>
-        <Text style={styles.buttonText}>Share</Text>
+        <Text style={styles.buttonText}>Share output</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#000', padding: 16, justifyContent: 'center' },
-  image: { width: '100%', aspectRatio: 1, borderRadius: 12 },
+  container: { flex: 1, backgroundColor: colors.ink, padding: 16, justifyContent: 'center' },
+  image: { width: '100%', aspectRatio: 1, borderRadius: 2 },
   button: {
-    backgroundColor: 'rgba(3, 105, 161, 1)',
-    borderRadius: 10,
+    backgroundColor: colors.spec,
+    borderRadius: radius.control,
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 20,

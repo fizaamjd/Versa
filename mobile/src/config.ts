@@ -1,4 +1,4 @@
-// Base URL for the GenFrame-AI FastAPI backend.
+// Base URL for the Versa FastAPI backend.
 //
 // - iOS simulator: http://localhost:8000/api works.
 // - Android emulator: use http://10.0.2.2:8000/api (localhost on the host machine).

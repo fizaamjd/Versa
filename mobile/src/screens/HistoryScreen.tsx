@@ -15,6 +15,7 @@ import { fetchHistory } from '../api/engine';
 import { extractErrorMessage } from '../api/client';
 import { HistoryItem } from '../types/models';
 import { RootStackParamList } from '../navigation/types';
+import { colors, radius } from '../theme';
 
 type Nav = NativeStackNavigationProp<RootStackParamList>;
 
@@ -52,7 +53,7 @@ export default function HistoryScreen() {
   if (loading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator color="rgba(3, 105, 161, 1)" />
+        <ActivityIndicator color={colors.spec} />
       </View>
     );
   }
@@ -60,7 +61,11 @@ export default function HistoryScreen() {
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text style={styles.errorText}>{error}</Text>
+        <Text style={styles.stateTitle}>Couldn't load your outputs</Text>
+        <Text style={styles.stateBody}>Check your connection and try again.</Text>
+        <TouchableOpacity style={styles.retry} onPress={onRefresh} disabled={refreshing} accessibilityRole="button">
+          <Text style={styles.retryText}>{refreshing ? 'Trying...' : 'Try again'}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -68,7 +73,8 @@ export default function HistoryScreen() {
   if (items.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text style={styles.emptyText}>No generations yet.</Text>
+        <Text style={styles.stateTitle}>No outputs yet</Text>
+        <Text style={styles.stateBody}>Every size you recompose or generate is kept here.</Text>
       </View>
     );
   }
@@ -91,7 +97,9 @@ export default function HistoryScreen() {
           }
         >
           <Image source={{ uri: item.url }} style={styles.thumb} resizeMode="cover" />
-          <Text style={styles.ratio}>{item.aspectRatio}</Text>
+          <View style={styles.caption}>
+            <Text style={styles.ratio}>{item.aspectRatio}</Text>
+          </View>
         </TouchableOpacity>
       )}
     />
@@ -99,19 +107,22 @@ export default function HistoryScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f9fafb' },
-  centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  errorText: { color: '#dc2626', fontSize: 14 },
-  emptyText: { color: '#6b7280', fontSize: 14 },
+  container: { flex: 1, backgroundColor: colors.sheet },
+  centered: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, backgroundColor: colors.sheet },
+  stateTitle: { fontSize: 17, fontWeight: '600', color: colors.ink, marginBottom: 6 },
+  stateBody: { fontSize: 14, color: colors.ink2, textAlign: 'center', lineHeight: 20 },
+  retry: { marginTop: 16, backgroundColor: colors.spec, borderRadius: radius.control, paddingVertical: 10, paddingHorizontal: 20 },
+  retryText: { color: '#fff', fontWeight: '600', fontSize: 14 },
   card: {
     flex: 1,
     margin: 6,
-    borderRadius: 12,
+    borderRadius: radius.control,
     overflow: 'hidden',
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.rule,
   },
-  thumb: { width: '100%', aspectRatio: 1 },
-  ratio: { fontSize: 11, color: '#6b7280', padding: 8 },
+  thumb: { width: '100%', aspectRatio: 1, backgroundColor: colors.sheet },
+  caption: { borderTopWidth: 1, borderTopColor: colors.rule, paddingHorizontal: 10, paddingVertical: 8 },
+  ratio: { fontSize: 13, fontWeight: '600', color: colors.ink, fontVariant: ['tabular-nums'] },
 });

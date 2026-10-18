@@ -3,7 +3,7 @@
 import * as Headless from "@headlessui/react";
 import React, { useState } from "react";
 import { NavbarItem } from "./navbar";
-import { usePageHeader } from "@/app/context/PageHeaderContext";
+import { useOptionalPageHeader } from "@/app/context/PageHeaderContext";
 import Image from "next/image";
 
 function CloseMenuIcon() {
@@ -61,31 +61,26 @@ export function SidebarLayout({
   showDesktopSidebar?: boolean;
   onToggleDesktopSidebar?: () => void;
 }>) {
-  let [internalShowSidebar, setInternalShowSidebar] = useState(false);
-  let [internalShowDesktopSidebar, setInternalShowDesktopSidebar] =
+  const [internalShowSidebar, setInternalShowSidebar] = useState(false);
+  const [internalShowDesktopSidebar, setInternalShowDesktopSidebar] =
     useState(true);
 
   // Check if we're in simple/creation mode
-  let isSimpleMode = false;
-  try {
-    const { header } = usePageHeader();
-    isSimpleMode = header.simpleMode ?? false;
-  } catch {
-    // PageHeaderContext not available
-  }
+  const pageHeader = useOptionalPageHeader();
+  const isSimpleMode = pageHeader?.header.simpleMode ?? false;
 
-  let showSidebar =
+  const showSidebar =
     externalShowSidebar !== undefined
       ? externalShowSidebar
       : internalShowSidebar;
-  let onToggleSidebar =
+  const onToggleSidebar =
     externalOnToggleSidebar || (() => setInternalShowSidebar(!showSidebar));
 
-  let showDesktopSidebar =
+  const showDesktopSidebar =
     externalShowDesktopSidebar !== undefined
       ? externalShowDesktopSidebar
       : internalShowDesktopSidebar;
-  let onToggleDesktopSidebar =
+  const onToggleDesktopSidebar =
     externalOnToggleDesktopSidebar ||
     (() => setInternalShowDesktopSidebar(!showDesktopSidebar));
 

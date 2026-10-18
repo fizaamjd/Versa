@@ -39,8 +39,8 @@ export function MobilePlanCard({
   price,
   description,
   icon: Icon,
-  iconColor = "text-purple-200",
-  iconBg = "bg-purple-50",
+  iconColor = "text-brand-200",
+  iconBg = "bg-brand-50",
   isSelected,
   onSelect,
   features,
@@ -52,22 +52,22 @@ export function MobilePlanCard({
 
   return (
     <div
-      className={`rounded-2xl border-2 transition-all duration-200 ${isSelected
-        ? "border-purple-200 bg-purple-25/30"
+      className={`rounded-lg border-2 transition-all duration-200 ${isSelected
+        ? "border-brand-200 bg-brand-25/30"
         : "border-gray-200 bg-white"
         }`}
     >
       {/* Card Header */}
       <div className="p-6 flex flex-col justify-center items-center">
         {/* Icon */}
-        <div className="w-12 h-12 rounded-full bg-purple-25 flex items-center justify-center mb-4">
+        <div className="w-12 h-12 rounded-full bg-brand-25 flex items-center justify-center mb-4">
           <div className="w-9 h-9 rounded-full bg-primary-100 flex items-center justify-center">
             <Icon className={`w-5 h-5 ${iconColor}`} />
           </div>
         </div>
 
         {/* Plan Name */}
-        <h3 className="text-xl font-semibold text-purple-400 mb-2">{name}</h3>
+        <h3 className="text-xl font-semibold text-brand-400 mb-2">{name}</h3>
 
         {/* Price */}
         <div className="mb-3">
@@ -115,7 +115,7 @@ export function MobilePlanCard({
             {/* View Features Toggle */}
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="w-full flex items-center justify-center gap-2 text-purple-600 text-sm font-medium py-2"
+              className="w-full flex items-center justify-center gap-2 text-brand-600 text-sm font-medium py-2"
             >
               {isExpanded ? (
                 <>

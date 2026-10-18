@@ -33,7 +33,7 @@ export function DataTableBulkActions({
         <button
           type="button"
           onClick={() => onSelectionChange([])}
-          className="text-subhead text-purple-300 ml-2 cursor-pointer font-semibold"
+          className="text-subhead text-brand-300 ml-2 cursor-pointer font-semibold"
         >
           Deselect All
         </button>
@@ -43,7 +43,7 @@ export function DataTableBulkActions({
         <button
           type="button"
           onClick={() => onBulkDelete?.()}
-          className="inline-flex items-center gap-2 text-purple-300 text-subhead font-semibold px-2 py-1 bg-transparent border-0 hover:bg-transparent focus:outline-none cursor-pointer"
+          className="inline-flex items-center gap-2 text-brand-300 text-subhead font-semibold px-2 py-1 bg-transparent border-0 hover:bg-transparent focus:outline-none cursor-pointer"
         >
           <Trash className="w-4 h-4" />
           Delete
@@ -52,7 +52,7 @@ export function DataTableBulkActions({
         {/* <button
           type="button"
           onClick={() => onBulkExport?.()}
-          className="inline-flex items-center gap-2 text-purple-300 text-subhead font-semibold px-2 py-1 bg-transparent border-0 hover:bg-transparent focus:outline-none cursor-pointer"
+          className="inline-flex items-center gap-2 text-brand-300 text-subhead font-semibold px-2 py-1 bg-transparent border-0 hover:bg-transparent focus:outline-none cursor-pointer"
         >
           <Download className="w-4 h-4" />
           Export

@@ -50,7 +50,7 @@ export function PlanComparisonTable({
               key={plan.id}
               className={`flex justify-center p-4 ${
                 selectedPlan === plan.id
-                  ? "border-2 border-purple-200 border-t-0"
+                  ? "border-2 border-brand-200 border-t-0"
                   : ""
               }`}
             >

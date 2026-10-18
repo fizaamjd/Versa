@@ -58,7 +58,7 @@ export function DesktopPlanView({
               key={plan.id}
               className={` ${
                 selectedPlan === plan.id
-                  ? "border-t-2 border-l-2 border-r-2 border-purple-200 rounded-t-xl"
+                  ? "border-t border-l border-r border-brand-500 rounded-t-md"
                   : ""
               }`}
             >
@@ -102,7 +102,7 @@ export function DesktopPlanView({
                     key={plan.id}
                     className={`flex justify-center items-center p-4 h-16 ${
                       selectedPlan === plan.id
-                        ? "border-l-2 border-r-2 border-purple-200"
+                        ? "border-l-2 border-r-2 border-brand-200"
                         : ""
                     }`}
                   >
@@ -134,7 +134,7 @@ export function DesktopPlanView({
               key={plan.id}
               className={`p-6 flex items-center justify-center ${
                 selectedPlan === plan.id
-                  ? "border-l-2 border-r-2 border-b-2 border-purple-200 rounded-b-xl"
+                  ? "border-l border-r border-b border-brand-500 rounded-b-md"
                   : ""
               }`}
             >

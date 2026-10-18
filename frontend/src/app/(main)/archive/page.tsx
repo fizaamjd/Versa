@@ -37,20 +37,20 @@ interface HistoryItem {
 
 /** Map internal operation codes to user-friendly labels and icons */
 const getOperationDisplay = (item: HistoryItem): { label: string; color: string; bgColor: string } => {
-    let operation = item.operation;
+    const operation = item.operation;
     
     if (operation === 'resize') {
         if (item.prompt) {
-            return { label: 'Generated', color: '#7c3aed', bgColor: '#f3e8ff' };
+            return { label: 'Generated', color: '#2346d9', bgColor: '#e8edfc' };
         }
         return { label: 'Transformed', color: '#059669', bgColor: '#d1fae5' };
     }
 
     switch (operation) {
         case 'prompt_gen':
-            return { label: 'Generated', color: '#7c3aed', bgColor: '#f3e8ff' };
+            return { label: 'Generated', color: '#2346d9', bgColor: '#e8edfc' };
         case 'edit_gen':
-            return { label: 'Edited', color: '#0891b2', bgColor: '#e0f7fa' };
+            return { label: 'Edited', color: '#101418', bgColor: '#f6f7f9' };
         case 'resize_gen':
         case 'custom_resize':
         case 'resize_canvas':
@@ -148,7 +148,7 @@ export default function ArchivePage() {
           <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
             <CircularProgress
               size={40}
-              sx={{ color: "rgba(3, 105, 161, 1)" }}
+              sx={{ color: "rgba(35, 70, 217, 1)" }}
             />
           </Box>
         ) : history.length === 0 ? (
@@ -156,7 +156,7 @@ export default function ArchivePage() {
             sx={{
               p: 6,
               textAlign: "center",
-              borderRadius: "16px",
+              borderRadius: "6px",
               border: "1px dashed #d1d5db",
               bgcolor: "transparent",
             }}
@@ -168,8 +168,8 @@ export default function ArchivePage() {
               variant="contained"
               onClick={() => router.push("/dashboard")}
               sx={{
-                bgcolor: "rgba(3, 105, 161, 1)",
-                borderRadius: "8px",
+                bgcolor: "rgba(35, 70, 217, 1)",
+                borderRadius: "4px",
                 textTransform: "none",
                 px: 3,
               }}
@@ -185,13 +185,13 @@ export default function ArchivePage() {
               <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                 <Card
                   sx={{
-                    borderRadius: "12px",
+                    borderRadius: "6px",
                     overflow: "hidden",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                    boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     transition: "transform 0.2s",
                     "&:hover": {
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
+                      transform: "translateY(0)",
+                      boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     },
                     height: "100%",
                     display: "flex",
@@ -293,7 +293,7 @@ export default function ArchivePage() {
                           <Chip
                               label="Prompted"
                               size="small"
-                              sx={{ bgcolor: '#ede9fe', color: '#8b5cf6', fontSize: '9px', fontWeight: 700, height: 18 }}
+                              sx={{ bgcolor: '#e8edfc', color: '#2346d9', fontSize: '9px', fontWeight: 700, height: 18 }}
                           />
                       )}
                       <Chip
@@ -360,9 +360,9 @@ export default function ArchivePage() {
             display: "flex",
             flexDirection: "column",
             bgcolor: "white",
-            borderRadius: "16px",
+            borderRadius: "6px",
             overflow: "hidden",
-            boxShadow: "0 18px 55px rgba(15,23,42,0.35)",
+            boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
           }}
         >
           <IconButton
@@ -426,7 +426,7 @@ export default function ArchivePage() {
                       overflowY: "auto",
                       pr: 1,
                       '&::-webkit-scrollbar': { width: '4px' },
-                      '&::-webkit-scrollbar-thumb': { bgcolor: '#f1f1f1', borderRadius: '10px' }
+                      '&::-webkit-scrollbar-thumb': { bgcolor: '#f1f1f1', borderRadius: '4px' }
                     }}
                   >
                     <Typography
@@ -443,7 +443,7 @@ export default function ArchivePage() {
                     </Typography>
                     <Typography
                       sx={{
-                        color: "#111827",
+                        color: "#101418",
                         fontSize: "0.85rem",
                         lineHeight: 1.5,
                       }}
@@ -461,7 +461,7 @@ export default function ArchivePage() {
                     alignItems: "center",
                     mt: 'auto',
                     pt: 1.5,
-                    borderTop: '1px dashed #f1f5f9'
+                    borderTop: '1px dashed #eef0f3'
                   }}
                 >
                   <Box>
@@ -495,8 +495,8 @@ export default function ArchivePage() {
                         label="Prompted"
                         size="small"
                         sx={{
-                          bgcolor: "#ede9fe",
-                          color: "#8b5cf6",
+                          bgcolor: "#e8edfc",
+                          color: "#2346d9",
                           fontSize: "11px",
                           fontWeight: 700,
                           height: 22,
@@ -521,7 +521,7 @@ export default function ArchivePage() {
                     <Typography
                       sx={{
                         fontWeight: 600,
-                        color: "#111827",
+                        color: "#101418",
                         fontSize: "0.85rem",
                       }}
                     >
@@ -547,7 +547,7 @@ export default function ArchivePage() {
                     <Typography
                       sx={{
                         fontWeight: 600,
-                        color: "#111827",
+                        color: "#101418",
                         fontSize: "0.85rem",
                       }}
                     >
@@ -565,8 +565,8 @@ export default function ArchivePage() {
                         )
                       }
                       sx={{
-                        bgcolor: "rgba(3, 105, 161, 1)",
-                        borderRadius: "8px",
+                        bgcolor: "rgba(35, 70, 217, 1)",
+                        borderRadius: "4px",
                         textTransform: "none",
                         px: { xs: 1.5, md: 2 },
                         py: { xs: 0.5, md: 0.75 },

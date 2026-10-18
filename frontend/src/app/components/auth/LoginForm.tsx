@@ -73,7 +73,7 @@ const LoginForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit, 
             component="label"
             htmlFor="email"
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -104,7 +104,7 @@ const LoginForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit, 
             component="label"
             htmlFor="password"
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -137,7 +137,7 @@ const LoginForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit, 
                       handleTogglePasswordVisibility();
                     }}
                     edge="end"
-                    sx={{ color: '#0369A1' }}
+                    sx={{ color: '#2346D9' }}
                   >
                     {showPassword ? (
                       <EyeOff size={20} />
@@ -161,11 +161,11 @@ const LoginForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit, 
         >
           <Typography
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
-              color: '#0369A1',
+              color: '#2346D9',
               cursor: 'pointer',
             }}
             onClick={() => switchForm('forgot')}
@@ -182,7 +182,7 @@ const LoginForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit, 
           sx={{
             mt: 1,
             mb: 2,
-            backgroundColor: '#0369A1',
+            backgroundColor: '#2346D9',
             borderRadius: 2,
           }}
         >
@@ -194,7 +194,7 @@ const LoginForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit, 
           Don't have an account?{' '}
           <span
             onClick={() => switchForm('signup')}
-            style={{ color: 'rgba(3, 105, 161,1)', cursor: 'pointer' }}
+            style={{ color: 'rgba(35, 70, 217,1)', cursor: 'pointer' }}
           >
             Sign up
           </span>

@@ -45,7 +45,7 @@ if not validate_stripe_configuration():
     print("⚠️  WARNING: Stripe configuration validation failed.")
 
 # ── App ───────────────────────────────────────────────────────────────────────
-app = FastAPI(title="Visual Engine API", root_path=os.getenv("ROOT_PATH", ""))
+app = FastAPI(title="Versa API", root_path=os.getenv("ROOT_PATH", ""))
 
 ALLOWED_ORIGINS = [
     o.strip() for o in (
@@ -866,7 +866,7 @@ async def trigger_billing_rollover(current_user=Depends(get_admin_user)):
 
 @app.get("/")
 async def read_root():
-    return {"status": "Visual Engine API is running", "version": "2.0.0"}
+    return {"status": "Versa API is running", "version": "2.0.0"}
 
 
 if __name__ == "__main__":

@@ -26,7 +26,7 @@ const colors = {
   violet:
     "bg-violet-500/15 text-violet-700 group-data-hover:bg-violet-500/25 dark:text-violet-400 dark:group-data-hover:bg-violet-500/20",
   purple:
-    "bg-purple-500/15 text-purple-700 group-data-hover:bg-purple-500/25 dark:text-purple-400 dark:group-data-hover:bg-purple-500/20",
+    "bg-brand-500/15 text-brand-700 group-data-hover:bg-brand-500/25 dark:text-brand-400 dark:group-data-hover:bg-brand-500/20",
   fuchsia:
     "bg-fuchsia-400/15 text-fuchsia-700 group-data-hover:bg-fuchsia-400/25 dark:bg-fuchsia-400/10 dark:text-fuchsia-400 dark:group-data-hover:bg-fuchsia-400/20",
   pink: "bg-pink-400/15 text-pink-700 group-data-hover:bg-pink-400/25 dark:bg-pink-400/10 dark:text-pink-400 dark:group-data-hover:bg-pink-400/20",
@@ -82,7 +82,7 @@ export const BadgeButton = forwardRef(function BadgeButton(
 ) {
   const classes = clsx(
     className,
-    "badge-button group relative rounded-md focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500 inline-flex cursor-pointer"
+    "badge-button group relative rounded-md focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-brand-500 inline-flex cursor-pointer"
   );
 
   return typeof props.href === "string" ? (

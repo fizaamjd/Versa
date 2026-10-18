@@ -64,7 +64,7 @@ const base = [
   "after:absolute after:inset-0 after:rounded-[calc(0.3125rem-1px)] after:shadow-[inset_0_1px_--theme(--color-white/15%)]",
   "dark:after:-inset-px dark:after:hidden dark:after:rounded-[0.3125rem] dark:group-data-checked:after:block",
   // Focus ring
-  "group-data-focus:outline-2 group-data-focus:outline-offset-2 group-data-focus:outline-blue-500",
+  "group-data-focus:outline-2 group-data-focus:outline-offset-2 group-data-focus:outline-brand-500",
   // Disabled state
   "group-data-disabled:opacity-50",
   "group-data-disabled:border-zinc-950/25 group-data-disabled:bg-zinc-950/5 group-data-disabled:[--checkbox-check:var(--color-zinc-950)]/50 group-data-disabled:before:bg-transparent",
@@ -108,7 +108,7 @@ const colors = {
   violet:
     "[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-violet-500)] [--checkbox-checked-border:var(--color-violet-600)]/90",
   purple:
-    "[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-purple-500)] [--checkbox-checked-border:var(--color-purple-600)]/90",
+    "[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-brand-500)] [--checkbox-checked-border:var(--color-brand-600)]/90",
   fuchsia:
     "[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-fuchsia-500)] [--checkbox-checked-border:var(--color-fuchsia-600)]/90",
   pink: "[--checkbox-check:var(--color-white)] [--checkbox-checked-bg:var(--color-pink-500)] [--checkbox-checked-border:var(--color-pink-600)]/90",

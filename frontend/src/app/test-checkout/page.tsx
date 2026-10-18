@@ -27,10 +27,10 @@ const TestCheckoutPage = () => {
           elevation={0}
           sx={{
             p: 4,
-            borderRadius: '24px',
+            borderRadius: '8px',
             border: '1px solid #e5e7eb',
             bgcolor: 'white',
-            boxShadow: '0 4px 20px -5px rgba(0,0,0,0.05)',
+            boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)',
           }}
         >
           <Typography
@@ -38,7 +38,7 @@ const TestCheckoutPage = () => {
             sx={{
               fontSize: { xs: '24px', md: '28px' },
               fontWeight: 700,
-              color: '#111827',
+              color: '#101418',
               mb: 1,
             }}
           >
@@ -74,10 +74,10 @@ const TestCheckoutPage = () => {
               height: '48px',
               textTransform: 'none',
               fontWeight: 600,
-              borderRadius: '12px',
-              bgcolor: 'rgba(3, 105, 161, 1)',
+              borderRadius: '6px',
+              bgcolor: 'rgba(35, 70, 217, 1)',
               '&:hover': {
-                bgcolor: 'rgba(3, 105, 161, 0.9)',
+                bgcolor: 'rgba(35, 70, 217, 0.9)',
               },
             }}
           >

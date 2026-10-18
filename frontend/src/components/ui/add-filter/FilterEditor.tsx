@@ -146,7 +146,7 @@ export default function FilterEditor({
               }}
               className={clsx(
                 "flex items-start gap-3 p-2 rounded-md hover:bg-gray-50 cursor-pointer",
-                condition === opt.key && "bg-white border border-purple-200"
+                condition === opt.key && "bg-white border border-brand-200"
               )}
             >
               <Radio

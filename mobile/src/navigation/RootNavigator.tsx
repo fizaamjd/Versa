@@ -7,6 +7,7 @@ import AuthNavigator from './AuthNavigator';
 import MainTabNavigator from './MainTabNavigator';
 import ResultScreen from '../screens/ResultScreen';
 import { RootStackParamList } from './types';
+import { colors } from '../theme';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -15,8 +16,8 @@ export default function RootNavigator() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator color="rgba(3, 105, 161, 1)" />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.sheet }}>
+        <ActivityIndicator color={colors.spec} />
       </View>
     );
   }
@@ -26,7 +27,17 @@ export default function RootNavigator() {
       {user ? (
         <Stack.Navigator>
           <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
-          <Stack.Screen name="Result" component={ResultScreen} options={{ title: 'Result' }} />
+          <Stack.Screen
+            name="Result"
+            component={ResultScreen}
+            options={{
+              title: 'Output',
+              headerStyle: { backgroundColor: colors.paper },
+              headerShadowVisible: false,
+              headerTintColor: colors.spec,
+              headerTitleStyle: { fontSize: 17, fontWeight: '600', color: colors.ink },
+            }}
+          />
         </Stack.Navigator>
       ) : (
         <AuthNavigator />

@@ -146,16 +146,16 @@ const BillingSuccessContent = () => {
     return (
         <Box>
             <Container maxWidth="md" sx={{ py: { xs: 6, md: 10 } }}>
-                <Paper elevation={0} sx={{ p: { xs: 4, md: 6 }, borderRadius: '24px', border: '1px solid #e5e7eb', bgcolor: 'white', textAlign: 'center', boxShadow: '0 4px 20px -5px rgba(0,0,0,0.05)' }}>
-                    <Box sx={{ width: 80, height: 80, borderRadius: '50%', bgcolor: isRefreshing ? 'rgba(3, 105, 161, 0.1)' : 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3 }}>
+                <Paper elevation={0} sx={{ p: { xs: 4, md: 6 }, borderRadius: '8px', border: '1px solid #e5e7eb', bgcolor: 'white', textAlign: 'center', boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)' }}>
+                    <Box sx={{ width: 80, height: 80, borderRadius: '50%', bgcolor: isRefreshing ? 'rgba(35, 70, 217, 0.1)' : 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3 }}>
                         {isRefreshing ? (
-                            <CircularProgress size={40} sx={{ color: 'rgba(3, 105, 161, 1)' }} />
+                            <CircularProgress size={40} sx={{ color: 'rgba(35, 70, 217, 1)' }} />
                         ) : (
                             <CheckCircleIcon sx={{ fontSize: 48, color: '#10b981' }} />
                         )}
                     </Box>
 
-                    <Typography variant="h4" sx={{ fontSize: { xs: '24px', md: '32px' }, fontWeight: 600, color: '#111827', mb: 2 }}>
+                    <Typography variant="h4" sx={{ fontSize: { xs: '24px', md: '32px' }, fontWeight: 600, color: '#101418', mb: 2 }}>
                         {isRefreshing ? 'Checking payment...' : 'Payment Successful!'}
                     </Typography>
 
@@ -164,16 +164,16 @@ const BillingSuccessContent = () => {
                     </Typography>
 
                     {user && (
-                        <Box sx={{ p: 3, borderRadius: '16px', bgcolor: '#f9fafb', border: '1px solid #e5e7eb', mb: 4, opacity: isRefreshing ? 0.7 : 1 }}>
+                        <Box sx={{ p: 3, borderRadius: '6px', bgcolor: '#f9fafb', border: '1px solid #e5e7eb', mb: 4, opacity: isRefreshing ? 0.7 : 1 }}>
                             <Typography sx={{ fontSize: '14px', color: '#6b7280', mb: 2 }}>Your Updated Account</Typography>
                             <Box sx={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: 3 }}>
                                 <Box>
                                     <Typography sx={{ fontSize: '12px', color: '#9ca3af', mb: 0.5 }}>Current Plan</Typography>
-                                    <Typography sx={{ fontSize: '20px', fontWeight: 600, color: '#111827' }}>{getPlanLabel(user.plan)}</Typography>
+                                    <Typography sx={{ fontSize: '20px', fontWeight: 600, color: '#101418' }}>{getPlanLabel(user.plan)}</Typography>
                                 </Box>
                                 <Box>
                                     <Typography sx={{ fontSize: '12px', color: '#9ca3af', mb: 0.5 }}>Engine Type</Typography>
-                                    <Typography sx={{ fontSize: '20px', fontWeight: 600, color: '#111827' }}>
+                                    <Typography sx={{ fontSize: '20px', fontWeight: 600, color: '#101418' }}>
                                         {user.engineType ? (user.engineType.charAt(0).toUpperCase() + user.engineType.slice(1)) : 'Transformation'}
                                     </Typography>
                                 </Box>
@@ -190,16 +190,16 @@ const BillingSuccessContent = () => {
                     <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
                         {showSyncButton && isRefreshing && (
                             <Button variant="contained" onClick={handleManualSync} disabled={manualSyncLoading}
-                                sx={{ bgcolor: 'rgba(3, 105, 161, 1)', textTransform: 'none', fontWeight: 600, px: 4, py: 1.2, borderRadius: '10px', '&:hover': { bgcolor: 'rgba(3, 105, 161, 0.9)' } }}>
+                                sx={{ bgcolor: 'rgba(35, 70, 217, 1)', textTransform: 'none', fontWeight: 600, px: 4, py: 1.2, borderRadius: '4px', '&:hover': { bgcolor: 'rgba(35, 70, 217, 0.9)' } }}>
                                 {manualSyncLoading ? 'Syncing...' : 'Sync Now'}
                             </Button>
                         )}
                         <Button variant="contained" onClick={() => router.push('/dashboard')}
-                            sx={{ bgcolor: 'rgba(3, 105, 161, 1)', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '10px', '&:hover': { bgcolor: 'rgba(3, 105, 161, 0.9)' } }}>
+                            sx={{ bgcolor: 'rgba(35, 70, 217, 1)', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '4px', '&:hover': { bgcolor: 'rgba(35, 70, 217, 0.9)' } }}>
                             Go to Home
                         </Button>
                         <Button variant="outlined" onClick={() => router.push('/billing')}
-                            sx={{ borderColor: '#e5e7eb', color: '#111827', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '10px', '&:hover': { borderColor: 'rgba(3, 105, 161, 1)', bgcolor: 'rgba(3, 105, 161, 0.02)' } }}>
+                            sx={{ borderColor: '#e5e7eb', color: '#101418', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '4px', '&:hover': { borderColor: 'rgba(35, 70, 217, 1)', bgcolor: 'rgba(35, 70, 217, 0.02)' } }}>
                             My Plan
                         </Button>
                     </Box>

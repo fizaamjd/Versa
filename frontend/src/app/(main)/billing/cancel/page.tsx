@@ -30,11 +30,11 @@ const BillingCancelPage = () => {
                     elevation={0}
                     sx={{
                         p: { xs: 4, md: 6 },
-                        borderRadius: '24px',
+                        borderRadius: '8px',
                         border: '1px solid #e5e7eb',
                         bgcolor: 'white',
                         textAlign: 'center',
-                        boxShadow: '0 4px 20px -5px rgba(0,0,0,0.05)',
+                        boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)',
                     }}
                 >
                     <Box
@@ -48,7 +48,7 @@ const BillingCancelPage = () => {
                         <CancelIcon sx={{ fontSize: 48, color: '#ef4444' }} />
                     </Box>
 
-                    <Typography variant="h4" sx={{ fontSize: { xs: '24px', md: '32px' }, fontWeight: 600, color: '#111827', mb: 2 }}>
+                    <Typography variant="h4" sx={{ fontSize: { xs: '24px', md: '32px' }, fontWeight: 600, color: '#101418', mb: 2 }}>
                         Payment Cancelled
                     </Typography>
 
@@ -56,7 +56,7 @@ const BillingCancelPage = () => {
                         Your payment was cancelled and no charges were made to your account. You can try again whenever you're ready.
                     </Typography>
 
-                    <Box sx={{ p: 3, borderRadius: '16px', bgcolor: '#fef3c7', border: '1px solid #fbbf24', mb: 4 }}>
+                    <Box sx={{ p: 3, borderRadius: '6px', bgcolor: '#fef3c7', border: '1px solid #fbbf24', mb: 4 }}>
                         <Typography sx={{ fontSize: '14px', color: '#92400e', fontWeight: 500 }}>
                             💡 Your current plan and credits remain unchanged
                         </Typography>
@@ -64,12 +64,12 @@ const BillingCancelPage = () => {
 
                     <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
                         <Button variant="contained" onClick={() => router.push('/billing')}
-                            sx={{ bgcolor: 'rgba(3, 105, 161, 1)', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '10px', '&:hover': { bgcolor: 'rgba(3, 105, 161, 0.9)' } }}
+                            sx={{ bgcolor: 'rgba(35, 70, 217, 1)', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '4px', '&:hover': { bgcolor: 'rgba(35, 70, 217, 0.9)' } }}
                         >
                             Back to Billing
                         </Button>
                         <Button variant="outlined" onClick={() => router.push('/dashboard')}
-                            sx={{ borderColor: '#e5e7eb', color: '#111827', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '10px', '&:hover': { borderColor: 'rgba(3, 105, 161, 1)', bgcolor: 'rgba(3, 105, 161, 0.02)' } }}
+                            sx={{ borderColor: '#e5e7eb', color: '#101418', textTransform: 'none', fontWeight: 500, px: 4, py: 1.2, borderRadius: '4px', '&:hover': { borderColor: 'rgba(35, 70, 217, 1)', bgcolor: 'rgba(35, 70, 217, 0.02)' } }}
                         >
                             Go to Dashboard
                         </Button>

@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./context/AuthContext";
 import ThemeRegistry from "./components/ThemeRegistry";
 import ToastProvider from "./components/ToastProvider";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  axes: ["wdth"],
+  variable: "--font-archivo",
 });
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-outfit",
-});
+const DIRECTION_CONTRACT = `<!--
+THESIS: Versa speaks the media owner's spec language: every output is a dimensioned drawing that already passes. It refuses the AI-tool default of gradients, sparkles and glowing cards.
+OWN-WORLD: Paper white and sheet gray, ink #101418, one spec blue #2346D9 for action and selection, hatch yellow only for safe zones and warnings. Archivo throughout, condensed tabular figures for every measurement. Hairline rules, 2-6px corners, dimension ticks, no glows.
+STORY: An agency producer sees each frame measured and checked, trusts it, and downloads the whole set.
+FIRST VIEWPORT: App: sidebar with the Versa mark; workspace shows source and output frames with dimension callouts and compliance marks; spec-blue primary action at the panel foot. Landing keeps its sections, reskinned.
+FORM: Media Spec Sheet, rank 1 of 7, seed 330c6479.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->`;
 
 export const metadata: Metadata = {
-  title: "Visual Transformation Engine",
-  description: "Process and resize images with custom presets",
+  title: "Versa",
+  description: "Every size of your campaign from one creative, recomposed layer by layer and checked against each screen's spec.",
 };
 
 export default function RootLayout({
@@ -29,7 +33,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
+      <body className={archivo.variable} suppressHydrationWarning>
+        <template dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }} />
         <ThemeRegistry>
           <AuthProvider>
             {children}

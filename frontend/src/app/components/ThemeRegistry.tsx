@@ -6,26 +6,34 @@ import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Raleway } from 'next/font/google';
 
-const raleway = Raleway({
-    subsets: ['latin'],
-    display: 'swap',
-});
+// Archivo is loaded once in the root layout and exposed as --font-archivo.
+const fontFamily = 'var(--font-archivo), ui-sans-serif, system-ui, sans-serif';
 
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#0369A1',
-            light: '#0EA5E9',
+            main: '#2346D9',
+            light: '#4F6CE1',
+            dark: '#162D8F',
+            contrastText: '#ffffff',
+        },
+        text: {
+            primary: '#101418',
+            secondary: '#4A5260',
+        },
+        divider: '#E3E6EB',
+        warning: {
+            main: '#F2B705',
+            contrastText: '#101418',
         },
         background: {
             default: '#ffffff',
-            paper: 'rgba(255, 255, 255, 0.95)',
+            paper: '#ffffff',
         },
     },
     typography: {
-        fontFamily: raleway.style.fontFamily,
+        fontFamily,
         h1: { fontSize: '2.5rem', fontWeight: 600, letterSpacing: '-0.02em' },
         h2: { fontSize: '2rem', fontWeight: 600, letterSpacing: '-0.02em' },
         h3: { fontSize: '1.5rem', fontWeight: 600, letterSpacing: '-0.01em' },
@@ -42,21 +50,28 @@ const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderRadius: '10px',
+                    borderRadius: '4px',
                     padding: '8px 16px',
                     boxShadow: 'none',
                     '&:hover': {
-                        boxShadow: '0 4px 12px rgba(3, 105, 161, 0.15)',
+                        boxShadow: 'none',
                     },
+                },
+            },
+        },
+        MuiChip: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '3px',
                 },
             },
         },
         MuiCard: {
             styleOverrides: {
                 root: {
-                    borderRadius: '20px',
-                    border: '1px solid rgba(3, 105, 161, 0.08)',
-                    boxShadow: '0 10px 25px rgba(3, 105, 161, 0.03)',
+                    borderRadius: '6px',
+                    border: '1px solid #E3E6EB',
+                    boxShadow: '0 1px 2px rgba(16, 20, 24, 0.04)',
                 }
             }
         }
@@ -99,7 +114,7 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
         return (
             <style
                 data-emotion={`${cache.key} ${names.join(' ')}`}
-                // eslint-disable-next-line react/no-danger
+
                 dangerouslySetInnerHTML={{ __html: styles }}
             />
         );

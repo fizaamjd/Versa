@@ -234,7 +234,7 @@ export default function DateRangePicker({
                     !(isStart && isEnd) && (
                       <div
                         className={clsx(
-                          "absolute top-0 h-10 bg-[#F9F5FF] z-[-1]",
+                          "absolute top-0 h-10 bg-[#F4F6FE] z-[-1]",
                           isStart ? "right-0 w-1/2" : isEnd ? "left-0 w-1/2" : "inset-0"
                         )}
                       />
@@ -252,9 +252,9 @@ export default function DateRangePicker({
                       isCurrentMonth &&
                         !selected &&
                         "text-gray-900 hover:bg-gray-100",
-                      selected && !isStart && !isEnd && "text-[#6941C6]",
+                      selected && !isStart && !isEnd && "text-[#1B38B4]",
                       (isStart || isEnd) &&
-                        "bg-[#7F56D9] text-white font-medium"
+                        "bg-[#2346D9] text-white font-medium"
                     )}
                   >
                     {day.getDate()}

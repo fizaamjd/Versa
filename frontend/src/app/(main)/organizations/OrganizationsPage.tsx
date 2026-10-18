@@ -519,20 +519,20 @@ export function OrganizationsPage({ className }: OrganizationsPageProps) {
             icon={<Building2 className="h-6 w-6 text-primary" />}
             title="Total Organizations"
             value={stats.totalOrganizations.toLocaleString()}
-            iconBgClass="bg-purple-25"
+            iconBgClass="bg-brand-25"
             loading={loading}
           />
           <StatCard
             icon={<Award className="h-6 w-6 text-primary" />}
             title="Credits Used"
             value={stats.totalCreditsUsed.toLocaleString()}
-            iconBgClass="bg-purple-25"
+            iconBgClass="bg-brand-25"
             loading={loading}
           />
           <StatCard
             icon={<PlaySquare className="h-6 w-6 text-primary" />}
             title="Estimated Cost"
-            iconBgClass="bg-purple-25"
+            iconBgClass="bg-brand-25"
             value={stats.estimatedCost}
             loading={loading}
           />
@@ -540,7 +540,7 @@ export function OrganizationsPage({ className }: OrganizationsPageProps) {
             icon={<FileCheck2 className="h-6 w-6 text-primary" />}
             title="Billing Date"
             value={stats.billingDate}
-            iconBgClass="bg-purple-25"
+            iconBgClass="bg-brand-25"
             loading={loading}
           />
         </div>
@@ -556,7 +556,7 @@ export function OrganizationsPage({ className }: OrganizationsPageProps) {
             creditsUsed={stats.totalCreditsUsed}
             creditsTotal={stats.totalCreditsUsed}
             billingDate={stats.billingDate}
-            avatarSrc="/Avatar.svg"
+            avatarSrc="/logo-mark.svg"
           />
         )}
 

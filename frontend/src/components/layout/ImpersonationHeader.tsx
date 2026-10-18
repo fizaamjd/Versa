@@ -72,7 +72,7 @@ export default function ImpersonationHeader() {
   }
 
   return (
-    <div className="w-full bg-purple-600 text-white px-4 py-3 flex items-center justify-between shadow-md z-50">
+    <div className="w-full bg-brand-600 text-white px-4 py-3 flex items-center justify-between shadow-md z-50">
       <div className="flex items-center gap-2">
         <span className="text-sm sm:text-base">👤 You are impersonating</span>
         <strong className="text-sm sm:text-base">
@@ -82,7 +82,7 @@ export default function ImpersonationHeader() {
       <button
         onClick={handleExitImpersonation}
         disabled={exitingImpersonation}
-        className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white text-purple-600 font-medium text-sm rounded hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer"
+        className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white text-brand-600 font-medium text-sm rounded hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer"
       >
         {exitingImpersonation ? "Exiting..." : "Exit Impersonation"}
       </button>

@@ -11,6 +11,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { requestPasswordReset } from '../../api/auth';
 import { extractErrorMessage } from '../../api/client';
 import { AuthStackParamList } from '../../navigation/types';
+import { BrandLockup } from '../../components/spec';
+import { colors, radius } from '../../theme';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'ForgotPassword'>;
 
@@ -39,6 +41,7 @@ export default function ForgotPasswordScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <BrandLockup style={styles.logo} />
       <Text style={styles.title}>Reset password</Text>
       <Text style={styles.subtitle}>
         Enter the email on your account and we'll send a reset link.
@@ -52,7 +55,8 @@ export default function ForgotPasswordScreen({ navigation }: Props) {
         <>
           <TextInput
             style={styles.input}
-            placeholder="Email"
+            placeholderTextColor={colors.ink3}
+        placeholder="Email"
             autoCapitalize="none"
             keyboardType="email-address"
             value={email}
@@ -77,11 +81,12 @@ export default function ForgotPasswordScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 24, backgroundColor: '#f9fafb' },
-  title: { fontSize: 24, fontWeight: '700', color: '#111827', textAlign: 'center' },
+  container: { flex: 1, justifyContent: 'center', padding: 24, backgroundColor: colors.sheet },
+  logo: { alignSelf: 'center', marginBottom: 24 },
+  title: { fontSize: 24, fontWeight: '600', color: colors.ink, textAlign: 'center' },
   subtitle: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.ink3,
     textAlign: 'center',
     marginTop: 8,
     marginBottom: 32,
@@ -90,22 +95,22 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 10,
+    borderColor: colors.rule,
+    borderRadius: radius.control,
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 15,
     marginBottom: 12,
   },
   button: {
-    backgroundColor: 'rgba(3, 105, 161, 1)',
-    borderRadius: 10,
+    backgroundColor: colors.spec,
+    borderRadius: radius.control,
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 8,
   },
   buttonText: { color: '#fff', fontWeight: '600', fontSize: 15 },
-  error: { color: '#dc2626', fontSize: 13, marginBottom: 8 },
-  success: { color: '#059669', fontSize: 14, textAlign: 'center', lineHeight: 20 },
-  link: { color: 'rgba(3, 105, 161, 1)', fontWeight: '600', fontSize: 13, textAlign: 'center' },
+  error: { color: colors.danger, fontSize: 13, marginBottom: 8 },
+  success: { color: colors.success, fontSize: 14, textAlign: 'center', lineHeight: 20 },
+  link: { color: colors.spec, fontWeight: '600', fontSize: 13, textAlign: 'center' },
 });

@@ -48,8 +48,12 @@ export function PageHeaderProvider({ children }: { children: React.ReactNode }) 
     );
 }
 
+export function useOptionalPageHeader() {
+    return useContext(PageHeaderContext);
+}
+
 export function usePageHeader() {
-    const context = useContext(PageHeaderContext);
+    const context = useOptionalPageHeader();
     if (context === undefined) {
         throw new Error('usePageHeader must be used within a PageHeaderProvider');
     }

@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a reproducible problem without sensitive data.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "For security issues follow SECURITY.md. Never include keys, tokens, payment details or private images."
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options: [Web, Backend, Mobile, Documentation, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Revision and environment
+      description: Commit, OS, runtime versions and local or hosted setup. No credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized logs or screenshots

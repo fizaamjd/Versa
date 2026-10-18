@@ -32,7 +32,7 @@ export function DropdownMenu({
         // Anchor positioning
         "[--anchor-gap:--spacing(2)] [--anchor-padding:--spacing(1)] data-[anchor~=end]:[--anchor-offset:6px] data-[anchor~=start]:[--anchor-offset:-6px] sm:data-[anchor~=end]:[--anchor-offset:4px] sm:data-[anchor~=start]:[--anchor-offset:-4px]",
         // Base styles
-        "isolate w-max rounded-xl p-1",
+        "isolate w-max rounded-md p-1",
         // Invisible border that is only visible in `forced-colors` mode for accessibility purposes
         "outline outline-transparent focus:outline-hidden",
         // Handle scrolling when menu won't fit in viewport
@@ -72,7 +72,7 @@ export function DropdownItem({
     "grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2",
 
     // Focus
-    " hover:bg-purple-25",
+    " hover:bg-brand-25",
     // Disabled state
     "data-disabled:opacity-50",
     // Forced colors mode

@@ -22,7 +22,7 @@ export function StepIndicator({ steps, title, icon }: StepIndicatorProps) {
     <div
       className="w-full h-full px-2 py-4 lg:px-4 lg:py-8 flex flex-col rounded-lg "
       style={{
-        background: "linear-gradient(192.32deg, #F3EFFE 1.56%, #DDD0FF 98.63%)",
+        background: "#E8EDFC",
       }}
     >
       {/* Header with icon and title */}

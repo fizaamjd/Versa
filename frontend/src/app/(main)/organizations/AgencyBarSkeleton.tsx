@@ -17,7 +17,7 @@ export function AgencyBarSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        "bg-purple-25/50 p-3 rounded-lg w-full overflow-hidden border border-purple-100/20",
+        "bg-brand-25/50 p-3 rounded-lg w-full overflow-hidden border border-brand-100/20",
         className,
       )}
     >

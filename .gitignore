@@ -1,0 +1,32 @@
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+.expo/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.tsbuildinfo
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*service-account*.json
+
+# Local tooling / OS
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Local design tooling and review captures
+.claude/
+.impeccable/

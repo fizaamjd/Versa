@@ -76,7 +76,7 @@ export function TableHeaderCell({
 
     const overlay = document.createElement("div");
     overlay.style.cssText =
-      "position:absolute;top:0;bottom:0;width:4px;background:#8B5CF6;z-index:10;pointer-events:none";
+      "position:absolute;top:0;bottom:0;width:4px;background:#2346D9;z-index:10;pointer-events:none";
 
     const tableRect = tableWrapper.getBoundingClientRect();
     const thRect = thRef.current!.getBoundingClientRect();

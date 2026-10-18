@@ -146,6 +146,28 @@ const BillingPage = () => {
 
     const { plans: apiPlans, loading: plansLoading } = usePricingPlans();
 
+        const [simulateLoading, setSimulateLoading] = useState(false);
+        const [simulateResult, setSimulateResult] = useState<string | null>(null);
+
+        const [hasPrevBill, setHasPrevBill] = useState(false);
+        useEffect(() => {
+            if (!user?.is_postpaid) return;
+            const checkPrevBill = async () => {
+                try {
+                    const token = localStorage.getItem('auth_token');
+                    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
+                    const res = await fetch(`${API_BASE}/users/billing-history`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    if (res.ok) {
+                        const bills = await res.json();
+                        setHasPrevBill(bills.length > 0);
+                    }
+                } catch { /* ignore */ }
+            };
+            checkPrevBill();
+        }, [simulateResult, user?.is_postpaid]);
+
     if (!user) {
         return null;
     }
@@ -184,8 +206,6 @@ const BillingPage = () => {
         const now = new Date();
         const nextBilling = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-        const [simulateLoading, setSimulateLoading] = useState(false);
-        const [simulateResult, setSimulateResult] = useState<string | null>(null);
 
         const handleSimulateMonthEnd = async () => {
             setSimulateLoading(true);
@@ -266,29 +286,13 @@ const BillingPage = () => {
         };
 
         // Check if previous month bill exists (billing history)
-        const [hasPrevBill, setHasPrevBill] = useState(false);
-        useEffect(() => {
-            const checkPrevBill = async () => {
-                try {
-                    const token = localStorage.getItem('auth_token');
-                    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
-                    const res = await fetch(`${API_BASE}/users/billing-history`, {
-                        headers: { Authorization: `Bearer ${token}` },
-                    });
-                    if (res.ok) {
-                        const bills = await res.json();
-                        setHasPrevBill(bills.length > 0);
-                    }
-                } catch { /* ignore */ }
-            };
-            checkPrevBill();
-        }, [simulateResult]);
+
 
         return (
             <Box>
                 <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 } }}>
-                    <Paper elevation={0} sx={{ p: 4, borderRadius: '24px', border: '1px solid #e5e7eb', bgcolor: 'white' }}>
-                        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#111827', mb: 2 }}>
+                    <Paper elevation={0} sx={{ p: 4, borderRadius: '8px', border: '1px solid #e5e7eb', bgcolor: 'white' }}>
+                        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#101418', mb: 2 }}>
                             Usage Billing Overview
                         </Typography>
 
@@ -320,7 +324,7 @@ const BillingPage = () => {
                             {perEngineEstimates.map((item) => (
                                 <Card key={item.engine} elevation={0} sx={{ border: '1px solid #e5e7eb' }}>
                                     <CardContent>
-                                        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#111827', mb: 1 }}>
+                                        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#101418', mb: 1 }}>
                                             {item.engine === 'creation' ? 'Creation' : 'Transformation'} Engine
                                         </Typography>
                                         <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1 }}>
@@ -338,7 +342,7 @@ const BillingPage = () => {
                                             </Box>
                                             <Box>
                                                 <Typography sx={{ fontSize: '11px', color: '#9ca3af' }}>Estimated Cost</Typography>
-                                                <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0369A1' }}>${item.estimatedCost.toFixed(2)}</Typography>
+                                                <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#2346D9' }}>${item.estimatedCost.toFixed(2)}</Typography>
                                             </Box>
                                         </Box>
                                     </CardContent>
@@ -347,11 +351,11 @@ const BillingPage = () => {
                         </Box>
 
                         {/* Total estimated */}
-                        <Box sx={{ mt: 2, p: 2, bgcolor: '#f8f9fa', borderRadius: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{ mt: 2, p: 2, bgcolor: '#f8f9fa', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 500, color: '#374151' }}>
                                 Total Estimated Amount
                             </Typography>
-                            <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#0369A1' }}>
+                            <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#2346D9' }}>
                                 ${totalEstimated.toFixed(2)}
                             </Typography>
                         </Box>
@@ -377,7 +381,7 @@ const BillingPage = () => {
                                         color="secondary"
                                         onClick={handleSimulateMonthEnd}
                                         disabled={simulateLoading}
-                                        sx={{ textTransform: 'none', borderRadius: '10px', fontWeight: 600 }}
+                                        sx={{ textTransform: 'none', borderRadius: '4px', fontWeight: 600 }}
                                     >
                                         {simulateLoading ? 'Simulating...' : 'Simulate Month End (Admin)'}
                                     </Button>
@@ -386,12 +390,12 @@ const BillingPage = () => {
                                     variant="outlined"
                                     disabled={!hasPrevBill}
                                     onClick={handleDownloadPrevMonthBill}
-                                    sx={{ 
-                                        textTransform: 'none', 
-                                        borderRadius: '10px', 
+                                    sx={{
+                                        textTransform: 'none',
+                                        borderRadius: '4px',
                                         fontWeight: 600,
-                                        borderColor: hasPrevBill ? '#0369A1' : '#e5e7eb',
-                                        color: hasPrevBill ? '#0369A1' : '#9ca3af'
+                                        borderColor: hasPrevBill ? '#2346D9' : '#e5e7eb',
+                                        color: hasPrevBill ? '#2346D9' : '#9ca3af'
                                     }}
                                 >
                                     Download Previous Month Bill
@@ -426,7 +430,7 @@ const BillingPage = () => {
                 {/* Tester-only $1 checkout helper */}
                 {user.email === 'muhammadhamzafaisal146@gmail.com' && (
                     <Box sx={{ mb: 3 }}>
-                        <Alert severity="info" sx={{ mb: 2, borderRadius: '16px' }}>
+                        <Alert severity="info" sx={{ mb: 2, borderRadius: '6px' }}>
                             This section is visible only for the tester account to verify live Stripe payments with a $1 plan.
                         </Alert>
                         <Button
@@ -470,13 +474,13 @@ const BillingPage = () => {
 
                 {/* Engine Type Selector */}
                 {/* <Box sx={{ mb: 3 }}>
-                    <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#111827', mb: 1.5 }}>Select Engine Type</Typography>
+                    <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#101418', mb: 1.5 }}>Select Engine Type</Typography>
                     <ToggleButtonGroup value={selectedEngine} exclusive
                         onChange={(_, value) => value && setSelectedEngine(value)}
                         sx={{
                             '& .MuiToggleButton-root': {
                                 textTransform: 'none', fontWeight: 500, px: 3, py: 1,
-                                '&.Mui-selected': { bgcolor: 'rgba(3, 105, 161, 1)', color: 'white', '&:hover': { bgcolor: 'rgba(3, 105, 161, 0.9)' } },
+                                '&.Mui-selected': { bgcolor: 'rgba(35, 70, 217, 1)', color: 'white', '&:hover': { bgcolor: 'rgba(35, 70, 217, 0.9)' } },
                             },
                         }}
                     >
@@ -488,8 +492,8 @@ const BillingPage = () => {
                 {/* Upgrade Plans */}
                 {/* <Box sx={{ mb: 4 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                        <TrendingUpIcon sx={{ fontSize: 28, color: 'rgba(3, 105, 161, 1)' }} />
-                        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#111827' }}>Upgrade Your Plan</Typography>
+                        <TrendingUpIcon sx={{ fontSize: 28, color: 'rgba(35, 70, 217, 1)' }} />
+                        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#101418' }}>Upgrade Your Plan</Typography>
                     </Box>
 
                     <Grid container spacing={3}>
@@ -498,15 +502,15 @@ const BillingPage = () => {
                                 <CircularProgress size={32} />
                             </Box>
                         ) : apiPlans.map((plan) => {
-                            const planColor = plan.name.toLowerCase() === 'scale' ? '#0369A1' :
-                                plan.name.toLowerCase() === 'growth' ? '#3b82f6' : '#10b981';
+                            const planColor = plan.name.toLowerCase() === 'scale' ? '#2346D9' :
+                                plan.name.toLowerCase() === 'growth' ? '#2346d9' : '#10b981';
                             return (
                                 <Grid size={{ xs: 12, md: 4 }} key={plan.name}>
                                     <Card elevation={0} sx={{
-                                        height: '100%', borderRadius: '16px',
+                                        height: '100%', borderRadius: '6px',
                                         border: (engineHasActivePlan && currentPlanRaw.toLowerCase() === plan.name.toLowerCase()) ? `2px solid ${planColor}` : '1px solid #e5e7eb',
                                         transition: 'all 0.2s ease', display: 'flex', flexDirection: 'column',
-                                        '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 8px 16px rgba(0,0,0,0.08)' },
+                                        '&:hover': { transform: 'translateY(0)', boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)' },
                                     }}>
                                         <CardContent sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
                                             {engineHasActivePlan && currentPlanRaw.toLowerCase() !== plan.name.toLowerCase() && (
@@ -514,8 +518,8 @@ const BillingPage = () => {
                                                     Active plan detected. Cancel to switch.
                                                 </Alert>
                                             )}
-                                            <Typography sx={{ fontSize: '18px', fontWeight: 600, color: '#111827', mb: 1 }}>{plan.name}</Typography>
-                                            <Typography sx={{ fontSize: '32px', fontWeight: 700, color: '#111827', mb: 0.5 }}>${plan.price}</Typography>
+                                            <Typography sx={{ fontSize: '18px', fontWeight: 600, color: '#101418', mb: 1 }}>{plan.name}</Typography>
+                                            <Typography sx={{ fontSize: '32px', fontWeight: 700, color: '#101418', mb: 0.5 }}>${plan.price}</Typography>
                                             <Typography sx={{ fontSize: '13px', color: '#6b7280', mb: 2 }}>{plan.volume}</Typography>
                                             <Box sx={{ mt: 'auto' }}>
                                                 <Button fullWidth
@@ -523,8 +527,8 @@ const BillingPage = () => {
                                                     onClick={() => handleUpgrade(plan.name)}
                                                     disabled={!!processingItem || (currentPlanRaw.toLowerCase() === plan.name.toLowerCase()) || (engineHasActivePlan && currentPlanRaw.toLowerCase() !== plan.name.toLowerCase())}
                                                     sx={{
-                                                        textTransform: 'none', fontWeight: 500, py: 1.2, borderRadius: '10px',
-                                                        ...(engineHasActivePlan && currentPlanRaw.toLowerCase() === plan.name.toLowerCase() ? { borderColor: planColor, color: planColor } : { bgcolor: 'rgba(3, 105, 161, 1)', '&:hover': { bgcolor: 'rgba(3, 105, 161, 0.9)' } }),
+                                                        textTransform: 'none', fontWeight: 500, py: 1.2, borderRadius: '4px',
+                                                        ...(engineHasActivePlan && currentPlanRaw.toLowerCase() === plan.name.toLowerCase() ? { borderColor: planColor, color: planColor } : { bgcolor: 'rgba(35, 70, 217, 1)', '&:hover': { bgcolor: 'rgba(35, 70, 217, 0.9)' } }),
                                                     }}
                                                 >
                                                     {currentPlanRaw.toLowerCase() === plan.name.toLowerCase()
@@ -541,20 +545,20 @@ const BillingPage = () => {
                 </Box> */}
 
                 {/* Buy Addon Credits */}
-                <Paper elevation={0} sx={{ p: 4, borderRadius: '24px', border: '1px solid #e5e7eb', bgcolor: 'white', boxShadow: '0 4px 20px -5px rgba(0,0,0,0.05)' }}>
+                <Paper elevation={0} sx={{ p: 4, borderRadius: '8px', border: '1px solid #e5e7eb', bgcolor: 'white', boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                        <ShoppingCartIcon sx={{ fontSize: 28, color: '#10b981' }} />
-                        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#111827' }}>Buy Addon Credits</Typography>
+                        <ShoppingCartIcon sx={{ fontSize: 28, color: '#2346D9' }} />
+                        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#101418' }}>Buy add-on credits</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
                         <Box>
-                            <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#111827', mb: 0.5 }}>100 Additional Credits</Typography>
+                            <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#101418', mb: 0.5 }}>100 Additional Credits</Typography>
                             <Typography sx={{ fontSize: '14px', color: '#6b7280' }}>One-time purchase • Never expires • $20</Typography>
                         </Box>
                         <Button variant="contained"
                             startIcon={processingItem === 'ADDON_100' ? <CircularProgress size={16} color="inherit" /> : <ShoppingCartIcon />}
                             onClick={() => handleBuyAddon('ADDON_100')} disabled={!!processingItem}
-                            sx={{ bgcolor: '#10b981', textTransform: 'none', fontWeight: 500, px: 3, py: 1.2, borderRadius: '10px', '&:hover': { bgcolor: '#059669' } }}
+                            sx={{ bgcolor: '#2346D9', boxShadow: 'none', textTransform: 'none', fontWeight: 500, px: 3, py: 1.2, borderRadius: '4px', '&:hover': { bgcolor: '#1B38B4', boxShadow: 'none' } }}
                         >
                             {processingItem === 'ADDON_100' ? 'Processing...' : 'Buy Now'}
                         </Button>

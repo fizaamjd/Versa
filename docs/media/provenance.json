@@ -1,0 +1,15 @@
+{
+  "source": "Existing local Versa design-review captures in GenFrame-AI/.impeccable/review",
+  "captureNotice": "Local interface previews with sample account data. Native screens captured via React Native Web. No production/customer data or actual model run is claimed.",
+  "assets": [
+    "engine",
+    "creation",
+    "reports",
+    "team",
+    "native",
+    "history",
+    "logo"
+  ],
+  "font": "Archivo from the application Next.js font build",
+  "brand": "Original Versa SVG from frontend/public/logo.svg"
+}

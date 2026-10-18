@@ -37,7 +37,7 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
     return (
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: 0.6 }}>
             <Typography sx={{ fontSize: "12.5px", color: "#6b7280" }}>{label}</Typography>
-            <Typography sx={{ fontSize: "12.5px", color: "#111827", fontWeight: 600, textAlign: "right" }}>
+            <Typography sx={{ fontSize: "12.5px", color: "#101418", fontWeight: 600, textAlign: "right" }}>
                 {value}
             </Typography>
         </Box>
@@ -46,9 +46,9 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 
 function Section({ title, status, children }: { title: string; status?: ComplianceStatus | null; children: React.ReactNode }) {
     return (
-        <Paper elevation={0} sx={{ border: "1px solid #e5e7eb", borderRadius: "12px", p: 2, flex: 1, minWidth: 220 }}>
+        <Paper elevation={0} sx={{ border: "1px solid #e5e7eb", borderRadius: "6px", p: 2, flex: 1, minWidth: 220 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
-                <Typography sx={{ fontSize: "13px", fontWeight: 700, color: "#111827" }}>{title}</Typography>
+                <Typography sx={{ fontSize: "13px", fontWeight: 700, color: "#101418" }}>{title}</Typography>
                 <StatusChip status={status} />
             </Box>
             <Divider sx={{ mb: 1 }} />
@@ -79,10 +79,10 @@ export default function ComplianceReportModal({
                     maxHeight: "90vh",
                     overflowY: "auto",
                     bgcolor: "white",
-                    borderRadius: "16px",
+                    borderRadius: "6px",
                     p: { xs: 2.5, md: 3 },
                     outline: "none",
-                    boxShadow: "0 18px 55px rgba(15,23,42,0.35)",
+                    boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                 }}
             >
                 <IconButton
@@ -93,7 +93,7 @@ export default function ComplianceReportModal({
                 </IconButton>
 
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Typography sx={{ fontSize: "18px", fontWeight: 700, color: "#111827" }}>
+                    <Typography sx={{ fontSize: "18px", fontWeight: 700, color: "#101418" }}>
                         Design Compliance Report
                     </Typography>
                     {c && <StatusChip status={c.overall_status} />}
@@ -105,7 +105,7 @@ export default function ComplianceReportModal({
 
                 {report.status === "pending" && (
                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, py: 6 }}>
-                        <CircularProgress size={32} sx={{ color: "rgba(3, 105, 161, 1)" }} />
+                        <CircularProgress size={32} sx={{ color: "rgba(35, 70, 217, 1)" }} />
                         <Typography sx={{ fontSize: "13px", color: "#6b7280" }}>
                             Generating compliance report...
                         </Typography>
@@ -126,16 +126,16 @@ export default function ComplianceReportModal({
                             sx={{
                                 mb: 2.5,
                                 p: 2,
-                                borderRadius: "12px",
-                                bgcolor: "rgba(3, 105, 161, 0.04)",
-                                border: "1px solid rgba(3, 105, 161, 0.12)",
+                                borderRadius: "6px",
+                                bgcolor: "rgba(35, 70, 217, 0.04)",
+                                border: "1px solid rgba(35, 70, 217, 0.12)",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
                             }}
                         >
                             <Typography sx={{ fontSize: "13px", color: "#6b7280" }}>Overall Score</Typography>
-                            <Typography sx={{ fontSize: "28px", fontWeight: 700, color: "#111827" }}>
+                            <Typography sx={{ fontSize: "28px", fontWeight: 700, color: "#101418" }}>
                                 {c.overall_score}
                                 <Typography component="span" sx={{ fontSize: "13px", color: "#9ca3af" }}>
                                     /100
@@ -183,7 +183,7 @@ export default function ComplianceReportModal({
                         </Stack>
 
                         {c.content.ai_analysis && (
-                            <Box sx={{ mb: 2.5, p: 2, borderRadius: "12px", bgcolor: "#f9fafb", border: "1px solid #f3f4f6" }}>
+                            <Box sx={{ mb: 2.5, p: 2, borderRadius: "6px", bgcolor: "#f9fafb", border: "1px solid #f3f4f6" }}>
                                 <Typography sx={{ fontSize: "11px", fontWeight: 700, color: "#9ca3af", textTransform: "uppercase", mb: 0.5 }}>
                                     AI Analysis
                                 </Typography>
@@ -201,7 +201,7 @@ export default function ComplianceReportModal({
                                 <Stack spacing={1}>
                                     {report.recommendations.map((rec, idx) => (
                                         <Box key={idx} sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
-                                            <Box sx={{ width: 5, height: 5, borderRadius: "50%", bgcolor: "rgba(3, 105, 161, 1)", mt: "7px", flexShrink: 0 }} />
+                                            <Box sx={{ width: 5, height: 5, borderRadius: "50%", bgcolor: "rgba(35, 70, 217, 1)", mt: "7px", flexShrink: 0 }} />
                                             <Typography sx={{ fontSize: "12.5px", color: "#374151", lineHeight: 1.5 }}>{rec}</Typography>
                                         </Box>
                                     ))}

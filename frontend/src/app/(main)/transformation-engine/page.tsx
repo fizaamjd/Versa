@@ -29,30 +29,31 @@ export default function TransformationEnginePage() {
         return () => resetHeader();
     }, [setHeader, resetHeader]);
 
-    if (authLoading || !user) {
-        return (
-            <Box sx={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <CircularProgress size={32} sx={{ color: 'rgba(3, 105, 161, 1)' }} />
-            </Box>
-        );
-    }
 
-    const isPostpaid = Boolean(user.is_postpaid);
-    const availableEngines = (user.available_engines && user.available_engines.length > 0)
+    const isPostpaid = Boolean(user?.is_postpaid);
+    const availableEngines = (user?.available_engines && user.available_engines.length > 0)
         ? user.available_engines
         : ['transformation', 'creation'];
     const hasAllocatedEngine = availableEngines.includes(engineType);
 
     useEffect(() => {
-        if (!hasAllocatedEngine) {
+        if (!authLoading && user && !hasAllocatedEngine) {
             router.replace('/dashboard');
         }
-    }, [hasAllocatedEngine, router]);
+    }, [authLoading, user, hasAllocatedEngine, router]);
+
+    if (authLoading || !user) {
+        return (
+            <Box sx={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CircularProgress size={32} sx={{ color: 'rgba(35, 70, 217, 1)' }} />
+            </Box>
+        );
+    }
 
     if (!hasAllocatedEngine) {
         return (
             <Box sx={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <CircularProgress size={32} sx={{ color: 'rgba(3, 105, 161, 1)' }} />
+                <CircularProgress size={32} sx={{ color: 'rgba(35, 70, 217, 1)' }} />
             </Box>
         );
     }
@@ -80,20 +81,20 @@ export default function TransformationEnginePage() {
                     sx={{
                         p: { xs: 4, md: 8 },
                         textAlign: 'center',
-                        borderRadius: '24px',
-                        border: '1px solid rgba(3, 105, 161, 0.1)',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(35, 70, 217, 0.1)',
                         bgcolor: 'rgba(255, 255, 255, 0.8)',
                         backdropFilter: 'blur(20px)',
                     }}
                 >
                     <Box sx={{
-                        mb: 3, width: 80, height: 80, borderRadius: '20px',
-                        bgcolor: 'rgba(3, 105, 161, 0.05)',
+                        mb: 3, width: 80, height: 80, borderRadius: '8px',
+                        bgcolor: 'rgba(35, 70, 217, 0.05)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto'
                     }}>
-                        <AccountBalanceWalletIcon sx={{ fontSize: 36, color: 'rgba(3, 105, 161, 1)' }} />
+                        <AccountBalanceWalletIcon sx={{ fontSize: 36, color: 'rgba(35, 70, 217, 1)' }} />
                     </Box>
-                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#111827' }}>
+                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#101418' }}>
                         Subscription required
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 4, color: '#6b7280', maxWidth: '500px', mx: 'auto', lineHeight: 1.6 }}>
@@ -105,9 +106,9 @@ export default function TransformationEnginePage() {
                             size="large"
                             onClick={() => router.push('/pricing')}
                             sx={{
-                                borderRadius: '8px', px: 4, py: 1.2, fontSize: '13px',
-                                bgcolor: 'rgba(3, 105, 161, 1)', fontWeight: 600,
-                                '&:hover': { bgcolor: 'rgba(3, 105, 161, 0.9)' }
+                                borderRadius: '4px', px: 4, py: 1.2, fontSize: '13px',
+                                bgcolor: 'rgba(35, 70, 217, 1)', fontWeight: 600,
+                                '&:hover': { bgcolor: 'rgba(35, 70, 217, 0.9)' }
                             }}
                         >
                             View Plans
@@ -126,20 +127,20 @@ export default function TransformationEnginePage() {
                     sx={{
                         p: { xs: 4, md: 8 },
                         textAlign: 'center',
-                        borderRadius: '24px',
-                        border: '1px solid rgba(3, 105, 161, 0.1)',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(35, 70, 217, 0.1)',
                         bgcolor: 'rgba(255, 255, 255, 0.8)',
                         backdropFilter: 'blur(20px)',
                     }}
                 >
                     <Box sx={{
-                        mb: 3, width: 80, height: 80, borderRadius: '20px',
-                        bgcolor: 'rgba(3, 105, 161, 0.05)',
+                        mb: 3, width: 80, height: 80, borderRadius: '8px',
+                        bgcolor: 'rgba(35, 70, 217, 0.05)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto'
                     }}>
-                        <AccountBalanceWalletIcon sx={{ fontSize: 36, color: 'rgba(3, 105, 161, 1)' }} />
+                        <AccountBalanceWalletIcon sx={{ fontSize: 36, color: 'rgba(35, 70, 217, 1)' }} />
                     </Box>
-                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#111827' }}>
+                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#101418' }}>
                         No credits available
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 4, color: '#6b7280', maxWidth: '520px', mx: 'auto', lineHeight: 1.6 }}>
@@ -147,7 +148,7 @@ export default function TransformationEnginePage() {
                     </Typography>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} justifyContent="center">
                         <Button variant="contained" size="large" onClick={() => router.push('/billing')}
-                            sx={{ borderRadius: '8px', px: 4, py: 1.2, fontSize: '13px', bgcolor: 'rgba(3, 105, 161, 1)', fontWeight: 600 }}>
+                            sx={{ borderRadius: '4px', px: 4, py: 1.2, fontSize: '13px', bgcolor: 'rgba(35, 70, 217, 1)', fontWeight: 600 }}>
                             Billing & Addons
                         </Button>
                     </Stack>

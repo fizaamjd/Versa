@@ -5,6 +5,7 @@ import RowActionsDropdown from "@/components/ui/data-table/row-actions-dropdown"
 import StatusBadge from "@/components/ui/status-badge";
 import UserAvatar from "@/components/ui/user-avatar";
 import React, { useState } from "react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 // Generic data row type for entity listings
 interface EntityRow {
@@ -158,6 +159,15 @@ export function UserListTable({
   return (
     <DataTable
       data={data}
+      emptyStateComponent={
+        !isLoading && data.length === 0 ? (
+          <EmptyState
+            title={searchValue ? "No users match this search" : "No users yet"}
+            description={searchValue ? "Try a different name, email or organisation." : "Invite teammates so they can run engines and review compliance reports."}
+            className="flex-1 border-none shadow-none"
+          />
+        ) : undefined
+      }
       onBulkDelete={onBulkDelete}
       isLoading={isLoading}
       columns={columns}
@@ -168,7 +178,7 @@ export function UserListTable({
       getRowId={(row) => row.id}
       // Search
       enableSearch={true}
-      searchPlaceholder="Search by org name, owner email, region."
+      searchPlaceholder="Search by name, email or organisation"
       searchValue={searchValue}
       onSearchChange={onSearchChange}
       // Filters

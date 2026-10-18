@@ -7,8 +7,8 @@ export const plansData = [
     price: 10,
     description: "Our most popular plan.",
     icon: Zap,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
   },
   {
     id: "business",
@@ -16,8 +16,8 @@ export const plansData = [
     price: 20,
     description: "Best for growing teams.",
     icon: Layers2,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
   },
   {
     id: "enterprise",
@@ -25,8 +25,8 @@ export const plansData = [
     price: 40,
     description: "Best for large teams.",
     icon: Layers,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
   },
 ];
 
@@ -109,8 +109,8 @@ export const monthlyPlansData = [
     price: 10,
     description: "Our most popular plan.",
     icon: Zap,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
     creditCount: "100 credits / monthly",
   },
   {
@@ -119,8 +119,8 @@ export const monthlyPlansData = [
     price: 20,
     description: "Our most popular plan.",
     icon: Layers2,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
     creditCount: "2000 credits / monthly",
   },
   {
@@ -129,8 +129,8 @@ export const monthlyPlansData = [
     price: 30,
     description: "Our most popular plan.",
     icon: Layers,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
     creditCount: "4000 credits / monthly",
   },
 ];
@@ -141,8 +141,8 @@ export const yearlyPlansData = [
     price: 100,
     description: "Our most popular plan.",
     icon: Zap,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
     creditCount: "1000 credits / yearly",
   },
   {
@@ -151,8 +151,8 @@ export const yearlyPlansData = [
     price: 200,
     description: "Our most popular plan.",
     icon: Layers2,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
     creditCount: "20000 credits / yearly",
   },
   {
@@ -161,8 +161,8 @@ export const yearlyPlansData = [
     price: 300,
     description: "Our most popular plan.",
     icon: Layers,
-    iconColor: "text-purple-300",
-    iconBg: "bg-purple-25",
+    iconColor: "text-brand-300",
+    iconBg: "bg-brand-25",
     creditCount: "40000 credits / yearly",
   },
 ];

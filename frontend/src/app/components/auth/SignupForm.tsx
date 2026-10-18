@@ -81,7 +81,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
         <Box sx={{ width: '100%', mb: 2 }}>
           <Typography
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -109,7 +109,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
             component="label"
             htmlFor="email"
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -140,7 +140,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
             component="label"
             htmlFor="password"
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -173,7 +173,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
                       handleTogglePasswordVisibility();
                     }}
                     edge="end"
-                    sx={{ color: '#0369A1' }}
+                    sx={{ color: '#2346D9' }}
                   >
                     {showPassword ? (
                       <EyeOff size={20} />
@@ -193,7 +193,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
             component="label"
             htmlFor="confirmPassword"
             sx={{
-              fontFamily: 'Raleway',
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: '20px',
@@ -226,7 +226,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
                       handleToggleConfirmPasswordVisibility();
                     }}
                     edge="end"
-                    sx={{ color: '#0369A1' }}
+                    sx={{ color: '#2346D9' }}
                   >
                     {showConfirmPassword ? (
                       <EyeOff size={20} />
@@ -252,7 +252,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
           }
           label="I agree to the Terms of Service and Privacy Policy"
           sx={{
-            fontFamily: 'Raleway',
+            fontFamily: 'inherit',
             fontWeight: 500,
             fontSize: 12,
             lineHeight: '18px',
@@ -268,7 +268,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
           sx={{
             mt: 3,
             mb: 2,
-            backgroundColor: '#0369A1',
+            backgroundColor: '#2346D9',
             borderRadius: 2,
           }}
         >
@@ -280,7 +280,7 @@ const SignupForm: React.FC<FormProps> = ({ formData, handleChange, handleSubmit,
           Already have an account?{' '}
           <span
             onClick={() => switchForm('login')}
-            style={{ color: '#0369A1', cursor: 'pointer' }}
+            style={{ color: '#2346D9', cursor: 'pointer' }}
           >
             Login
           </span>

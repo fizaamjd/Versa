@@ -34,7 +34,7 @@ export function SelectedPlanSummary({
               </div>
               <Button
                 color="purpleSubtle"
-                className="!text-purple-400 shadow-sm"
+                className="!text-brand-400 shadow-sm"
               >
                 Selected
               </Button>
@@ -49,7 +49,7 @@ export function SelectedPlanSummary({
                 key={`${f.name}-${idx}`}
                 className="flex items-start gap-2 text-sm text-gray-500"
               >
-                <div className="w-6 h-6 rounded-full bg-purple-25 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-brand-25 flex items-center justify-center">
                   <Check className="w-4 h-4 text-primary" />
                 </div>
                 <span>{f.name}</span>

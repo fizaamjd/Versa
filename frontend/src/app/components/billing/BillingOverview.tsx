@@ -79,18 +79,18 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
         <Paper
             elevation={0}
             sx={{
-                p: 4, borderRadius: '24px', border: '1px solid #e5e7eb',
-                bgcolor: 'white', mb: 4, boxShadow: '0 4px 20px -5px rgba(0,0,0,0.05)',
+                p: 4, borderRadius: '8px', border: '1px solid #e5e7eb',
+                bgcolor: 'white', mb: 4, boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)',
             }}
         >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, flexWrap: 'wrap' }}>
-                <CreditCardIcon sx={{ fontSize: 28, color: 'rgba(3, 105, 161, 1)' }} />
-                <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#111827' }}>
+                <CreditCardIcon sx={{ fontSize: 28, color: 'rgba(35, 70, 217, 1)' }} />
+                <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#101418' }}>
                     Your Current Plan
                 </Typography>
                 <Chip
                     label={currentPlanLabel}
-                    sx={{ bgcolor: 'rgba(3, 105, 161, 0.1)', color: 'rgba(3, 105, 161, 1)', fontWeight: 600, fontSize: '12px' }}
+                    sx={{ bgcolor: 'rgba(35, 70, 217, 0.1)', color: 'rgba(35, 70, 217, 1)', fontWeight: 600, fontSize: '12px' }}
                 />
                 {isPendingCancellation && (
                     <Chip label="Cancelled (Resumable)" size="small" color="error" variant="outlined"
@@ -102,19 +102,19 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
             <Grid container spacing={3}>
                 <Grid size={12}>
                     <Box sx={{
-                        p: 2.5, borderRadius: '16px', bgcolor: 'rgba(3, 105, 161, 0.03)',
-                        border: '1px solid rgba(3, 105, 161, 0.1)', mb: 1,
+                        p: 2.5, borderRadius: '6px', bgcolor: 'rgba(35, 70, 217, 0.03)',
+                        border: '1px solid rgba(35, 70, 217, 0.1)', mb: 1,
                         display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2,
                         alignItems: { xs: 'flex-start', sm: 'center' }, justifyContent: 'space-between'
                     }}>
                         <Box>
                             <Typography sx={{ fontSize: '14px', color: '#6b7280', mb: 0.5 }}>Current Usage (Total)</Typography>
-                            <Typography sx={{ fontSize: { xs: '26px', md: '32px' }, fontWeight: 700, color: '#111827', lineHeight: 1 }}>
+                            <Typography sx={{ fontSize: { xs: '26px', md: '32px' }, fontWeight: 700, color: '#101418', lineHeight: 1 }}>
                                 {((credits.monthly_units_used || 0) + (credits.addon_units_used || 0)).toLocaleString()} / {((credits.monthly_units_max || 0) + (credits.addon_units_max || 0)).toLocaleString()}
                             </Typography>
                         </Box>
                         <Box sx={{ textAlign: 'right' }}>
-                            <Typography sx={{ fontSize: '13px', color: 'rgba(3, 105, 161, 1)', fontWeight: 600 }}>
+                            <Typography sx={{ fontSize: '13px', color: 'rgba(35, 70, 217, 1)', fontWeight: 600 }}>
                                 {credits.remaining_units.toLocaleString()} Available
                             </Typography>
                             <Typography sx={{ fontSize: '12px', color: '#6b7280' }}>
@@ -127,13 +127,13 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
                 <Grid size={{ xs: 12, md: 6 }}>
                     <Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>Monthly Plan Credits</Typography>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>
+                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#101418' }}>Monthly Plan Credits</Typography>
+                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#101418' }}>
                                 {monthlyRemaining.toLocaleString()} / {credits.monthly_units_max.toLocaleString()}
                             </Typography>
                         </Box>
                         <LinearProgress variant="determinate" value={monthlyProgress}
-                            sx={{ height: 8, borderRadius: 4, bgcolor: '#e5e7eb', '& .MuiLinearProgress-bar': { bgcolor: 'rgba(3, 105, 161, 1)', borderRadius: 4 } }}
+                            sx={{ height: 8, borderRadius: 4, bgcolor: '#e5e7eb', '& .MuiLinearProgress-bar': { bgcolor: 'rgba(35, 70, 217, 1)', borderRadius: 4 } }}
                         />
                         <Typography sx={{ fontSize: '12px', color: '#6b7280', mt: 0.5 }}>Resets monthly</Typography>
                     </Box>
@@ -142,8 +142,8 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
                 <Grid size={{ xs: 12, md: 6 }}>
                     <Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>Bonus Add-on Credits</Typography>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>
+                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#101418' }}>Bonus Add-on Credits</Typography>
+                            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#101418' }}>
                                 {addonRemaining.toLocaleString()} / {credits.addon_units_max.toLocaleString()}
                             </Typography>
                         </Box>
@@ -155,9 +155,9 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
                 </Grid>
 
                 <Grid size={12}>
-                    <Box sx={{ p: 2, borderRadius: '12px', bgcolor: '#f9fafb', border: '1px solid #e5e7eb' }}>
+                    <Box sx={{ p: 2, borderRadius: '6px', bgcolor: '#f9fafb', border: '1px solid #e5e7eb' }}>
                         <Typography sx={{ fontSize: '12px', color: '#6b7280', mb: 0.5 }}>Overall Capacity (Used / Total)</Typography>
-                        <Typography sx={{ fontSize: { xs: '24px', md: '28px' }, fontWeight: 700, color: '#111827' }}>
+                        <Typography sx={{ fontSize: { xs: '24px', md: '28px' }, fontWeight: 700, color: '#101418' }}>
                             {((credits.monthly_units_used || 0) + (credits.addon_units_used || 0)).toLocaleString()} / {((credits.monthly_units_max || 0) + (credits.addon_units_max || 0)).toLocaleString()}
                         </Typography>
                     </Box>
@@ -171,7 +171,7 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
                             <Button fullWidth variant="outlined"
                                 startIcon={processingItem === 'portal' ? <CircularProgress size={16} color="inherit" /> : <SettingsIcon />}
                                 onClick={onManage} disabled={!!processingItem}
-                                sx={{ height: '48px', borderColor: isPendingCancellation ? 'rgba(3, 105, 161, 1)' : '#e5e7eb', color: '#111827', textTransform: 'none', fontWeight: 600, borderRadius: '12px' }}
+                                sx={{ height: '48px', borderColor: isPendingCancellation ? 'rgba(35, 70, 217, 1)' : '#e5e7eb', color: '#101418', textTransform: 'none', fontWeight: 600, borderRadius: '6px' }}
                             >
                                 {isPendingCancellation ? 'Resume Subscription' : 'Manage'}
                             </Button>
@@ -180,7 +180,7 @@ const BillingOverview: React.FC<BillingOverviewProps> = ({
                             <Button fullWidth variant="contained" color="error"
                                 onClick={onCancel}
                                 disabled={!!processingItem || isPendingCancellation}
-                                sx={{ height: '48px', textTransform: 'none', fontWeight: 600, borderRadius: '12px', boxShadow: 'none' }}
+                                sx={{ height: '48px', textTransform: 'none', fontWeight: 600, borderRadius: '6px', boxShadow: 'none' }}
                             >
                                 {isPendingCancellation ? 'Access Plan End' : 'Cancel'}
                             </Button>

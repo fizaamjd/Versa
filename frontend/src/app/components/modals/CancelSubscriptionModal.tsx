@@ -50,7 +50,7 @@ const CancelSubscriptionModal: React.FC<CancelSubscriptionModalProps> = ({
             fullWidth
             PaperProps={{
                 sx: {
-                    borderRadius: '24px',
+                    borderRadius: '8px',
                     p: 2,
                 }
             }}
@@ -61,7 +61,7 @@ const CancelSubscriptionModal: React.FC<CancelSubscriptionModalProps> = ({
                         sx={{
                             width: 48,
                             height: 48,
-                            borderRadius: '12px',
+                            borderRadius: '6px',
                             bgcolor: 'rgba(239, 68, 68, 0.1)',
                             display: 'flex',
                             alignItems: 'center',
@@ -71,7 +71,7 @@ const CancelSubscriptionModal: React.FC<CancelSubscriptionModalProps> = ({
                         <WarningIcon sx={{ fontSize: 28, color: '#ef4444' }} />
                     </Box>
                     <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '20px', color: '#111827' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '20px', color: '#101418' }}>
                             Cancel Your Plan?
                         </Typography>
                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '14px' }}>
@@ -125,7 +125,7 @@ const CancelSubscriptionModal: React.FC<CancelSubscriptionModalProps> = ({
                         textTransform: 'none',
                         fontWeight: 600,
                         px: 3,
-                        borderRadius: '10px',
+                        borderRadius: '4px',
                     }}
                 >
                     {isProcessing ? 'Cancelling...' : 'Yes, Cancel Plan'}

@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
 import { TouchTarget } from "./button";
 import { Link } from "./link";
 import { Button } from "@/components/ui/button";
+import { VersaLogo } from "@/components/brand/VersaLogo";
 import {
   Building2,
   ListVideo,
@@ -27,9 +28,9 @@ import {
   ChevronRight,
   LogOut,
   CodeXml,
-  MousePointerClick,
   UserCog,
-  Sparkles,
+  LayoutTemplate,
+  Scaling,
   Navigation,
   Megaphone,
   CreditCard as CreditCardIcon,
@@ -46,7 +47,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { decodeJwtToken } from "@/lib/jwtUtils";
 // import { sidebarRouteAccess } from "@/lib/routeAccessConfig";
 const sidebarRouteAccess = (path: string, type: any, role: any) => true;
-import { usePageHeader } from "@/app/context/PageHeaderContext";
+import { useOptionalPageHeader } from "@/app/context/PageHeaderContext";
 // import { AIChatSidebar, useChat, type ChatMessage } from "@/components/chat";
 const useChat = () => ({
   messages: [],
@@ -121,7 +122,7 @@ export function SidebarSection({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  let id = useId();
+  const id = useId();
 
   return (
     <LayoutGroup id={id}>
@@ -256,7 +257,7 @@ export function GenAiSidebarCollapsibleItem({
       <HeadlessButton
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          "flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-sm font-medium transition-colors border border-[#BAE6FD]",
+          "flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-sm font-medium transition-colors border border-[#CDD7F8]",
           "hover:bg-[color:var(--color-gray-200)]",
           "dark:hover:bg-[color:var(--color-gray-200)]",
           current &&
@@ -308,7 +309,7 @@ export const SidebarItem = forwardRef(function SidebarItem(
   ),
   ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
 ) {
-  let classes = clsx(
+  const classes = clsx(
     // Base
     "flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium sm:py-2 sm:text-sm/5",
     // Leading icon/icon-only
@@ -426,13 +427,8 @@ export function SignageXSidebar({
     !isImpersonated &&
     isParentOrgType;
   // Check if we're in simple/creation mode
-  let isSimpleMode = false;
-  try {
-    const { header } = usePageHeader();
-    isSimpleMode = header.simpleMode ?? false;
-  } catch {
-    // PageHeaderContext not available, use normal mode
-  }
+  const pageHeader = useOptionalPageHeader();
+  const isSimpleMode = pageHeader?.header.simpleMode ?? false;
 
   // Get chat state for simple mode
   let chatState: {
@@ -444,11 +440,7 @@ export function SignageXSidebar({
     sendMessage: () => {},
     isLoading: false,
   };
-  try {
-    chatState = useChat();
-  } catch {
-    // ChatProvider not available
-  }
+  chatState = useChat();
 
   // compute active flags for sidebar items (exact match or nested route)
   const orgActive =
@@ -466,15 +458,15 @@ export function SignageXSidebar({
   const reportsActive =
     pathname === "/reports" || pathname.startsWith("/reports/");
 
-  let base = "w-64";
-  let placement = fixed
+  const base = "w-64";
+  const placement = fixed
     ? position === "left"
       ? "fixed inset-y-0 left-0"
       : "fixed inset-y-0 right-0"
     : "";
-  let orderClass = fixed ? "" : position === "right" ? "order-2" : "order-1";
+  const orderClass = fixed ? "" : position === "right" ? "order-2" : "order-1";
 
-  let containerClass = clsx(placement, base, orderClass);
+  const containerClass = clsx(placement, base, orderClass);
 
   // If in simple mode, render AI Chat sidebar
   if (isSimpleMode) {
@@ -509,36 +501,16 @@ export function SignageXSidebar({
     >
       <div className="flex flex-col flex-1 min-h-0">
         <SidebarHeader>
-          {/* GenFrame Logo/Brand */}
-          <div
-            className="flex items-center gap-2.5 px-2 py-1 cursor-pointer"
+          <button
+            type="button"
+            className="flex items-center px-2 py-2 cursor-pointer rounded-sm"
             onClick={() => {
               router.push("/dashboard");
             }}
+            aria-label="Versa dashboard"
           >
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="sidebar-logo-grad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#0C4A6E" />
-                  <stop offset="1" stopColor="#0EA5E9" />
-                </linearGradient>
-              </defs>
-              <rect width="36" height="36" rx="10" fill="url(#sidebar-logo-grad)" />
-              <path d="M9 9L9 14M9 9L14 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M27 9L22 9M27 9L27 14" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M9 27L9 22M9 27L14 27" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M27 27L22 27M27 27L27 22" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M18 12L19.3 16.7L24 18L19.3 19.3L18 24L16.7 19.3L12 18L16.7 16.7Z" fill="white" />
-            </svg>
-            <div>
-              <div style={{ fontSize: 17, fontWeight: 700, color: "#0f172a", letterSpacing: "-0.02em" }}>
-                GenFrame
-              </div>
-              <div style={{ fontSize: 10, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                AI Image Adaptation
-              </div>
-            </div>
-          </div>
+            <VersaLogo height={26} />
+          </button>
         </SidebarHeader>
 
         <SidebarBody>
@@ -555,7 +527,7 @@ export function SignageXSidebar({
             </SidebarItem>
             {/* Engines */}
             <div className=" flex items-center gap-2 mt-4 mb-2">
-              <span className="text-purple-300 font-semibold">Engines</span>
+              <span className="text-ink-3 text-[11px] font-semibold uppercase tracking-[0.08em]">Engines</span>
               <div className="flex-1 border-t border-gray-200"></div>
             </div>
             {canAccessCreation && (
@@ -563,7 +535,7 @@ export function SignageXSidebar({
                 href="/creation-engine"
                 current={pathname === "/creation-engine"}
               >
-                <Sparkles className="h-5 w-5" />
+                <LayoutTemplate className="h-5 w-5" />
                 <SidebarLabel>Creation Engine</SidebarLabel>
               </SidebarItem>
             )}
@@ -572,12 +544,12 @@ export function SignageXSidebar({
                 href="/transformation-engine"
                 current={pathname === "/transformation-engine"}
               >
-                <MousePointerClick className="h-5 w-5" />
+                <Scaling className="h-5 w-5" />
                 <SidebarLabel>Transformation Engine</SidebarLabel>
               </SidebarItem>
             )}
             <div className=" flex items-center gap-2 mt-4 mb-2">
-              <span className="text-purple-300 font-semibold">
+              <span className="text-ink-3 text-[11px] font-semibold uppercase tracking-[0.08em]">
                 Administration
               </span>
               <div className="flex-1 border-t border-gray-200"></div>
@@ -621,71 +593,38 @@ export function SignageXSidebar({
         {!isSimpleMode && folderInfo && !isPostpaid && (
           <div>
             <div
-              className="rounded-lg pb-4 pt-2 px-2 text-white shadow-md relative overflow-hidden"
-              style={{
-                background: "linear-gradient(135deg, #075985 0%, #0369A1 100%)",
-              }}
+              className="rounded-md p-3"
+              style={{ background: "#ffffff", border: "1px solid var(--color-rule)" }}
             >
-              <div className="relative flex justify-center mb-2">
-                <svg
-                  className="h-20 w-20 transform -rotate-90"
-                  viewBox="0 0 100 100"
-                >
-                  {/* Background ring */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    stroke="rgba(255,255,255,0.18)"
-                    strokeWidth="8"
-                    fill="transparent"
-                  />
-
-                  {/* Progress ring */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    stroke="white"
-                    strokeWidth="8"
-                    fill="transparent"
-                    strokeDasharray={251.32} // 2 * PI * 40
-                    strokeDashoffset={
-                      251.32 -
-                      (Math.min(folderInfo.used_percentage, 100) / 100) * 251.32
-                    }
-                    strokeLinecap="round"
-                    className="transition-all duration-700 ease-out"
-                  />
-
-                  {/* Percentage */}
-                  <text
-                    x="50"
-                    y="50"
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fill="white"
-                    fontSize="14"
-                    fontWeight={700}
-                    transform="rotate(90 50 50)"
-                  >
-                    {Math.round(folderInfo.used_percentage)}%
-                  </text>
-                </svg>
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-[12px] font-medium" style={{ color: "var(--color-ink-2)" }}>
+                  Credit usage
+                </span>
+                <span className="text-[12px]" style={{ color: "var(--color-ink-3)" }}>
+                  {Math.round(folderInfo.used_percentage)}%
+                </span>
               </div>
-
-              <div className="text-sm font-bold tracking-wide">
-                Credit Usage
+              <div className="spec-figure mt-1 text-[22px] font-semibold leading-none" style={{ color: "var(--color-ink)" }}>
+                {folderInfo.used_players.toLocaleString()}
+                <span className="text-[14px] font-medium" style={{ color: "var(--color-ink-3)" }}>
+                  {" "}/ {folderInfo.total_players.toLocaleString()}
+                </span>
               </div>
-              <p
-                className="text-[11px] leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.9)" }}
-              >
-                You're using {folderInfo.used_players.toLocaleString()} of your{" "}
-                {folderInfo.total_players.toLocaleString()} available credits.
+              {/* Linear meter on a hairline track; hatch yellow only when running low */}
+              <div className="mt-2.5 h-1.5 w-full" style={{ background: "var(--color-rule)", borderRadius: 1 }}>
+                <div
+                  className="h-full transition-[width] duration-700 ease-out"
+                  style={{
+                    width: `${Math.min(folderInfo.used_percentage, 100)}%`,
+                    background: folderInfo.used_percentage >= 90 ? "var(--color-hatch)" : "var(--spec)",
+                    borderRadius: 1,
+                  }}
+                />
+              </div>
+              <p className="mt-2 text-[11px] leading-relaxed" style={{ color: "var(--color-ink-2)" }}>
                 {folderInfo.used_percentage >= 90
-                  ? "Running low? Top up now."
-                  : "You're all set!"}
+                  ? "Running low. Top up in Billing."
+                  : `${(folderInfo.total_players - folderInfo.used_players).toLocaleString()} credits left this period.`}
               </p>
             </div>
           </div>
@@ -700,7 +639,7 @@ export function SignageXSidebar({
               }}
             >
               <img
-                src={isClient && user?.avatar ? user.avatar : "/logo.svg"}
+                src={isClient && user?.avatar ? user.avatar : "/logo-mark.svg"}
                 alt={isClient ? user?.fullName || "User Avatar" : "User Avatar"}
                 className="h-10 w-10 rounded-md object-contain"
               />

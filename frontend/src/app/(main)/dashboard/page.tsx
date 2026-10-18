@@ -10,18 +10,14 @@ import {
   Stack,
   Grid,
   Button,
-  Chip,
-  Divider,
   Typography,
   Alert,
 } from "@mui/material";
 import { useUser } from "@/app/context/AuthContext";
 import { usePageHeader } from "@/app/context/PageHeaderContext";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import BoltIcon from "@mui/icons-material/Bolt";
-import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import BillingOverview from "@/app/components/billing/BillingOverview";
 import UsageDisplay from "@/app/components/dashboard/UsageDisplay";
 import CancelSubscriptionModal from "@/app/components/modals/CancelSubscriptionModal";
 import {
@@ -92,7 +88,7 @@ export default function DashboardPage() {
           justifyContent: "center",
         }}
       >
-        <CircularProgress size={32} sx={{ color: "rgba(3, 105, 161, 1)" }} />
+        <CircularProgress size={32} sx={{ color: "rgba(35, 70, 217, 1)" }} />
       </Box>
     );
   }
@@ -124,25 +120,19 @@ export default function DashboardPage() {
   const remainingCredits = Math.max(0, totalCreditsMax - totalCreditsUsed);
   const dashboardStats = [
     {
-      label: "Total used",
+      label: "Credits used",
       value: totalCreditsUsed.toLocaleString(),
-      tone: "#0369A1",
-      hint: isPostpaid ? "Usage billing" : "Combined credits",
-      icon: <TrendingUpIcon sx={{ fontSize: 18 }} />,
+      hint: isPostpaid ? "Billed by usage" : "This period, all add-ons included",
     },
     {
-      label: "Remaining",
-      value: remainingCredits.toLocaleString(),
-      tone: "#10b981",
-      hint: isPostpaid ? "Keep creating" : "Before limit",
-      icon: <BoltIcon sx={{ fontSize: 18 }} />,
+      label: "Credits remaining",
+      value: isPostpaid ? "No limit" : remainingCredits.toLocaleString(),
+      hint: isPostpaid ? "Pay as you go" : "Before your plan limit",
     },
     {
       label: "Active engine",
       value: selectedEngineLabel,
-      tone: "#111827",
-      hint: currentPlanLabel,
-      icon: <AutoFixHighIcon sx={{ fontSize: 18 }} />,
+      hint: isPostpaid ? "Pay as you go" : currentPlanLabel,
     },
   ];
 
@@ -150,29 +140,25 @@ export default function DashboardPage() {
     {
       key: "transformation" as EngineType,
       title: "Transformation Engine",
-      description: "Adapt existing creatives with smart composition, expansion, and cleanup for every output size.",
-      accent: "#0369A1",
-      icon: <AutoFixHighIcon sx={{ fontSize: 20 }} />,
-      chips: ["AI resizing", "Background extension", "Subject-safe crops"],
+      description: "Recompose an approved creative for every size on the media plan, layer by layer, with a compliance report on each output.",
+      accent: "#2346D9",
+      icon: <AspectRatioIcon sx={{ fontSize: 20 }} />,
+      chips: ["Layer-aware recomposition", "Background extension", "OOH and QMS sizes"],
     },
     {
       key: "creation" as EngineType,
       title: "Creation Engine",
-      description: "Generate new channel-ready variants from your source image with cleaner layout and brand framing.",
-      accent: "#0EA5E9",
+      description: "Generate new creatives from templates and specifications, sized for each channel you deliver to.",
+      accent: "#101418",
       icon: <AddPhotoAlternateIcon sx={{ fontSize: 20 }} />,
-      chips: ["Variant generation", "Brand layout", "Multi-format output"],
+      chips: ["Template-based generation", "Brand layout", "Custom dimensions"],
     },
   ];
 
+  const ply = "0 1px 2px rgba(16, 20, 24, 0.06)";
+
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        background:
-          "radial-gradient(circle at top left, rgba(3, 105, 161, 0.08), transparent 32%), linear-gradient(180deg, #f8fbfe 0%, #ffffff 40%, #f8fafc 100%)",
-      }}
-    >
+    <Box sx={{ minHeight: "100vh", background: "#F6F7F9" }}>
       <Container maxWidth="xl" sx={{ py: { xs: 2.5, md: 4 } }}>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
@@ -180,182 +166,96 @@ export default function DashboardPage() {
           </Alert>
         )}
         {success && (
-          <Alert
-            severity="success"
-            sx={{ mb: 3 }}
-            onClose={() => setSuccess(null)}
-          >
+          <Alert severity="success" sx={{ mb: 3 }} onClose={() => setSuccess(null)}>
             {success}
           </Alert>
         )}
 
+        {/* Title block and figures, ruled like the head of a spec sheet */}
         <Paper
           elevation={0}
-          sx={{
-            mb: 3,
-            p: { xs: 2.5, md: 3.5 },
-            borderRadius: "28px",
-            border: "1px solid rgba(3, 105, 161, 0.12)",
-            background:
-              "linear-gradient(135deg, rgba(3, 105, 161, 0.10) 0%, rgba(14, 165, 233, 0.05) 55%, rgba(255, 255, 255, 0.96) 100%)",
-            boxShadow: "0 16px 50px -28px rgba(3, 105, 161, 0.35)",
-          }}
+          sx={{ mb: 3, borderRadius: "6px", border: "1px solid #E3E6EB", bgcolor: "#ffffff", boxShadow: ply, overflow: "hidden" }}
         >
-          <Stack spacing={2.5}>
-            <Stack
-              direction={{ xs: "column", md: "row" }}
-              alignItems={{ xs: "flex-start", md: "center" }}
-              justifyContent="space-between"
-              spacing={2}
-            >
-              <Box>
-                <Chip
-                  label={isPostpaid ? "Pay as you go" : currentPlanLabel}
-                  sx={{
-                    mb: 1.5,
-                    bgcolor: "rgba(3, 105, 161, 0.10)",
-                    color: "rgba(3, 105, 161, 1)",
-                    fontWeight: 500,
-                    fontSize: "12px",
-                  }}
-                />
-                <Typography
-                  sx={{
-                    fontSize: { xs: "28px", md: "38px" },
-                    lineHeight: 1.05,
-                    fontWeight: 600,
-                    letterSpacing: "-0.04em",
-                    color: "#0f172a",
-                    mb: 1,
-                  }}
-                >
-                  Dashboard
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            alignItems={{ xs: "flex-start", md: "center" }}
+            justifyContent="space-between"
+            spacing={2}
+            sx={{ p: { xs: 2.5, md: 3.5 } }}
+          >
+            <Box>
+              <Typography sx={{ fontSize: { xs: "28px", md: "34px" }, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.03em", color: "#101418", mb: 0.75 }}>
+                This period
+              </Typography>
+              <Typography sx={{ color: "#4A5260", fontSize: 15, lineHeight: 1.6 }}>
+                {isPostpaid ? "Pay as you go" : <>Plan: <Box component="span" sx={{ color: "#101418", fontWeight: 600 }}>{currentPlanLabel}</Box></>}
+                {" · "}Usage, plan and engines for your organisation.
+              </Typography>
+            </Box>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
+              <Button
+                variant="outlined"
+                onClick={() => router.push("/pricing")}
+                sx={{ textTransform: "none", borderRadius: "4px", px: 2.2, py: 1, fontWeight: 500, borderColor: "#C7CCD5", color: "#101418" }}
+              >
+                View pricing
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => router.push("/billing")}
+                sx={{ textTransform: "none", borderRadius: "4px", px: 2.4, py: 1, fontWeight: 500, bgcolor: "#2346D9", boxShadow: "none", "&:hover": { bgcolor: "#1B38B4", boxShadow: "none" } }}
+              >
+                Billing
+              </Button>
+            </Stack>
+          </Stack>
+
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+              borderTop: "1px solid #E3E6EB",
+            }}
+          >
+            {dashboardStats.map((stat, i) => (
+              <Box
+                key={stat.label}
+                sx={{
+                  p: { xs: 2.25, md: 3 },
+                  borderLeft: { xs: "none", md: i === 0 ? "none" : "1px solid #E3E6EB" },
+                  borderTop: { xs: i === 0 ? "none" : "1px solid #E3E6EB", md: "none" },
+                }}
+              >
+                <Typography sx={{ fontSize: 13, color: "#4A5260", fontWeight: 500, mb: 1 }}>
+                  {stat.label}
                 </Typography>
-                <Typography
-                  sx={{
-                    maxWidth: "780px",
-                    color: "#475569",
-                    fontSize: { xs: "14px", md: "15px" },
-                    lineHeight: 1.7,
-                  }}
-                >
-                  Track usage, review billing state, and jump straight to the
-                  active engine without the content collapsing into one dense card.
+                <Typography className="spec-figure" sx={{ fontSize: { xs: 30, md: 36 }, fontWeight: 600, color: "#101418", lineHeight: 1 }}>
+                  {stat.value}
+                </Typography>
+                <Typography sx={{ fontSize: 13, color: "#6B7380", mt: 1 }}>
+                  {stat.hint}
                 </Typography>
               </Box>
-
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
-                <Button
-                  variant="outlined"
-                  onClick={() => router.push("/pricing")}
-                  sx={{
-                    textTransform: "none",
-                    borderRadius: "12px",
-                    px: 2.2,
-                    py: 1.05,
-                    fontWeight: 500,
-                  }}
-                >
-                  View pricing
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => router.push("/billing")}
-                  sx={{
-                    textTransform: "none",
-                    borderRadius: "12px",
-                    px: 2.4,
-                    py: 1.05,
-                    fontWeight: 500,
-                    bgcolor: "rgba(3, 105, 161, 1)",
-                    boxShadow: "0 10px 24px rgba(3, 105, 161, 0.22)",
-                    '&:hover': { bgcolor: "rgba(3, 105, 161, 0.92)" },
-                  }}
-                >
-                  Billing
-                </Button>
-              </Stack>
-            </Stack>
-
-            <Divider sx={{ borderColor: "rgba(3, 105, 161, 0.10)" }} />
-
-            <Grid container spacing={2}>
-              {dashboardStats.map((stat) => (
-                <Grid key={stat.label} size={{ xs: 12, md: 4 }}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      height: "100%",
-                      p: 2.25,
-                      borderRadius: "18px",
-                      bgcolor: "rgba(255,255,255,0.96)",
-                      border: "1px solid rgba(3, 105, 161, 0.12)",
-                      boxShadow: "0 10px 28px -20px rgba(15, 23, 42, 0.35)",
-                      position: "relative",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        inset: 0,
-                        background: `linear-gradient(135deg, ${stat.tone}1c, transparent 65%)`,
-                        pointerEvents: "none",
-                      }}
-                    />
-                    <Stack spacing={1} sx={{ position: "relative" }}>
-                      <Box
-                        sx={{
-                          width: 32,
-                          height: 32,
-                          borderRadius: "10px",
-                          bgcolor: `${stat.tone}14`,
-                          color: stat.tone,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {stat.icon}
-                      </Box>
-                      <Typography sx={{ fontSize: 12, color: "#64748b", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                        {stat.label}
-                      </Typography>
-                      <Typography sx={{ fontSize: { xs: 24, md: 28 }, fontWeight: 600, color: stat.tone, lineHeight: 1.05 }}>
-                        {stat.value}
-                      </Typography>
-                      <Typography sx={{ fontSize: 13, color: "#475569" }}>
-                        {stat.hint}
-                      </Typography>
-                    </Stack>
-                  </Paper>
-                </Grid>
-              ))}
-            </Grid>
-          </Stack>
+            ))}
+          </Box>
         </Paper>
 
         <Box sx={{ mb: 3 }}>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1.5 }}>
+          <Stack direction="row" alignItems="flex-end" justifyContent="space-between" sx={{ mb: 1.5 }}>
             <Box>
-              <Typography sx={{ fontSize: 14, fontWeight: 600, color: "#111827", letterSpacing: "-0.01em" }}>
+              <Typography sx={{ fontSize: 18, fontWeight: 600, color: "#101418", letterSpacing: "-0.01em" }}>
                 Engines
               </Typography>
-              <Typography sx={{ fontSize: 13, color: "#6b7280" }}>
-                Pick the engine you want to analyze or bill against.
+              <Typography sx={{ fontSize: 13, color: "#4A5260" }}>
+                Choose the engine to bill and report against, or open it to start a job.
               </Typography>
             </Box>
             <Button
               variant="outlined"
               onClick={() => router.push("/reports")}
-              sx={{
-                textTransform: "none",
-                borderRadius: "999px",
-                px: 2,
-                fontWeight: 500,
-              }}
+              sx={{ textTransform: "none", borderRadius: "4px", px: 2, fontWeight: 500, borderColor: "#C7CCD5", color: "#101418", whiteSpace: "nowrap", flexShrink: 0 }}
             >
-              Design Analytics
+              Design analytics
             </Button>
           </Stack>
 
@@ -370,114 +270,77 @@ export default function DashboardPage() {
                     sx={{
                       height: "100%",
                       p: 2.5,
-                      borderRadius: "22px",
-                      border: selected ? `1px solid ${engine.accent}44` : "1px solid rgba(3, 105, 161, 0.10)",
-                      bgcolor: selected ? "rgba(255,255,255,0.98)" : "rgba(255,255,255,0.94)",
-                      boxShadow: selected ? `0 24px 50px -28px ${engine.accent}80` : "0 14px 34px -28px rgba(15, 23, 42, 0.24)",
+                      borderRadius: "6px",
+                      border: selected ? `1px solid ${engine.accent}` : "1px solid #E3E6EB",
+                      bgcolor: "#ffffff",
+                      boxShadow: ply,
                       cursor: "pointer",
-                      position: "relative",
-                      overflow: "hidden",
-                      transition: "all 0.22s ease",
-                      transform: selected ? "translateY(-2px)" : "translateY(0)",
-                      "&:hover": {
-                        transform: "translateY(-3px)",
-                        boxShadow: `0 28px 56px -30px ${engine.accent}80`,
-                      },
+                      transition: "border-color 0.18s ease",
+                      "&:hover": { borderColor: selected ? engine.accent : "#C7CCD5" },
                     }}
                   >
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        inset: 0,
-                        background: `radial-gradient(circle at top right, ${engine.accent}16, transparent 55%)`,
-                        pointerEvents: "none",
-                      }}
-                    />
-                    <Stack spacing={1.8} sx={{ position: "relative" }}>
-                      <Stack direction="row" alignItems="flex-start" justifyContent="space-between" spacing={2}>
-                        <Stack direction="row" spacing={1.5} alignItems="flex-start">
+                    <Stack spacing={1.8}>
+                      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+                        <Stack direction="row" spacing={1.5} alignItems="center">
                           <Box
                             sx={{
                               width: 40,
                               height: 40,
-                              borderRadius: "12px",
+                              borderRadius: "4px",
                               flexShrink: 0,
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
                               color: "#fff",
-                              background: `linear-gradient(135deg, ${engine.accent}, ${engine.accent}cc)`,
-                              boxShadow: `0 6px 16px -6px ${engine.accent}80`,
+                              background: engine.accent,
                             }}
                           >
                             {engine.icon}
                           </Box>
-                          <Box>
-                            <Typography sx={{ fontSize: 12, fontWeight: 500, color: engine.accent, textTransform: "uppercase", letterSpacing: "0.08em", mb: 0.75 }}>
-                              {selected ? "Active engine" : "Available engine"}
-                            </Typography>
-                            <Typography sx={{ fontSize: 20, fontWeight: 600, color: "#111827", letterSpacing: "-0.03em" }}>
-                              {engine.title}
-                            </Typography>
-                          </Box>
+                          <Typography sx={{ fontSize: 20, fontWeight: 600, color: "#101418", letterSpacing: "-0.02em" }}>
+                            {engine.title}
+                          </Typography>
                         </Stack>
-                        {selected && (
-                          <Chip
-                            label="Selected"
-                            size="small"
-                            sx={{ bgcolor: `${engine.accent}14`, color: engine.accent, fontWeight: 600 }}
-                          />
-                        )}
+                        {/* Selection is a mark in a fixed cell, never colour alone */}
+                        <Stack direction="row" alignItems="center" spacing={0.75} sx={{ fontSize: 12, fontWeight: 600, color: selected ? engine.accent : "#6B7380" }}>
+                          <Box sx={{ width: 10, height: 10, borderRadius: "50%", border: `2px solid ${selected ? engine.accent : "#C7CCD5"}`, bgcolor: selected ? engine.accent : "transparent" }} />
+                          <span>{selected ? "Active" : "Available"}</span>
+                        </Stack>
                       </Stack>
 
-                      <Typography sx={{ fontSize: 14, color: "#475569", lineHeight: 1.7, maxWidth: 560 }}>
+                      <Typography sx={{ fontSize: 14, color: "#4A5260", lineHeight: 1.65, maxWidth: 560 }}>
                         {engine.description}
                       </Typography>
 
                       <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
                         {engine.chips.map((chip) => (
-                          <Chip
+                          <Box
                             key={chip}
-                            label={chip}
-                            size="small"
-                            sx={{
-                              bgcolor: selected ? `${engine.accent}10` : "#f8fafc",
-                              color: selected ? engine.accent : "#475569",
-                              fontWeight: 500,
-                              fontSize: 11,
-                            }}
-                          />
+                            sx={{ fontSize: 12, fontWeight: 500, color: "#4A5260", border: "1px solid #E3E6EB", borderRadius: "3px", px: 1, py: 0.4, bgcolor: "#F6F7F9" }}
+                          >
+                            {chip}
+                          </Box>
                         ))}
                       </Stack>
 
-                      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+                      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2} sx={{ pt: 1.5, borderTop: "1px solid #EEF0F3" }}>
                         <Box>
-                          <Typography sx={{ fontSize: 12, color: "#6b7280" }}>Plan</Typography>
-                          <Typography sx={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>{currentPlanLabel}</Typography>
+                          <Typography sx={{ fontSize: 12, color: "#6B7380" }}>Plan</Typography>
+                          <Typography sx={{ fontSize: 14, fontWeight: 600, color: "#101418" }}>{isPostpaid ? "Pay as you go" : currentPlanLabel}</Typography>
                         </Box>
                         <Stack direction="row" spacing={1}>
-                          <Button
-                            variant={selected ? "contained" : "outlined"}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              setSelectedEngine(engine.key);
-                            }}
-                            sx={{
-                              textTransform: "none",
-                              borderRadius: "999px",
-                              px: 2.2,
-                              fontWeight: 600,
-                              bgcolor: selected ? engine.accent : "transparent",
-                              borderColor: `${engine.accent}33`,
-                              color: selected ? "white" : engine.accent,
-                              "&:hover": {
-                                bgcolor: selected ? engine.accent : `${engine.accent}10`,
-                                borderColor: `${engine.accent}55`,
-                              },
-                            }}
-                          >
-                            {selected ? "Selected" : "Select engine"}
-                          </Button>
+                          {!selected && (
+                            <Button
+                              variant="outlined"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                setSelectedEngine(engine.key);
+                              }}
+                              sx={{ textTransform: "none", borderRadius: "4px", px: 2, fontWeight: 600, borderColor: "#C7CCD5", color: "#101418" }}
+                            >
+                              Make active
+                            </Button>
+                          )}
                           <Button
                             variant="contained"
                             onClick={(event) => {
@@ -486,13 +349,13 @@ export default function DashboardPage() {
                             }}
                             sx={{
                               textTransform: "none",
-                              borderRadius: "999px",
+                              borderRadius: "4px",
                               px: 2.2,
                               fontWeight: 600,
                               bgcolor: engine.accent,
                               color: "white",
-                              boxShadow: `0 8px 18px -8px ${engine.accent}99`,
-                              "&:hover": { bgcolor: engine.accent, opacity: 0.92 },
+                              boxShadow: "none",
+                              "&:hover": { bgcolor: engine.key === "creation" ? "#000000" : "#1B38B4", boxShadow: "none" },
                             }}
                           >
                             Open engine
@@ -511,15 +374,15 @@ export default function DashboardPage() {
           <Box
             sx={{
               p: { xs: 2, md: 3 },
-              borderRadius: "24px",
-              border: "1px solid rgba(3, 105, 161, 0.10)",
-              bgcolor: "rgba(255, 255, 255, 0.92)",
-              boxShadow: "0 18px 40px -30px rgba(15, 23, 42, 0.35)",
+              borderRadius: "6px",
+              border: "1px solid #E3E6EB",
+              bgcolor: "#ffffff",
+              boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
             }}
           >
             <Stack spacing={2.5}>
               <Box>
-                <Typography sx={{ fontSize: "18px", fontWeight: 600, color: "#111827", mb: 1 }}>
+                <Typography sx={{ fontSize: "18px", fontWeight: 600, color: "#101418", mb: 1 }}>
                   Pay-as-you-go Dashboard
                 </Typography>
                 <Typography sx={{ color: "#6b7280", fontSize: "14px" }}>
@@ -530,9 +393,9 @@ export default function DashboardPage() {
               <Box
                 sx={{
                   p: 2.5,
-                  borderRadius: '16px',
-                  background: 'linear-gradient(135deg, rgba(7,89,133,0.08), rgba(3,105,161,0.03))',
-                  border: '1px solid rgba(3, 105, 161, 0.14)',
+                  borderRadius: '6px',
+                  background: '#F6F7F9',
+                  border: '1px solid #E3E6EB',
                   display: 'flex',
                   alignItems: 'center',
                   gap: 2,
@@ -540,17 +403,17 @@ export default function DashboardPage() {
               >
                 <Box
                   sx={{
-                    width: 44, height: 44, borderRadius: '12px', flexShrink: 0,
+                    width: 44, height: 44, borderRadius: '6px', flexShrink: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: 'linear-gradient(135deg, #075985, #0369A1)', color: '#fff',
-                    boxShadow: '0 6px 16px -6px rgba(3, 105, 161, 0.5)',
+                    background: '#2346D9', color: '#fff',
+                    boxShadow: '0 1px 2px rgba(16, 20, 24, 0.06)',
                   }}
                 >
                   <TrendingUpIcon sx={{ fontSize: 22 }} />
                 </Box>
                 <Box>
                   <Typography sx={{ fontSize: '12px', color: '#6b7280', mb: 0.25 }}>Total Credits Used</Typography>
-                  <Typography sx={{ fontSize: { xs: '28px', md: '34px' }, fontWeight: 600, color: '#111827', lineHeight: 1 }}>
+                  <Typography className="spec-figure" sx={{ fontSize: { xs: '30px', md: '36px' }, fontWeight: 600, color: '#101418', lineHeight: 1 }}>
                     {totalUsage.toLocaleString()}
                   </Typography>
                 </Box>
@@ -558,14 +421,13 @@ export default function DashboardPage() {
 
               <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: availableEngines.length === 1 ? '1fr' : '1fr 1fr' }, gap: 1.5 }}>
               {perEngineUsage.map((item) => {
-                const engineAccent = item.engine === 'creation' ? '#0EA5E9' : '#0369A1';
+                const engineAccent = item.engine === 'creation' ? '#101418' : '#2346D9';
                 return (
-                  <Box key={item.engine} sx={{ p: 2, borderRadius: '12px', border: '1px solid rgba(3, 105, 161, 0.10)', bgcolor: '#fff', position: 'relative', overflow: 'hidden' }}>
-                    <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${engineAccent}10, transparent 65%)`, pointerEvents: 'none' }} />
-                    <Typography sx={{ fontSize: '12px', color: '#6b7280', mb: 0.5, position: 'relative' }}>
+                  <Box key={item.engine} sx={{ p: 2, borderRadius: '6px', border: '1px solid #E3E6EB', bgcolor: '#fff' }}>
+                    <Typography sx={{ fontSize: '12px', color: '#6b7280', mb: 0.5 }}>
                       {item.engine === 'creation' ? 'Creation' : 'Transformation'} Engine
                     </Typography>
-                    <Typography sx={{ fontSize: '20px', fontWeight: 500, color: engineAccent, position: 'relative' }}>
+                    <Typography className="spec-figure" sx={{ fontSize: '22px', fontWeight: 600, color: engineAccent }}>
                       {item.used.toLocaleString()} credits
                     </Typography>
                   </Box>
@@ -577,40 +439,66 @@ export default function DashboardPage() {
             </Stack>
           </Box>
         ) : (
-          <Grid container spacing={3}>
+          <Grid container spacing={3} alignItems="flex-start">
             <Grid size={{ xs: 12, lg: 8 }}>
-              <BillingOverview
-                user={user}
-                selectedEngine={selectedEngine}
-                isPendingCancellation={isPendingCancellation}
-                processingItem={processingItem}
-                onManage={handleManageSubscription}
-                onCancel={() => setCancelModalOpen(true)}
-              />
+              {/* Plan as one ruled row; full detail lives on the Billing page */}
+              <Paper
+                elevation={0}
+                sx={{ p: 3, borderRadius: "6px", border: "1px solid #E3E6EB", bgcolor: "#ffffff", boxShadow: ply }}
+              >
+                <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} justifyContent="space-between" spacing={2}>
+                  <Box>
+                    <Typography sx={{ fontSize: 13, color: "#4A5260", fontWeight: 500 }}>
+                      {selectedEngineLabel} plan
+                    </Typography>
+                    <Typography sx={{ fontSize: 22, fontWeight: 600, color: "#101418", letterSpacing: "-0.01em" }}>
+                      {currentPlanLabel}
+                    </Typography>
+                    {isPendingCancellation && (
+                      <Typography sx={{ fontSize: 13, color: "#B91C1C", mt: 0.5 }}>
+                        Cancels at the end of this period. You can resume it from Billing.
+                      </Typography>
+                    )}
+                  </Box>
+                  <Stack direction="row" spacing={1}>
+                    <Button
+                      variant="outlined"
+                      onClick={handleManageSubscription}
+                      disabled={processingItem === "portal"}
+                      sx={{ textTransform: "none", borderRadius: "4px", fontWeight: 500, borderColor: "#C7CCD5", color: "#101418", whiteSpace: "nowrap" }}
+                    >
+                      {processingItem === "portal" ? "Opening..." : "Manage subscription"}
+                    </Button>
+                    <Button
+                      variant="text"
+                      onClick={() => router.push("/billing")}
+                      sx={{ textTransform: "none", borderRadius: "4px", fontWeight: 500, color: "#2346D9", whiteSpace: "nowrap" }}
+                    >
+                      Plan details
+                    </Button>
+                  </Stack>
+                </Stack>
+              </Paper>
             </Grid>
             <Grid size={{ xs: 12, lg: 4 }}>
               <Paper
                 elevation={0}
                 sx={{
                   p: 3,
-                  borderRadius: "24px",
-                  border: "1px solid rgba(3, 105, 161, 0.10)",
-                  bgcolor: "rgba(255, 255, 255, 0.92)",
-                  boxShadow: "0 18px 40px -30px rgba(15, 23, 42, 0.35)",
-                  position: "sticky",
-                  top: 88,
+                  borderRadius: "6px",
+                  border: "1px solid #E3E6EB",
+                  bgcolor: "#ffffff",
+                  boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
+
                 }}
               >
                 <Stack spacing={2}>
                   <Box>
-                    <Typography sx={{ fontSize: 12, fontWeight: 500, color: "#0369A1", textTransform: "uppercase", letterSpacing: "0.08em", mb: 1 }}>
-                      Next actions
+                    <Typography sx={{ fontSize: 18, fontWeight: 600, color: "#101418", mb: 1 }}>
+                      Shortcuts
                     </Typography>
-                    <Typography sx={{ fontSize: 20, fontWeight: 600, color: "#111827", mb: 1 }}>
-                      Keep the dashboard readable
-                    </Typography>
-                    <Typography sx={{ color: "#6b7280", fontSize: 14, lineHeight: 1.7 }}>
-                      The page now uses a proper split layout, so billing, usage, and account actions no longer sit on top of each other.
+                    <Typography sx={{ color: "#4A5260", fontSize: 14, lineHeight: 1.6 }}>
+                      Compare plans before your next campaign, or reopen past outputs and their compliance reports.
                     </Typography>
                   </Box>
 
@@ -620,11 +508,12 @@ export default function DashboardPage() {
                       onClick={() => router.push("/pricing")}
                       sx={{
                         textTransform: "none",
-                        borderRadius: "12px",
+                        borderRadius: "4px",
                         py: 1.1,
                         fontWeight: 500,
-                        bgcolor: "rgba(3, 105, 161, 1)",
-                        '&:hover': { bgcolor: "rgba(3, 105, 161, 0.92)" },
+                        bgcolor: "#2346D9",
+                        boxShadow: "none",
+                        '&:hover': { bgcolor: "#1B38B4", boxShadow: "none" },
                       }}
                     >
                       Review plans
@@ -634,9 +523,11 @@ export default function DashboardPage() {
                       onClick={() => router.push("/archive")}
                       sx={{
                         textTransform: "none",
-                        borderRadius: "12px",
+                        borderRadius: "4px",
                         py: 1.1,
                         fontWeight: 500,
+                        borderColor: "#C7CCD5",
+                        color: "#101418",
                       }}
                     >
                       Open archive

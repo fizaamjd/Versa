@@ -29,7 +29,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     if (loading || isChecking) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-                <div className="w-8 h-8 rounded-full border-2 border-purple-200 border-t-purple-600 animate-spin"></div>
+                <div className="w-8 h-8 rounded-full border-2 border-brand-200 border-t-brand-600 animate-spin"></div>
             </div>
         );
     }

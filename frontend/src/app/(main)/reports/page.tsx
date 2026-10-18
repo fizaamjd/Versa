@@ -77,27 +77,27 @@ export default function ReportsPage() {
       <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-            <CircularProgress size={40} sx={{ color: "rgba(3, 105, 161, 1)" }} />
+            <CircularProgress size={40} sx={{ color: "rgba(35, 70, 217, 1)" }} />
           </Box>
         ) : reports.length === 0 ? (
           <Paper
             sx={{
               p: 6,
               textAlign: "center",
-              borderRadius: "16px",
+              borderRadius: "6px",
               border: "1px dashed #d1d5db",
               bgcolor: "transparent",
             }}
           >
             <Typography sx={{ color: "#6b7280", mb: 2, fontSize: "0.95rem" }}>
-              No compliance reports yet — they&apos;re generated automatically each time you process an image.
+              No compliance reports yet. One is created for every output you recompose.
             </Typography>
             <Button
               variant="contained"
-              onClick={() => router.push("/dashboard")}
-              sx={{ bgcolor: "rgba(3, 105, 161, 1)", borderRadius: "8px", textTransform: "none", px: 3 }}
+              onClick={() => router.push("/transformation-engine")}
+              sx={{ bgcolor: "rgba(35, 70, 217, 1)", borderRadius: "4px", textTransform: "none", px: 3, boxShadow: "none" }}
             >
-              Go to Dashboard
+              Open Transformation Engine
             </Button>
           </Paper>
         ) : (
@@ -112,8 +112,8 @@ export default function ReportsPage() {
                 }}
               >
                 {[
-                  { label: "Total Reports", value: summary.total, color: "#111827" },
-                  { label: "Avg Score", value: summary.avg_score ?? "—", color: "rgba(3, 105, 161, 1)" },
+                  { label: "Total Reports", value: summary.total, color: "#101418" },
+                  { label: "Avg Score", value: summary.avg_score ?? "—", color: "rgba(35, 70, 217, 1)" },
                   { label: "Pass", value: summary.pass_count, color: "#059669" },
                   { label: "Warn", value: summary.warn_count, color: "#d97706" },
                   { label: "Fail", value: summary.fail_count, color: "#dc2626" },
@@ -121,7 +121,7 @@ export default function ReportsPage() {
                   <Paper
                     key={stat.label}
                     elevation={0}
-                    sx={{ p: 1.75, borderRadius: "12px", border: "1px solid #e5e7eb", textAlign: "center" }}
+                    sx={{ p: 1.75, borderRadius: "6px", border: "1px solid #e5e7eb", textAlign: "center" }}
                   >
                     <Typography sx={{ fontSize: "22px", fontWeight: 700, color: stat.color, lineHeight: 1.2 }}>
                       {stat.value}
@@ -143,12 +143,12 @@ export default function ReportsPage() {
                     <Card
                       onClick={() => openReport(report)}
                       sx={{
-                        borderRadius: "12px",
+                        borderRadius: "6px",
                         overflow: "hidden",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                        boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                         cursor: "pointer",
                         transition: "transform 0.2s",
-                        "&:hover": { transform: "translateY(-2px)", boxShadow: "0 4px 12px rgba(0,0,0,0.12)" },
+                        "&:hover": { transform: "translateY(0)", boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)" },
                         height: "100%",
                         display: "flex",
                         flexDirection: "column",
@@ -194,7 +194,7 @@ export default function ReportsPage() {
                             sx={{ bgcolor: "#f3f4f6", color: "#4b5563", fontSize: "9px", fontWeight: 600, height: 18 }}
                           />
                           {report.compliance && (
-                            <Typography sx={{ fontSize: "13px", fontWeight: 700, color: "#111827" }}>
+                            <Typography sx={{ fontSize: "13px", fontWeight: 700, color: "#101418" }}>
                               {report.compliance.overall_score}
                               <Typography component="span" sx={{ fontSize: "10px", color: "#9ca3af" }}>
                                 /100

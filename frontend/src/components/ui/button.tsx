@@ -10,7 +10,7 @@ const styles = {
     // Sizing
     "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm sm:leading-tight",
     // Focus
-    "focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",
+    "focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-brand-500",
     // Disabled
     "data-disabled:opacity-50",
     // Icon
@@ -143,15 +143,15 @@ const styles = {
       "text-white",
       "before:bg-primary",
       "dark:bg-primary",
-      "border-purple-600/90",
+      "border-brand-600/90",
       "after:data-active:bg-white/10 after:data-hover:bg-white/10",
-      "*[data-slot=icon]:text-purple-300 *[data-slot=icon]:data-active:text-purple-200 *[data-slot=icon]:data-hover:text-purple-200",
+      "*[data-slot=icon]:text-brand-300 *[data-slot=icon]:data-active:text-brand-200 *[data-slot=icon]:data-hover:text-brand-200",
       "data-disabled:before:bg-primary data-disabled:dark:bg-primary data-disabled:border-primary data-disabled:text-white",
     ],
     purpleSubtle: [
-      "text-purple-300 [--btn-bg:var(--color-purple-25)] [--btn-border:transparent]",
-      "dark:text-purple-300 dark:[--btn-bg:var(--color-purple-25)] dark:[--btn-hover-overlay:var(--color-purple-50)]/50",
-      "[--btn-icon:var(--color-purple-300)] data-active:[--btn-icon:var(--color-purple-400)] data-hover:[--btn-icon:var(--color-purple-400)]",
+      "text-brand-300 [--btn-bg:var(--color-brand-25)] [--btn-border:transparent]",
+      "dark:text-brand-300 dark:[--btn-bg:var(--color-brand-25)] dark:[--btn-hover-overlay:var(--color-brand-50)]/50",
+      "[--btn-icon:var(--color-brand-300)] data-active:[--btn-icon:var(--color-brand-400)] data-hover:[--btn-icon:var(--color-brand-400)]",
     ],
     fuchsia: [
       "text-white [--btn-hover-overlay:var(--color-white)]/10 [--btn-bg:var(--color-fuchsia-500)] [--btn-border:var(--color-fuchsia-600)]/90",

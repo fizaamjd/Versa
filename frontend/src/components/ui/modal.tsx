@@ -60,7 +60,7 @@ export function Modal({
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="p-2 bg-purple-25 rounded-md transition-colors"
+            className="p-2 bg-brand-25 rounded-md transition-colors"
           >
             <X className="w-6 h-6 text-gray-900" />
           </button>

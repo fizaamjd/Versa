@@ -21,8 +21,8 @@ export function PlanCard({
   price,
   description,
   icon: Icon,
-  iconColor = "text-purple-200",
-  iconBg = "bg-purple-50",
+  iconColor = "text-brand-200",
+  iconBg = "bg-brand-50",
   isSelected,
   onSelect,
 }: PlanCardProps) {
@@ -33,14 +33,14 @@ export function PlanCard({
     >
       <div className="p-3 lg:p-4 text-center">
         {/* Icon with outer and inner circle backgrounds */}
-        <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-purple-25 flex items-center justify-center mx-auto mb-3 lg:mb-4">
+        <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-brand-25 flex items-center justify-center mx-auto mb-3 lg:mb-4">
           <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-primary-100 flex items-center justify-center">
             <Icon className={`w-5 h-5 lg:w-6 lg:h-6 ${iconColor}`} />
           </div>
         </div>
 
         {/* Plan Name */}
-        <h3 className="text-base lg:text-lg font-semibold text-purple-400 mb-1">
+        <h3 className="text-base lg:text-lg font-semibold text-brand-400 mb-1">
           {name}
         </h3>
 

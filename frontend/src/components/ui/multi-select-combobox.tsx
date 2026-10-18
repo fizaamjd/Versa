@@ -126,7 +126,7 @@ export function MultiSelectCombobox<T extends { id: string; name: string }>({
       </button>
 
       {isOpen && (
-        <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-xl bg-gray-50 py-1.5 shadow-lg ring-1 ring-zinc-950/10 focus:outline-none sm:text-sm">
+        <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-50 py-1.5 shadow-lg ring-1 ring-zinc-950/10 focus:outline-none sm:text-sm">
           {optionsTitle && (
             <div className="px-4 pt-3 pb-1">
               <div className="text-subhead text-gray-600">{optionsTitle}</div>

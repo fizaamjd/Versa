@@ -383,7 +383,7 @@ export function DataTable<T = any>({
                       size: "xs",
                       iconOnly: true,
                       className:
-                        "text-purple-600 hover:bg-purple-50 border border-gray-200",
+                        "text-brand-600 hover:bg-brand-50 border border-gray-200",
                     }
                     : {
                       label: "Add Filter",
@@ -392,7 +392,7 @@ export function DataTable<T = any>({
                       color: "white",
                       size: "xs",
                       className:
-                        "text-purple-600 hover:bg-purple-50 !border-gray-100 text-sm",
+                        "text-brand-600 hover:bg-brand-50 !border-gray-100 text-sm",
                     }
                   : undefined
               }
@@ -488,7 +488,7 @@ export function DataTable<T = any>({
           {isLoading && (
             <div className="absolute inset-0 flex items-center rounded-lg justify-center bg-white/50 backdrop-blur-sm z-20">
               <div className="flex flex-col items-center">
-                <div className="animate-spin rounded-full h-10 w-10 border-2 border-t-transparent border-purple-500 mb-3"></div>
+                <div className="animate-spin rounded-full h-10 w-10 border-2 border-t-transparent border-brand-500 mb-3"></div>
               </div>
             </div>
           )}

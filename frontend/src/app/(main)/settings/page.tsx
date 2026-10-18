@@ -4,7 +4,7 @@ import React from 'react';
 import { Box, Container, Typography, Paper, Stack, Avatar, Divider, Button, Chip, Alert } from '@mui/material';
 import { useUser } from '@/app/context/AuthContext';
 import { usePageHeader } from '@/app/context/PageHeaderContext';
-import { Person as PersonIcon, Email as EmailIcon, Badge as BadgeIcon, Security as SecurityIcon } from '@mui/icons-material';
+import { PersonOutline as PersonIcon, MailOutline as EmailIcon, BadgeOutlined as BadgeIcon, ShieldOutlined as SecurityIcon } from '@mui/icons-material';
 import { getPlanLabel } from '@/types/billing';
 import { cancelSubscription, redirectToPortal } from '@/lib/stripe';
 
@@ -73,11 +73,12 @@ export default function SettingsPage() {
 
                 <Stack spacing={4}>
                     {/* Profile Section */}
-                    <Paper elevation={0} sx={{ p: 4, borderRadius: '24px', border: '1px solid #e5e7eb' }}>
+                    <Paper elevation={0} sx={{ p: 4, borderRadius: '8px', border: '1px solid #e5e7eb' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 4 }}>
                             <Avatar
                                 src={user.avatar}
-                                sx={{ width: 80, height: 80, border: '4px solid rgba(3, 105, 161, 0.1)' }}
+                                variant="rounded"
+                                sx={{ width: 72, height: 72, borderRadius: '6px', bgcolor: '#101418', color: '#ffffff', fontSize: 28, fontWeight: 600 }}
                             >
                                 {user.fullName?.charAt(0)}
                             </Avatar>
@@ -115,14 +116,14 @@ export default function SettingsPage() {
 
                     {/* Subscription Section */}
                     {!isPostpaid && (
-                    <Paper elevation={0} sx={{ p: 4, borderRadius: '24px', border: '1px solid #e5e7eb' }}>
+                    <Paper elevation={0} sx={{ p: 4, borderRadius: '8px', border: '1px solid #e5e7eb' }}>
                         <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>Subscription & Usage</Typography>
 
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 3, bgcolor: '#f8fafc', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 3, bgcolor: '#f6f7f9', borderRadius: '6px', border: '1px solid #eef0f3' }}>
                             <Box>
-                                <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#475569', mb: 0.5 }}>Current Plan</Typography>
+                                <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#4a5260', mb: 0.5 }}>Current Plan</Typography>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                    <Typography variant="h5" sx={{ fontWeight: 800, color: 'rgba(3, 105, 161, 1)' }}>
+                                    <Typography variant="h5" sx={{ fontWeight: 800, color: 'rgba(35, 70, 217, 1)' }}>
                                         {getPlanLabel(user.plan)}
                                     </Typography>
                                     <Chip
@@ -130,7 +131,7 @@ export default function SettingsPage() {
                                         size="small"
                                         sx={{
                                             bgcolor: hasSubscription ? 'rgba(34, 197, 94, 0.1)' : 'rgba(148, 163, 184, 0.15)',
-                                            color: hasSubscription ? '#16a34a' : '#64748b',
+                                            color: hasSubscription ? '#16a34a' : '#6b7380',
                                             fontWeight: 600,
                                             fontSize: '11px'
                                         }}
@@ -142,11 +143,11 @@ export default function SettingsPage() {
                                     variant="outlined"
                                     href="/pricing"
                                     sx={{
-                                        borderRadius: '10px',
+                                        borderRadius: '4px',
                                         textTransform: 'none',
-                                        borderColor: '#e2e8f0',
-                                        color: '#475569',
-                                        '&:hover': { borderColor: 'rgba(3, 105, 161, 1)', bgcolor: 'rgba(3, 105, 161, 0.02)' }
+                                        borderColor: '#e3e6eb',
+                                        color: '#4a5260',
+                                        '&:hover': { borderColor: 'rgba(35, 70, 217, 1)', bgcolor: 'rgba(35, 70, 217, 0.02)' }
                                     }}
                                 >
                                     Change Plan
@@ -158,10 +159,10 @@ export default function SettingsPage() {
                                             onClick={handleOpenPortal}
                                             disabled={processing !== null}
                                             sx={{
-                                                borderRadius: '10px',
+                                                borderRadius: '4px',
                                                 textTransform: 'none',
-                                                borderColor: '#e2e8f0',
-                                                color: '#475569',
+                                                borderColor: '#e3e6eb',
+                                                color: '#4a5260',
                                             }}
                                         >
                                             {processing === 'portal' ? 'Opening…' : 'Manage Billing'}
@@ -172,7 +173,7 @@ export default function SettingsPage() {
                                             onClick={handleCancelNow}
                                             disabled={processing !== null}
                                             sx={{
-                                                borderRadius: '10px',
+                                                borderRadius: '4px',
                                                 textTransform: 'none',
                                                 fontWeight: 800,
                                             }}
@@ -186,11 +187,11 @@ export default function SettingsPage() {
 
                         <Box sx={{ mt: 3, display: 'flex', gap: 4 }}>
                             <Box>
-                                <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>Available Credits</Typography>
+                                <Typography variant="caption" sx={{ color: '#6b7380', fontWeight: 600 }}>Available Credits</Typography>
                                 <Typography variant="h6" sx={{ fontWeight: 700 }}>{(user.maxUnits - user.units).toLocaleString()}</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>Total Capacity</Typography>
+                                <Typography variant="caption" sx={{ color: '#6b7380', fontWeight: 600 }}>Total Capacity</Typography>
                                 <Typography variant="h6" sx={{ fontWeight: 700 }}>{user.maxUnits.toLocaleString()}</Typography>
                             </Box>
                         </Box>
@@ -198,21 +199,21 @@ export default function SettingsPage() {
                     )}
 
                     {/* Security Section (Placeholder) */}
-                    <Paper elevation={0} sx={{ p: 4, borderRadius: '24px', border: '1px solid #e5e7eb' }}>
+                    <Paper elevation={0} sx={{ p: 4, borderRadius: '8px', border: '1px solid #e5e7eb' }}>
                         <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>Security</Typography>
                         <Button
                             startIcon={<SecurityIcon />}
                             variant="contained"
                             disabled
                             sx={{
-                                borderRadius: '12px',
+                                borderRadius: '6px',
                                 textTransform: 'none',
-                                bgcolor: '#f1f5f9',
-                                color: '#94a3b8',
+                                bgcolor: '#eef0f3',
+                                color: '#6b7380',
                                 boxShadow: 'none'
                             }}
                         >
-                            Password Reset (Disabled in Demo)
+                            Password reset is managed by your organisation admin
                         </Button>
                     </Paper>
                 </Stack>

@@ -116,7 +116,7 @@ export function Combobox<T>({
           // Anchor positioning
           "[--anchor-gap:--spacing(2)] [--anchor-padding:--spacing(4)] sm:data-[anchor~=start]:[--anchor-offset:-4px]",
           // Base styles,
-          "isolate min-w-[calc(var(--input-width)+8px)] scroll-py-1 rounded-xl p-1 select-none empty:invisible",
+          "isolate min-w-[calc(var(--input-width)+8px)] scroll-py-1 rounded-md p-1 select-none empty:invisible",
           // Invisible border that is only visible in `forced-colors` mode for accessibility purposes
           "outline outline-transparent focus:outline-hidden",
           // Handle scrolling when menu won't fit in viewport
@@ -148,7 +148,7 @@ export function ComboboxOption<T>({
   Headless.ComboboxOptionProps<"div", T>,
   "as" | "className"
 >) {
-  let sharedClasses = clsx(
+  const sharedClasses = clsx(
     // Base
     "flex min-w-0 items-center",
     // Icons
@@ -171,7 +171,7 @@ export function ComboboxOption<T>({
             // Hover/focus
             active && "bg-gray-50",
             // Selected
-            selected && "bg-purple-25 text-zinc-900",
+            selected && "bg-brand-25 text-zinc-900",
             // Forced colors mode
             "forced-color-adjust-none forced-colors:data-focus:bg-[Highlight] forced-colors:data-focus:text-[HighlightText]",
             // Disabled

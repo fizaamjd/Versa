@@ -82,7 +82,7 @@ const ResetPasswordForm: React.FC<FormProps> = ({
             component="label"
             htmlFor="newPassword"
             sx={{
-              fontFamily: "Raleway",
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: "20px",
@@ -115,7 +115,7 @@ const ResetPasswordForm: React.FC<FormProps> = ({
                       handleToggleNewPasswordVisibility();
                     }}
                     edge="end"
-                    sx={{ color: "#0369A1" }}
+                    sx={{ color: "#2346D9" }}
                   >
                     {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </IconButton>
@@ -131,7 +131,7 @@ const ResetPasswordForm: React.FC<FormProps> = ({
             component="label"
             htmlFor="confirmPassword"
             sx={{
-              fontFamily: "Raleway",
+              fontFamily: 'inherit',
               fontWeight: 500,
               fontSize: 14,
               lineHeight: "20px",
@@ -164,7 +164,7 @@ const ResetPasswordForm: React.FC<FormProps> = ({
                       handleToggleNewPasswordVisibility();
                     }}
                     edge="end"
-                    sx={{ color: "#0369A1" }}
+                    sx={{ color: "#2346D9" }}
                   >
                     {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </IconButton>
@@ -182,7 +182,7 @@ const ResetPasswordForm: React.FC<FormProps> = ({
           sx={{
             mt: 1,
             mb: 2,
-            backgroundColor: "#0369A1",
+            backgroundColor: "#2346D9",
             borderRadius: 2,
           }}
         >

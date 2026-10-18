@@ -109,7 +109,7 @@ export const Select = forwardRef<HTMLDivElement, CustomSelectProps>(
                     // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
                     "dark:before:hidden",
                     // Focus ring
-                    "after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-transparent after:ring-inset has-data-focus:after:ring-2 has-data-focus:after:ring-blue-500",
+                    "after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-transparent after:ring-inset has-data-focus:after:ring-2 has-data-focus:after:ring-brand-500",
                     // Disabled state
                     "has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none",
                   ])}
@@ -167,7 +167,7 @@ export const Select = forwardRef<HTMLDivElement, CustomSelectProps>(
                     // Anchor positioning (kept as CSS vars, no behavior props)
                     "[--anchor-gap:--spacing(1)] [--anchor-padding:--spacing(1)]",
                     // Base styles
-                    "isolate w-full min-w-[var(--button-width)] rounded-xl p-1",
+                    "isolate w-full min-w-[var(--button-width)] rounded-md p-1",
                     // Invisible border that is only visible in `forced-colors` mode for accessibility purposes
                     "outline outline-transparent focus:outline-hidden",
                     // Handle scrolling when menu won't fit in viewport
@@ -197,9 +197,9 @@ export const Select = forwardRef<HTMLDivElement, CustomSelectProps>(
                               "text-left text-sm font-normal text-gray-900",
                               "flex items-center gap-2",
                               // Active (focus) state
-                              active && "bg-purple-25",
+                              active && "bg-brand-25",
                               // Hover
-                              "hover:bg-purple-25",
+                              "hover:bg-brand-25",
                               // Selected state
                               value === option.value &&
                               "bg-gray-50 font-semibold",

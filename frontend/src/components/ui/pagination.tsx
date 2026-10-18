@@ -100,7 +100,7 @@ export function PaginationPage({
         "min-w-9 h-8 text-sm font-medium border transition-colors -ml-px first:ml-0",
         " rounded-none",
         current
-          ? "bg-purple-25 border-purple-200 text-purple-700 z-10 relative"
+          ? "bg-brand-25 border-brand-200 text-brand-700 z-10 relative"
           : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative"
       )}
     >

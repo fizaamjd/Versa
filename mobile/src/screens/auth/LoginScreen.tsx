@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
+  Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -13,6 +14,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAuth } from '../../context/AuthContext';
 import { extractErrorMessage } from '../../api/client';
 import { AuthStackParamList } from '../../navigation/types';
+import { colors, radius } from '../../theme';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 
@@ -44,11 +46,16 @@ export default function LoginScreen({ navigation }: Props) {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <Text style={styles.title}>GenFrame AI</Text>
+      <Image
+        source={require('../../../assets/brand-lockup.png')}
+        style={styles.logo}
+        accessibilityLabel="Versa"
+      />
       <Text style={styles.subtitle}>Sign in to continue</Text>
 
       <TextInput
         style={styles.input}
+        placeholderTextColor={colors.ink3}
         placeholder="Email"
         autoCapitalize="none"
         keyboardType="email-address"
@@ -57,6 +64,7 @@ export default function LoginScreen({ navigation }: Props) {
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor={colors.ink3}
         placeholder="Password"
         secureTextEntry
         value={password}
@@ -69,11 +77,11 @@ export default function LoginScreen({ navigation }: Props) {
         {submitting ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text style={styles.buttonText}>Sign In</Text>
+          <Text style={styles.buttonText}>Sign in</Text>
         )}
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+      <TouchableOpacity style={styles.forgot} onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.link}>Forgot password?</Text>
       </TouchableOpacity>
 
@@ -88,29 +96,30 @@ export default function LoginScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 24, backgroundColor: '#f9fafb' },
-  title: { fontSize: 28, fontWeight: '700', color: '#111827', textAlign: 'center' },
-  subtitle: { fontSize: 14, color: '#6b7280', textAlign: 'center', marginTop: 4, marginBottom: 32 },
+  container: { flex: 1, justifyContent: 'center', padding: 24, backgroundColor: colors.sheet },
+  logo: { width: 163, height: 43, alignSelf: 'center' },
+  subtitle: { fontSize: 14, color: colors.ink3, textAlign: 'center', marginTop: 12, marginBottom: 32 },
   input: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 10,
+    borderColor: colors.rule,
+    borderRadius: radius.control,
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 15,
     marginBottom: 12,
   },
   button: {
-    backgroundColor: 'rgba(3, 105, 161, 1)',
-    borderRadius: 10,
+    backgroundColor: colors.spec,
+    borderRadius: radius.control,
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 8,
   },
   buttonText: { color: '#fff', fontWeight: '600', fontSize: 15 },
-  error: { color: '#dc2626', fontSize: 13, marginBottom: 8 },
-  link: { color: 'rgba(3, 105, 161, 1)', fontWeight: '600', fontSize: 13 },
+  error: { color: colors.danger, fontSize: 13, marginBottom: 8 },
+  link: { color: colors.spec, fontWeight: '600', fontSize: 13 },
+  forgot: { alignSelf: 'center', marginTop: 16, paddingVertical: 6 },
   footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 24 },
-  footerText: { color: '#6b7280', fontSize: 13 },
+  footerText: { color: colors.ink3, fontSize: 13 },
 });

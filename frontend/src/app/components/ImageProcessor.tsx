@@ -18,7 +18,6 @@ import {
   FormControlLabel,
   Tooltip,
 } from "@mui/material";
-import UsageDisplay from "./dashboard/UsageDisplay";
 import ComplianceBadge from "./compliance/ComplianceBadge";
 import { useUser } from "../context/AuthContext";
 import { usePageHeader } from "../context/PageHeaderContext";
@@ -26,19 +25,19 @@ import { toast } from "react-toastify";
 import { extractApiErrorMessage } from "@/lib/errorMessage";
 import { decodeJwtToken } from "@/lib/jwtUtils";
 import {
-  AutoAwesome as AutoAwesomeIcon,
+  Tune as EnhanceIcon,
+  Engineering as EngineeringIcon,
   Download as DownloadIcon,
   Fullscreen as FullscreenIcon,
   Close as CloseIcon,
   Image as ImageIcon,
-  Speed as SpeedIcon,
-  Palette as PaletteIcon,
+  AspectRatio as SizeIcon,
+  FactCheck as CheckIcon,
   ExpandMore as ExpandMoreIcon,
   CheckCircle as CheckCircleIcon,
   CloudUpload as CloudUploadIcon,
   WarningAmberRounded as WarningAmberIcon,
-  PhotoLibrary as PhotoLibraryIcon,
-  AutoAwesomeMosaic as PipelineIcon,
+  ViewQuilt as PipelineIcon,
 } from "@mui/icons-material";
 
 interface ProcessedImage {
@@ -178,24 +177,67 @@ function parseRatioDims(ratio: string): [number, number] {
   return [1, 1];
 }
 
-function RatioGlyph({ ratio, color }: { ratio: string; color: string }) {
+function RatioGlyph({ ratio, color, selected = false }: { ratio: string; color: string; selected?: boolean }) {
   const [rw, rh] = parseRatioDims(ratio);
   const maxDim = 24;
   const minDim = 9;
   const w = rw >= rh ? maxDim : Math.max(minDim, Math.round(maxDim * (rw / rh)));
   const h = rh >= rw ? maxDim : Math.max(minDim, Math.round(maxDim * (rh / rw)));
   return (
-    <Box sx={{ width: 32, height: 32, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <Box sx={{ width: 32, height: 36, flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "3px" }}>
+      {/* width dimension: ticks and a line, spec-sheet style */}
+      <Box sx={{ width: w, height: 5, borderLeft: "1px solid #101418", borderRight: "1px solid #101418", position: "relative" }}>
+        <Box sx={{ position: "absolute", left: 0, right: 0, top: 2, height: "1px", bgcolor: "#101418" }} />
+      </Box>
       <Box
+        className={selected ? "spec-hatch" : undefined}
         sx={{
           width: w,
           height: h,
-          borderRadius: "3px",
-          border: `1.5px solid ${color}`,
-          bgcolor: `${color}1f`,
+          borderRadius: "1px",
+          border: `1px solid ${color}`,
+          bgcolor: selected ? undefined : `${color}14`,
           transition: "all 0.18s ease",
         }}
       />
+    </Box>
+  );
+}
+
+/* Label a preset as a real size when it has pixel dimensions, else as a ratio. */
+function specLabel(ratio: string): string {
+  const [w, h] = parseRatioDims(ratio);
+  return /x/i.test(ratio.replace(/^OOH_/, "")) ? `${w} × ${h}` : ratio;
+}
+
+/* One output frame drawn as a dimensioned drawing with a hatched safe margin. */
+function SpecFrame({ ratio, label, ghost = false }: { ratio: string; label: string; ghost?: boolean }) {
+  const [rw, rh] = parseRatioDims(ratio);
+  const k = Math.min(200 / rw, 150 / rh);
+  const w = Math.max(28, Math.round(rw * k));
+  const h = Math.max(18, Math.round(rh * k));
+  const ink = ghost ? "#C7CCD5" : "#101418";
+  return (
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0.75 }}>
+      <Box sx={{ width: w, height: 9, borderLeft: `1px solid ${ink}`, borderRight: `1px solid ${ink}`, position: "relative" }}>
+        <Box sx={{ position: "absolute", left: 0, right: 0, top: 4, height: "1px", bgcolor: ink }} />
+      </Box>
+      <Box
+        className={ghost ? undefined : "spec-hatch"}
+        sx={{
+          width: w,
+          height: h,
+          position: "relative",
+          borderRadius: "2px",
+          border: ghost ? "1px dashed #C7CCD5" : "1px solid #2346D9",
+          bgcolor: ghost ? "transparent" : undefined,
+        }}
+      >
+        {!ghost && <Box sx={{ position: "absolute", inset: "12%", bgcolor: "#E8EDFC" }} />}
+      </Box>
+      <Typography className="spec-figure" sx={{ fontSize: 12, fontWeight: 600, color: ghost ? "#6B7380" : "#101418" }}>
+        {label}
+      </Typography>
     </Box>
   );
 }
@@ -743,20 +785,6 @@ const ImageProcessor = (props: { engineType?: string }) => {
             zIndex: 0,
           }}
         >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: '0.08',
-            }}
-          >
-            <source src="/bg-video-new.mp4" type="video/mp4" />
-          </video>
         </Box>
         <Container
           maxWidth={false}
@@ -782,7 +810,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 sx={{
                   fontSize: { xs: '32px', md: '42px', lg: '48px' },
                   fontWeight: 500,
-                  color: '#111827',
+                  color: '#101418',
                   mb: 2.5,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1,
@@ -792,7 +820,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 <Box
                   component="span"
                   sx={{
-                    color: 'rgba(3, 105, 161, 1)',
+                    color: 'rgba(35, 70, 217, 1)',
                   }}
                 >
                   {engineType === 'transformation' ? 'Transformation Engine' : 'Creation Engine'}
@@ -820,7 +848,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 gridTemplateColumns: {
                   xs: "1fr",
                   sm: "repeat(2, 1fr)",
-                  lg: "repeat(4, 1fr)",
+                  lg: "repeat(3, 1fr)",
                 },
                 gap: 2,
                 width: "100%",
@@ -831,21 +859,25 @@ const ImageProcessor = (props: { engineType?: string }) => {
               {[
                 {
                   icon: <ImageIcon sx={{ fontSize: 20 }} />,
-                  label: "Presets",
-                  value: "5 aspect ratios",
-                  sub: "Social ready",
+                  label: "Sizes",
+                  value: canViewCustomRatios
+                    ? `${STANDARD_PRESETS.length + OOH_MEDIA_PRESETS.length} sizes`
+                    : `${STANDARD_PRESETS.length} standard ratios`,
+                  sub: canViewCustomRatios
+                    ? `${STANDARD_PRESETS.length} standard, ${OOH_MEDIA_PRESETS.length} OOH`
+                    : "OOH sizes where your organisation has them enabled",
                 },
                 {
-                  icon: <SpeedIcon sx={{ fontSize: 20 }} />,
-                  label: "Speed",
-                  value: "Instant Process",
-                  sub: "No waiting",
+                  icon: <SizeIcon sx={{ fontSize: 20 }} />,
+                  label: "Output",
+                  value: "Exact pixels",
+                  sub: "Every size to spec",
                 },
                 {
-                  icon: <PaletteIcon sx={{ fontSize: 20 }} />,
-                  label: "Enhance",
-                  value: "AI Powered",
-                  sub: "Smart Upscaling",
+                  icon: <CheckIcon sx={{ fontSize: 20 }} />,
+                  label: "Check",
+                  value: "Compliance report",
+                  sub: "On every output",
                 },
               ].map((item, idx) => (
                 <Box
@@ -856,19 +888,18 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     gap: 1.5,
                     px: 2,
                     py: 1.5,
-                    bgcolor: "rgba(255, 255, 255, 0.72)",
-                    backdropFilter: "blur(16px)",
-                    border: "1px solid rgba(3, 105, 161, 0.14)",
-                    borderRadius: "14px",
-                    boxShadow: "0 8px 24px -12px rgba(3, 105, 161, 0.18)",
+                    bgcolor: "#ffffff",
+                    border: "1px solid #E3E6EB",
+                    borderRadius: "6px",
+                    boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     transition: "all 0.2s ease-in-out",
                     cursor: "default",
                     height: "100%",
                     "&:hover": {
-                      transform: "translateY(-2px)",
-                      bgcolor: "rgba(255, 255, 255, 0.92)",
-                      borderColor: "rgba(3, 105, 161, 0.35)",
-                      boxShadow: "0 14px 30px -14px rgba(3, 105, 161, 0.28)",
+                      transform: "translateY(0)",
+                      bgcolor: "#ffffff",
+                      borderColor: "#C7CCD5",
+                      boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     },
                   }}
                 >
@@ -876,14 +907,14 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     sx={{
                       width: 40,
                       height: 40,
-                      borderRadius: "10px",
-                      background: "linear-gradient(135deg, #075985, #0369A1)",
+                      borderRadius: "4px",
+                      background: engineType === "creation" ? "#101418" : "#2346D9",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       color: "#fff",
                       flexShrink: 0,
-                      boxShadow: "0 4px 10px -3px rgba(3, 105, 161, 0.45)",
+                      boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     }}
                   >
                     {item.icon}
@@ -891,11 +922,9 @@ const ImageProcessor = (props: { engineType?: string }) => {
                   <Box>
                     <Typography
                       sx={{
-                        fontSize: "9px",
+                        fontSize: "11px",
                         fontWeight: 500,
-                        color: "rgba(3, 105, 161, 0.6)",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
+                        color: "#6B7380",
                         mb: 0.2,
                       }}
                     >
@@ -905,7 +934,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                       sx={{
                         fontSize: "13px",
                         fontWeight: 600,
-                        color: "#111827",
+                        color: "#101418",
                         lineHeight: 1.2,
                       }}
                     >
@@ -924,10 +953,6 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 </Box>
               ))}
 
-              {/* Usage Display as the 4th Grid Item */}
-              <Box sx={{ height: "100%" }}>
-                <UsageDisplay horizontal engineType={engineType as any} />
-              </Box>
             </Box>
           </Box>
         </Container>
@@ -981,25 +1006,25 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     sx={{
                       fontSize: "15px",
                       fontWeight: 600,
-                      color: "#111827",
+                      color: "#101418",
                       mb: 1.5,
                     }}
                   >
-                    Neural Prompt
+                    Edit instructions
                   </Typography>
                   <Paper
                     elevation={0}
                     onClick={() => promptInputRef.current?.focus()}
                     sx={{
-                      border: "1px solid rgba(3, 105, 161, 0.08)",
-                      borderRadius: "16px",
+                      border: "1px solid rgba(35, 70, 217, 0.08)",
+                      borderRadius: "6px",
                       overflow: "hidden",
                       display: "flex",
                       flexDirection: "column",
                       height: "500px",
                       cursor: "text",
                       bgcolor: "white",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.02)",
+                      boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     }}
                   >
                     <Box
@@ -1028,7 +1053,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               lineHeight: 1.5,
                             }}
                           >
-                            Describe your enhancement...
+                            Describe the change you want...
                           </Typography>
                           <Typography
                             sx={{
@@ -1037,8 +1062,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               lineHeight: 1.5,
                             }}
                           >
-                            e.g. &apos;Make this look like a vintage
-                            photograph&apos;
+                            e.g. &apos;Keep the logo top-right and extend the sky&apos;
                           </Typography>
                         </Box>
                       )}
@@ -1089,10 +1113,10 @@ const ImageProcessor = (props: { engineType?: string }) => {
                           fontWeight: 500,
                         }}
                       >
-                        Optional AI enhancement
+                        Optional: describe changes to apply
                       </Typography>
-                      <AutoAwesomeIcon
-                        sx={{ fontSize: 18, color: "rgba(3, 105, 161, 0.5)" }}
+                      <EnhanceIcon
+                        sx={{ fontSize: 18, color: "rgba(35, 70, 217, 0.5)" }}
                       />
                     </Box>
                   </Paper>
@@ -1111,27 +1135,16 @@ const ImageProcessor = (props: { engineType?: string }) => {
                   sx={{
                     fontSize: "15px",
                     fontWeight: 600,
-                    color: "#111827",
+                    color: "#101418",
                     mb: 1.5,
                   }}
                 >
-                  {engineType === "creation"
-                    ? "Generative Options"
-                    : "Scaling Options"}
+                  Source and sizes
                 </Typography>
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    height: "500px",
-                    overflowY: "auto",
-                    "&::-webkit-scrollbar": {
-                      width: "4px",
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      bgcolor: "#e5e7eb",
-                      borderRadius: "4px",
-                    },
                   }}
                 >
                   <Stack spacing={3}>
@@ -1140,17 +1153,17 @@ const ImageProcessor = (props: { engineType?: string }) => {
                       <Paper
                         elevation={0}
                         sx={{
-                          border: "1px solid rgba(3, 105, 161, 0.08)",
-                          borderRadius: "12px",
+                          border: "1px solid rgba(35, 70, 217, 0.08)",
+                          borderRadius: "6px",
                           p: 2,
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+                          boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                         }}
                       >
                         <Typography
                           sx={{
                             fontSize: "14px",
                             fontWeight: 600,
-                            color: "#111827",
+                            color: "#101418",
                             mb: 2,
                           }}
                         >
@@ -1169,13 +1182,13 @@ const ImageProcessor = (props: { engineType?: string }) => {
                             },
                             "&::-webkit-scrollbar-track": {
                               background: "rgba(0,0,0,0.02)",
-                              borderRadius: "10px",
+                              borderRadius: "4px",
                             },
                             "&::-webkit-scrollbar-thumb": {
-                              background: "rgba(3, 105, 161, 0.15)",
-                              borderRadius: "10px",
+                              background: "rgba(35, 70, 217, 0.15)",
+                              borderRadius: "4px",
                               "&:hover": {
-                                background: "rgba(3, 105, 161, 0.3)",
+                                background: "rgba(35, 70, 217, 0.3)",
                               },
                             },
                           }}
@@ -1191,9 +1204,9 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                 sx={{
                                   border:
                                     previewUrl === img.url
-                                      ? "1.5px solid rgba(3, 105, 161, 1)"
+                                      ? "1.5px solid rgba(35, 70, 217, 1)"
                                       : "1px solid #e5e7eb",
-                                  borderRadius: "8px",
+                                  borderRadius: "4px",
                                   p: 1.5,
                                   cursor: "pointer",
                                   textAlign: "center",
@@ -1201,8 +1214,8 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                   position: "relative",
                                   "&:hover": {
                                     bgcolor: "#f9fafb",
-                                    borderColor: "rgba(3, 105, 161, 0.4)",
-                                    transform: "translateY(-2px)",
+                                    borderColor: "rgba(35, 70, 217, 0.4)",
+                                    transform: "translateY(0)",
                                   },
                                 }}
                               >
@@ -1270,11 +1283,11 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     <Paper
                       elevation={0}
                       sx={{
-                        border: "1px solid rgba(3, 105, 161, 0.08)",
+                        border: "1px solid rgba(35, 70, 217, 0.08)",
 
-                        borderRadius: "12px",
+                        borderRadius: "6px",
                         p: 2.5,
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+                        boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                       }}
                     >
                       {/* Upload Area */}
@@ -1295,8 +1308,8 @@ const ImageProcessor = (props: { engineType?: string }) => {
                         />
                         <Box
                           sx={{
-                            border: "2px dashed rgba(3, 105, 161, 0.25)",
-                            borderRadius: "14px",
+                            border: "2px dashed rgba(35, 70, 217, 0.25)",
+                            borderRadius: "6px",
                             py: 5,
                             textAlign: "center",
                             transition: "all 0.2s ease",
@@ -1305,8 +1318,8 @@ const ImageProcessor = (props: { engineType?: string }) => {
                             alignItems: "center",
                             gap: 1,
                             "&:hover": {
-                              borderColor: "rgba(3, 105, 161, 0.55)",
-                              bgcolor: "rgba(3, 105, 161, 0.04)",
+                              borderColor: "rgba(35, 70, 217, 0.55)",
+                              bgcolor: "rgba(35, 70, 217, 0.04)",
                             },
                           }}
                         >
@@ -1314,12 +1327,12 @@ const ImageProcessor = (props: { engineType?: string }) => {
                             sx={{
                               width: 44,
                               height: 44,
-                              borderRadius: "12px",
-                              background: "linear-gradient(135deg, rgba(7,89,133,0.10), rgba(3,105,161,0.06))",
+                              borderRadius: "6px",
+                              background: "#F4F6FE",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              color: "rgba(3, 105, 161, 1)",
+                              color: "rgba(35, 70, 217, 1)",
                               mb: 0.5,
                             }}
                           >
@@ -1347,7 +1360,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                         sx={{
                           fontSize: "14px",
                           fontWeight: 600,
-                          color: "#111827",
+                          color: "#101418",
                           mb: 1.5,
                         }}
                       >
@@ -1358,13 +1371,11 @@ const ImageProcessor = (props: { engineType?: string }) => {
                           sx={{
                             fontSize: "11px",
                             fontWeight: 600,
-                            color: "#9ca3af",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.05em",
+                            color: "#4A5260",
                             mb: 1,
                           }}
                         >
-                          Standard Ratios
+                          Standard ratios
                         </Typography>
                         <Box
                           sx={{
@@ -1391,30 +1402,30 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                     px: 1.5,
                                     py: 1.25,
                                     position: "relative",
-                                    border: `1.5px solid ${selected ? "rgba(3, 105, 161, 0.55)" : "#e5e7eb"}`,
-                                    bgcolor: selected ? "rgba(3, 105, 161, 0.06)" : "#fff",
-                                    borderRadius: "12px",
+                                    border: `1.5px solid ${selected ? "rgba(35, 70, 217, 0.55)" : "#e5e7eb"}`,
+                                    bgcolor: selected ? "rgba(35, 70, 217, 0.06)" : "#fff",
+                                    borderRadius: "6px",
                                     cursor: "pointer",
                                     transition: "all 0.18s ease",
                                     "&:hover": {
-                                      borderColor: "rgba(3, 105, 161, 0.4)",
-                                      bgcolor: selected ? "rgba(3, 105, 161, 0.08)" : "#f8fafc",
+                                      borderColor: "rgba(35, 70, 217, 0.4)",
+                                      bgcolor: selected ? "rgba(35, 70, 217, 0.08)" : "#f6f7f9",
                                     },
                                   }}
                                 >
-                                  <RatioGlyph ratio={preset.ratio} color="#0369A1" />
+                                  <RatioGlyph ratio={preset.ratio} color="#2346D9" selected={selected} />
                                   <Box sx={{ minWidth: 0 }}>
                                     <Typography
                                       sx={{
                                         fontSize: "13px",
-                                        color: selected ? "rgba(3, 105, 161, 1)" : "#374151",
+                                        color: selected ? "rgba(35, 70, 217, 1)" : "#374151",
                                         fontWeight: selected ? 600 : 500,
                                         lineHeight: 1.3,
                                       }}
                                     >
                                       {preset.label}
                                     </Typography>
-                                    <Typography sx={{ fontSize: "11px", color: "#9ca3af" }}>
+                                    <Typography className="spec-figure" sx={{ fontSize: "12px", color: "#6B7380" }}>
                                       {preset.ratio}
                                     </Typography>
                                   </Box>
@@ -1425,7 +1436,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                         top: 6,
                                         right: 6,
                                         fontSize: 15,
-                                        color: "rgba(3, 105, 161, 1)",
+                                        color: "rgba(35, 70, 217, 1)",
                                       }}
                                     />
                                   )}
@@ -1442,13 +1453,11 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               sx={{
                                 fontSize: "11px",
                                 fontWeight: 600,
-                                color: "#9ca3af",
-                                textTransform: "uppercase",
-                                letterSpacing: "0.05em",
+                                color: "#4A5260",
                                 mb: 1.5,
                               }}
                             >
-                              OOH Media
+                              OOH media sizes
                             </Typography>
 
                             <Box sx={{ mb: 0.75 }}>
@@ -1461,10 +1470,10 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                   px: 1.5,
                                   py: 0.9,
                                   bgcolor: OOH_MEDIA_PRESETS.some((p) => selectedPresets.includes(p.id))
-                                    ? "rgba(236,253,245,0.6)"
+                                    ? "#F4F6FE"
                                     : "#f3f4f6",
-                                  border: `1px solid ${OOH_MEDIA_PRESETS.some((p) => selectedPresets.includes(p.id)) ? "rgba(16,185,129,0.3)" : "#e5e7eb"}`,
-                                  borderRadius: "8px",
+                                  border: `1px solid ${OOH_MEDIA_PRESETS.some((p) => selectedPresets.includes(p.id)) ? "rgba(35,70,217,0.35)" : "#e5e7eb"}`,
+                                  borderRadius: "4px",
                                   cursor: "pointer",
                                   userSelect: "none",
                                   transition: "all 0.15s ease",
@@ -1473,7 +1482,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               >
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                   <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "#374151" }}>
-                                    OOH Media
+                                    OOH media sizes
                                   </Typography>
                                   <Typography sx={{ fontSize: "11px", color: "#9ca3af", fontWeight: 500 }}>
                                     {OOH_MEDIA_PRESETS.length}
@@ -1514,20 +1523,20 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                           px: 1.25,
                                           py: 1,
                                           position: "relative",
-                                          border: `1.5px solid ${selected ? "rgba(16,185,129,0.55)" : "#e5e7eb"}`,
-                                          bgcolor: selected ? "rgba(16,185,129,0.08)" : "#fff",
-                                          borderRadius: "10px",
+                                          border: `1.5px solid ${selected ? "#2346D9" : "#e5e7eb"}`,
+                                          bgcolor: selected ? "#F4F6FE" : "#fff",
+                                          borderRadius: "4px",
                                           cursor: "pointer",
                                           transition: "all 0.15s ease",
-                                          "&:hover": { borderColor: "rgba(16,185,129,0.4)", bgcolor: "#f0fdf6" },
+                                          "&:hover": { borderColor: "#4F6CE1", bgcolor: "#F4F6FE" },
                                         }}
                                       >
-                                        <RatioGlyph ratio={preset.ratio} color="#10b981" />
+                                        <RatioGlyph ratio={preset.ratio} color="#2346D9" selected={selected} />
                                         <Box sx={{ minWidth: 0 }}>
                                           <Typography
                                             sx={{
                                               fontSize: "12px",
-                                              color: selected ? "rgba(5,150,105,1)" : "#374151",
+                                              color: selected ? "#2346D9" : "#374151",
                                               fontWeight: selected ? 600 : 500,
                                               lineHeight: 1.3,
                                               whiteSpace: "nowrap",
@@ -1546,7 +1555,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                               top: 5,
                                               right: 5,
                                               fontSize: 13,
-                                              color: "rgba(16,185,129,1)",
+                                              color: "#2346D9",
                                             }}
                                           />
                                         )}
@@ -1579,14 +1588,14 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     gap: 1.25,
                     px: 2,
                     py: 1.25,
-                    borderRadius: "12px",
+                    borderRadius: "6px",
                     border: useJsonPipeline
-                      ? "1.5px solid rgba(3, 105, 161, 0.4)"
+                      ? "1.5px solid rgba(35, 70, 217, 0.4)"
                       : "1px solid #e5e7eb",
                     bgcolor: useJsonPipeline
-                      ? "rgba(3, 105, 161, 0.05)"
+                      ? "rgba(35, 70, 217, 0.05)"
                       : "#fff",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+                    boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                     transition: "all 0.2s ease",
                     cursor: "pointer",
                   }}
@@ -1596,13 +1605,13 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     sx={{
                       width: 32,
                       height: 32,
-                      borderRadius: "9px",
+                      borderRadius: "4px",
                       flexShrink: 0,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      bgcolor: useJsonPipeline ? "rgba(3, 105, 161, 0.10)" : "#f3f4f6",
-                      color: useJsonPipeline ? "rgba(3, 105, 161, 1)" : "#9ca3af",
+                      bgcolor: useJsonPipeline ? "rgba(35, 70, 217, 0.10)" : "#f3f4f6",
+                      color: useJsonPipeline ? "rgba(35, 70, 217, 1)" : "#9ca3af",
                       transition: "all 0.2s ease",
                     }}
                   >
@@ -1619,11 +1628,11 @@ const ImageProcessor = (props: { engineType?: string }) => {
                         size="small"
                         sx={{
                           "& .MuiSwitch-switchBase.Mui-checked": {
-                            color: "rgba(3, 105, 161, 1)",
+                            color: "rgba(35, 70, 217, 1)",
                           },
                           "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
                             {
-                              bgcolor: "rgba(3, 105, 161, 0.45)",
+                              bgcolor: "rgba(35, 70, 217, 0.45)",
                             },
                         }}
                       />
@@ -1634,16 +1643,16 @@ const ImageProcessor = (props: { engineType?: string }) => {
                           sx={{
                             fontSize: "13px",
                             fontWeight: 600,
-                            color: useJsonPipeline ? "rgba(3, 105, 161, 1)" : "#374151",
+                            color: useJsonPipeline ? "rgba(35, 70, 217, 1)" : "#374151",
                             lineHeight: 1.3,
                           }}
                         >
-                          JSON Pipeline
+                          Layout plan (JSON)
                         </Typography>
                         <Typography
                           sx={{ fontSize: "11px", color: "#9ca3af", lineHeight: 1.3 }}
                         >
-                          structured layout control
+                          Advanced: review the layer plan before recomposing
                         </Typography>
                       </Box>
                     }
@@ -1666,17 +1675,17 @@ const ImageProcessor = (props: { engineType?: string }) => {
               }
               sx={{
                 py: 1.2,
-                borderRadius: "8px",
+                borderRadius: "4px",
                 textTransform: "none",
                 fontSize: "14px",
                 fontWeight: 600,
-                bgcolor: "rgba(3, 105, 161, 1)",
-                boxShadow: "0 8px 16px -4px rgba(3, 105, 161, 0.25)",
+                bgcolor: "rgba(35, 70, 217, 1)",
+                boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  bgcolor: "rgba(3, 105, 161, 0.9)",
-                  transform: "translateY(-1px)",
-                  boxShadow: "0 12px 20px -5px rgba(3, 105, 161, 0.3)",
+                  bgcolor: "rgba(35, 70, 217, 0.9)",
+                  transform: "translateY(0)",
+                  boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                 },
                 "&.Mui-disabled": {
                   background: "#f3f4f6",
@@ -1691,7 +1700,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                   Processing {selectedPresets.length} items...
                 </Box>
               ) : (
-                "Process & Enhance Media"
+                engineType === "creation" ? "Generate selected sizes" : "Recompose to selected sizes"
               )}
             </Button>
           </Box>
@@ -1717,10 +1726,10 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 sx={{
                   fontSize: "15px",
                   fontWeight: 600,
-                  color: "#111827",
+                  color: "#101418",
                 }}
               >
-                Preview Pipeline
+                Outputs
               </Typography>
               {previewUrl && processedImages.length > 0 && (
                 <Button
@@ -1735,11 +1744,11 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     color: "#6b7280",
                     py: 0.5,
                     px: 1.5,
-                    borderRadius: "8px",
+                    borderRadius: "4px",
                     "&:hover": {
-                      borderColor: "rgba(3, 105, 161, 0.4)",
-                      bgcolor: "rgba(3, 105, 161, 0.04)",
-                      color: "rgba(3, 105, 161, 1)",
+                      borderColor: "rgba(35, 70, 217, 0.4)",
+                      bgcolor: "rgba(35, 70, 217, 0.04)",
+                      color: "rgba(35, 70, 217, 1)",
                     },
                   }}
                 >
@@ -1751,7 +1760,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
               elevation={0}
               sx={{
                 border: "1px solid #e5e7eb",
-                borderRadius: "20px",
+                borderRadius: "8px",
                 p: { xs: 2, md: 3 },
                 display: "flex",
                 flexDirection: "column",
@@ -1760,7 +1769,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 height: "590px",
                 overflowY: "auto",
                 position: "relative",
-                boxShadow: "0 4px 20px -5px rgba(0,0,0,0.05)",
+                boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                 "&::-webkit-scrollbar": {
                   width: "0px",
                   display: "none",
@@ -1789,11 +1798,11 @@ const ImageProcessor = (props: { engineType?: string }) => {
                   <CircularProgress
                     size={40}
                     thickness={4}
-                    sx={{ color: "rgba(3, 105, 161, 1)" }}
+                    sx={{ color: "rgba(35, 70, 217, 1)" }}
                   />
                   <Typography
                     sx={{
-                      color: "rgba(3, 105, 161, 1)",
+                      color: "rgba(35, 70, 217, 1)",
                       fontWeight: 600,
                       fontSize: "13px",
                     }}
@@ -1817,7 +1826,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     sx={{
                       fontSize: { xs: "13px", md: "14px" },
                       fontWeight: 600,
-                      color: "#111827",
+                      color: "#101418",
                       mb: 2,
                       flexShrink: 0,
                     }}
@@ -1839,10 +1848,10 @@ const ImageProcessor = (props: { engineType?: string }) => {
                         borderRadius: "4px",
                       },
                       "&::-webkit-scrollbar-thumb": {
-                        background: "#cbd5e1",
+                        background: "#c7ccd5",
                         borderRadius: "4px",
                         "&:hover": {
-                          background: "#94a3b8",
+                          background: "#6b7380",
                         },
                       },
                     }}
@@ -1858,7 +1867,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                           elevation={0}
                           sx={{
                             border: "1px solid #e5e7eb",
-                            borderRadius: "12px",
+                            borderRadius: "6px",
                             overflow: "hidden",
                             width: "340px",
                             flexShrink: 0,
@@ -1880,7 +1889,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               sx={{
                                 fontSize: { xs: "13px", md: "14px" },
                                 fontWeight: 500,
-                                color: "#111827",
+                                color: "#101418",
                               }}
                             >
                               {image.preset}
@@ -1970,7 +1979,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                 maxHeight: "380px",
                                 width: "auto",
                                 height: "auto",
-                                borderRadius: "8px",
+                                borderRadius: "4px",
                                 objectFit: "contain",
                                 display: "block",
                                 cursor: "pointer",
@@ -2008,7 +2017,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                       width: "auto",
                       height: "auto",
                       objectFit: "contain",
-                      borderRadius: "8px",
+                      borderRadius: "4px",
                       mb: 2,
                     }}
                   />
@@ -2036,49 +2045,40 @@ const ImageProcessor = (props: { engineType?: string }) => {
                   sx={{
                     width: "100%",
                     height: "100%",
+                    minHeight: 320,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: 1.5,
+                    gap: 3,
+                    bgcolor: "#F6F7F9",
+                    backgroundImage: "linear-gradient(#EEF0F3 1px,transparent 1px),linear-gradient(90deg,#EEF0F3 1px,transparent 1px)",
+                    backgroundSize: "24px 24px",
+                    borderRadius: "4px",
+                    p: 3,
                   }}
                 >
-                  <Box
-                    sx={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: "16px",
-                      background: "linear-gradient(135deg, rgba(7,89,133,0.08), rgba(3,105,161,0.05))",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "rgba(3, 105, 161, 0.7)",
-                    }}
-                  >
-                    <PhotoLibraryIcon sx={{ fontSize: 26 }} />
+                  {/* The outputs, drawn as a spec sheet before they exist */}
+                  <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "center", gap: 4 }}>
+                    {(selectedPresets.length > 0
+                      ? selectedPresets.map((id) => presets.find((p) => p.id === id)).filter(Boolean).map((p) => ({ ratio: p!.ratio, label: specLabel(p!.ratio), ghost: false }))
+                      : [{ ratio: "16:9", label: "16:9", ghost: true }, { ratio: "9:16", label: "9:16", ghost: true }, { ratio: "1:1", label: "1:1", ghost: true }]
+                    ).map((f, i) => (
+                      <SpecFrame key={`${f.ratio}-${i}`} ratio={f.ratio} label={f.label} ghost={f.ghost} />
+                    ))}
                   </Box>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "13px", md: "14px" },
-                      fontWeight: 600,
-                      color: "#374151",
-                      textAlign: "center",
-                    }}
-                  >
-                    Nothing to preview yet
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "12px", md: "13px" },
-                      color: "#9ca3af",
-                      textAlign: "center",
-                      maxWidth: 280,
-                    }}
-                  >
-                    {engineType === "creation"
-                      ? "Enter a prompt and select presets to start generating."
-                      : "Select an image and presets to start processing."}
-                  </Typography>
+                  <Box sx={{ textAlign: "center" }}>
+                    <Typography sx={{ fontSize: 14, fontWeight: 600, color: "#101418" }}>
+                      {selectedPresets.length > 0 ? "Sizes ready to recompose" : "No outputs yet"}
+                    </Typography>
+                    <Typography sx={{ fontSize: 13, color: "#4A5260", maxWidth: 340, mt: 0.5 }}>
+                      {selectedPresets.length > 0
+                        ? "Each output is recomposed to these exact dimensions and gets a compliance report. The hatched margin is the safe zone."
+                        : engineType === "creation"
+                          ? "Add edit instructions and choose sizes. Outlines above are examples."
+                          : "Upload the approved artwork and choose sizes. Outlines above are examples."}
+                    </Typography>
+                  </Box>
                 </Box>
               )}
             </Paper>
@@ -2101,7 +2101,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
           sx={{
             position: "relative",
             bgcolor: "white",
-            borderRadius: "12px",
+            borderRadius: "6px",
             p: 3,
             maxWidth: "90vw",
             maxHeight: "90vh",
@@ -2123,7 +2123,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
               sx={{
                 fontSize: "14px",
                 fontWeight: 600,
-                color: "#111827",
+                color: "#101418",
               }}
             >
               {selectedImage?.preset} ({selectedImage?.ratio})
@@ -2184,7 +2184,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                   width: "auto",
                   height: "auto",
                   objectFit: "contain",
-                  borderRadius: "8px",
+                  borderRadius: "4px",
                 }}
               />
             </Box>
@@ -2207,13 +2207,13 @@ const ImageProcessor = (props: { engineType?: string }) => {
           sx={{
             width: "100%",
             maxWidth: 450,
-            borderRadius: "24px",
+            borderRadius: "8px",
             p: 4,
             textAlign: "center",
             position: "relative",
             overflow: "hidden",
             outline: "none",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
           }}
         >
           {/* Top Gradient Bar */}
@@ -2224,7 +2224,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
               left: 0,
               right: 0,
               height: "8px",
-              background: "linear-gradient(90deg, #075985 0%, #0EA5E9 100%)",
+              background: "#2346D9",
             }}
           />
 
@@ -2233,17 +2233,17 @@ const ImageProcessor = (props: { engineType?: string }) => {
               mb: 3,
               display: "inline-flex",
               p: 2,
-              bgcolor: "rgba(3, 105, 161, 0.06)",
-              borderRadius: "16px",
+              bgcolor: "rgba(35, 70, 217, 0.06)",
+              borderRadius: "6px",
             }}
           >
-            <AutoAwesomeIcon
-              sx={{ fontSize: 32, color: "rgba(3, 105, 161, 1)" }}
+            <EngineeringIcon
+              sx={{ fontSize: 32, color: "rgba(35, 70, 217, 1)" }}
             />
           </Box>
 
           <Typography
-            sx={{ fontSize: "18px", fontWeight: 600, color: "#111827", mb: 1 }}
+            sx={{ fontSize: "18px", fontWeight: 600, color: "#101418", mb: 1 }}
           >
             Infrastructure Upgrade Needed
           </Typography>
@@ -2266,14 +2266,14 @@ const ImageProcessor = (props: { engineType?: string }) => {
               }}
               sx={{
                 py: 1.2,
-                borderRadius: "8px",
-                bgcolor: "rgba(3, 105, 161, 1)",
+                borderRadius: "4px",
+                bgcolor: "rgba(35, 70, 217, 1)",
                 textTransform: "none",
                 fontWeight: 600,
                 fontSize: "14px",
-                boxShadow: "0 8px 16px -4px rgba(3, 105, 161, 0.25)",
+                boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
                 "&:hover": {
-                  bgcolor: "rgba(3, 105, 161, 0.9)",
+                  bgcolor: "rgba(35, 70, 217, 0.9)",
                 },
               }}
             >
@@ -2286,7 +2286,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
               onClick={() => setIsLimitExceeded(false)}
               sx={{
                 py: 1.5,
-                borderRadius: "14px",
+                borderRadius: "6px",
                 textTransform: "none",
                 color: "#6b7280",
                 fontWeight: 600,
@@ -2304,7 +2304,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
             Questions?{" "}
             <Box
               component="span"
-              sx={{ color: "rgba(3, 105, 161, 1)", cursor: "pointer" }}
+              sx={{ color: "rgba(35, 70, 217, 1)", cursor: "pointer" }}
             >
               Talk to support
             </Box>
@@ -2321,7 +2321,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: { xs: "90%", sm: 400 },
-            borderRadius: "20px",
+            borderRadius: "8px",
             p: 4,
             textAlign: "center",
             outline: "none",
@@ -2334,7 +2334,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
             sx={{
               width: 56,
               height: 56,
-              borderRadius: "16px",
+              borderRadius: "6px",
               bgcolor: "rgba(234, 88, 12, 0.08)",
               display: "flex",
               alignItems: "center",
@@ -2350,7 +2350,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
             sx={{
               fontSize: "18px",
               fontWeight: 500,
-              color: "#111827",
+              color: "#101418",
               mb: 1,
             }}
           >
@@ -2373,17 +2373,17 @@ const ImageProcessor = (props: { engineType?: string }) => {
             fullWidth
             sx={{
               py: 1.5,
-              borderRadius: "12px",
+              borderRadius: "6px",
               fontSize: "14px",
               fontWeight: 600,
               textTransform: "none",
               background:
-                "linear-gradient(135deg, rgba(3, 105, 161, 1) 0%, rgba(14, 165, 233, 1) 100%)",
+                "#2346D9",
               color: "white",
-              boxShadow: "0 4px 14px -3px rgba(3, 105, 161, 0.4)",
+              boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
               "&:hover": {
                 background:
-                  "linear-gradient(135deg, rgba(7, 89, 133, 1) 0%, rgba(3, 105, 161, 1) 100%)",
+                  "#1B38B4",
               },
             }}
           >

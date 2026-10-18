@@ -847,18 +847,18 @@ def send_password_reset_email(email: str, reset_token: str):
         reset_link = f"{os.getenv('FRONTEND_URL', 'http://localhost:3000')}/auth?form=reset&token={reset_token}"
         
         message = MIMEMultipart("alternative")
-        message["Subject"] = "Password Reset Request"
+        message["Subject"] = "Reset your Versa password"
         message["From"] = SENDER_EMAIL
         message["To"] = email
         
         html = f"""\
         <html>
-            <body>
-                <h2>Password Reset Request</h2>
-                <p>You have requested to reset your password. Click the link below to proceed:</p>
-                <a href="{reset_link}">Reset Password</a>
-                <p>This link will expire in 1 hour.</p>
-                <p>If you didn't request this, please ignore this email.</p>
+            <body style="font-family:Arial,sans-serif;color:#101418;max-width:520px">
+                <p style="font-size:18px;font-weight:700;margin:0 0 24px">Versa</p>
+                <h2 style="font-size:20px;margin:0 0 12px">Reset your password</h2>
+                <p style="color:#4A5260">You asked to reset your Versa password. Use the button below to choose a new one.</p>
+                <p style="margin:24px 0"><a href="{reset_link}" style="background:#2346D9;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:4px;display:inline-block;font-weight:600">Reset password</a></p>
+                <p style="color:#4A5260">This link expires in 1 hour. If you didn't ask for this, you can ignore this email.</p>
             </body>
         </html>
         """
@@ -1068,7 +1068,8 @@ def send_billing_statement_email(user: dict, bill_doc: dict):
 
         html = f"""
         <html>
-            <body style='font-family:Arial,sans-serif;color:#111827'>
+            <body style='font-family:Arial,sans-serif;color:#101418'>
+                <p style='font-size:18px;font-weight:700;margin:0 0 20px'>Versa</p>
                 <h2 style='margin-bottom:4px'>Your Billing Statement</h2>
                 <p style='margin-top:0;color:#6b7280'>Billing period: {period_start_str} to {period_end_str}</p>
 
@@ -1108,7 +1109,7 @@ def send_billing_statement_email(user: dict, bill_doc: dict):
 
         try:
                 message = MIMEMultipart("alternative")
-                message["Subject"] = f"Visual Engine Billing Statement ({period_start_str} to {period_end_str})"
+                message["Subject"] = f"Versa billing statement ({period_start_str} to {period_end_str})"
                 message["From"] = SENDER_EMAIL
                 message["To"] = recipient
                 message.attach(MIMEText(html, "html"))

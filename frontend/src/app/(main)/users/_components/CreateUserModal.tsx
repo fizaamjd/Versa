@@ -263,7 +263,7 @@ export function CreateUserModal({
           <div className="rounded-md bg-white/70 backdrop-blur px-2">
             <button
               onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-md bg-purple-25 text-gray-900 cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center rounded-md bg-brand-25 text-gray-900 cursor-pointer"
               aria-label="Close modal"
             >
               <X className="h-6 w-6" />
@@ -286,7 +286,7 @@ export function CreateUserModal({
                 <div className="rounded-md bg-white/70 backdrop-blur px-2 py-1">
                   <button
                     onClick={onClose}
-                    className="w-8 h-8 flex items-center justify-center rounded-md bg-purple-25 text-gray-900 cursor-pointer"
+                    className="w-8 h-8 flex items-center justify-center rounded-md bg-brand-25 text-gray-900 cursor-pointer"
                     aria-label="Close modal"
                   >
                     <X className="h-6 w-6" />
@@ -310,7 +310,7 @@ export function CreateUserModal({
                 onClick={handleBack}
                 className="flex items-center gap-2 "
               >
-                <ArrowLeft className="w-4 h-4 text-purple-300" />
+                <ArrowLeft className="w-4 h-4 text-brand-300" />
                 Back
               </Button>
             )}

@@ -142,7 +142,7 @@ export function EngineSelectionStep({
             onClick={() => handleEngineSelect("transformation")}
             className={`relative p-6 rounded-lg border-2 transition-all ${
               isTransformationSelected
-                ? "border-purple-500 bg-purple-50"
+                ? "border-brand-500 bg-brand-50"
                 : "border-gray-200 bg-white hover:border-gray-300"
             }`}
           >
@@ -160,7 +160,7 @@ export function EngineSelectionStep({
                       key={cap}
                       className="text-xs text-gray-700 flex items-center gap-2"
                     >
-                      <span className="inline-block w-1 h-1 bg-purple-500 rounded-full" />
+                      <span className="inline-block w-1 h-1 bg-brand-500 rounded-full" />
                       {cap}
                     </li>
                   ))}
@@ -168,7 +168,7 @@ export function EngineSelectionStep({
               </div>
               {isTransformationSelected && (
                 <div className="ml-4 flex-shrink-0">
-                  <Check className="w-5 h-5 text-purple-500" />
+                  <Check className="w-5 h-5 text-brand-500" />
                 </div>
               )}
             </div>
@@ -180,7 +180,7 @@ export function EngineSelectionStep({
             onClick={() => handleEngineSelect("creation")}
             className={`relative p-6 rounded-lg border-2 transition-all ${
               isCreationSelected
-                ? "border-purple-500 bg-purple-50"
+                ? "border-brand-500 bg-brand-50"
                 : "border-gray-200 bg-white hover:border-gray-300"
             }`}
           >
@@ -198,7 +198,7 @@ export function EngineSelectionStep({
                       key={cap}
                       className="text-xs text-gray-700 flex items-center gap-2"
                     >
-                      <span className="inline-block w-1 h-1 bg-purple-500 rounded-full" />
+                      <span className="inline-block w-1 h-1 bg-brand-500 rounded-full" />
                       {cap}
                     </li>
                   ))}
@@ -206,7 +206,7 @@ export function EngineSelectionStep({
               </div>
               {isCreationSelected && (
                 <div className="ml-4 flex-shrink-0">
-                  <Check className="w-5 h-5 text-purple-500" />
+                  <Check className="w-5 h-5 text-brand-500" />
                 </div>
               )}
             </div>

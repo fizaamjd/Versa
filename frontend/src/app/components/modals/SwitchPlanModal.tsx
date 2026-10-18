@@ -38,7 +38,7 @@ const SwitchPlanModal: React.FC<SwitchPlanModalProps> = ({
             fullWidth
             PaperProps={{
                 sx: {
-                    borderRadius: '24px',
+                    borderRadius: '8px',
                     p: 2,
                 }
             }}
@@ -49,17 +49,17 @@ const SwitchPlanModal: React.FC<SwitchPlanModalProps> = ({
                         sx={{
                             width: 48,
                             height: 48,
-                            borderRadius: '12px',
-                            bgcolor: 'rgba(59, 130, 246, 0.1)',
+                            borderRadius: '6px',
+                            bgcolor: 'rgba(35, 70, 217, 0.1)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
                     >
-                        <SwapIcon sx={{ fontSize: 28, color: '#3b82f6' }} />
+                        <SwapIcon sx={{ fontSize: 28, color: '#2346d9' }} />
                     </Box>
                     <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '20px', color: '#111827' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '20px', color: '#101418' }}>
                             Switch Your Plan
                         </Typography>
                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '14px' }}>
@@ -83,7 +83,7 @@ const SwitchPlanModal: React.FC<SwitchPlanModalProps> = ({
                     Would you like to:
                 </Typography>
 
-                <Box component="ul" sx={{ m: 0, pl: 2, fontSize: '14px', color: '#111827' }}>
+                <Box component="ul" sx={{ m: 0, pl: 2, fontSize: '14px', color: '#101418' }}>
                     <li style={{ marginBottom: '8px' }}>
                         <strong>Cancel {currentPlan}</strong> and then subscribe to {newPlan}
                     </li>
@@ -115,10 +115,10 @@ const SwitchPlanModal: React.FC<SwitchPlanModalProps> = ({
                         textTransform: 'none',
                         fontWeight: 600,
                         px: 3,
-                        borderRadius: '10px',
-                        bgcolor: '#3b82f6',
+                        borderRadius: '4px',
+                        bgcolor: '#2346d9',
                         '&:hover': {
-                            bgcolor: '#2563eb',
+                            bgcolor: '#1b38b4',
                         },
                     }}
                 >
