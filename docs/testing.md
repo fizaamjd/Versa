@@ -6,6 +6,6 @@ The suite's conftest disables dotenv loading, replaces the process environment w
 
 `frontend/scripts/check-lint-baseline.mjs` compares ESLint findings with checked-in file/rule/severity counts. New violations fail. Raw lint still reports 120 inherited errors and 175 warnings at this snapshot. Conditional hook-order violations were fixed instead of accepted into the baseline.
 
-Tests exercise actual API-key routes and auth dependencies plus the real parser/dimension table in main.py. No live API key, external database, generation, storage or payment operation is used. They do not prove database semantics, webhook correctness, tenant isolation, image quality or production readiness.
+The 26 backend tests exercise actual API-key routes and auth dependencies, the real parser/dimension table, plan serialization, and CORS defaults in main.py. The six frontend proxy tests verify catalog passthrough, credential isolation, missing configuration, and upstream failures. No live API key, external database, generation, storage or payment operation is used. They do not prove database semantics, webhook correctness, tenant isolation, image quality or production readiness.
 
 Frontend CI runs the maintainer-managed lint baseline gate, explicit TypeScript checking and a build as independent steps. Strict raw lint still reports legacy debt; baseline success is not clean lint. Mobile CI checks TypeScript only, not native builds or device behavior. No deployment is performed by CI.

@@ -47,4 +47,4 @@ See [SECURITY.md](../SECURITY.md) and [testing boundaries](testing.md) for detai
 
 ## Offline backend verification
 
-The isolated suite passed 23 tests with 7 deprecation warnings on Python 3.14.4. CI independently provisions Python 3.11. See [testing](testing.md) for commands and boundaries.
+The isolated suite passed 26 tests with 7 deprecation warnings on Python 3.14.4. CI independently provisions Python 3.11. See [testing](testing.md) for commands and boundaries.

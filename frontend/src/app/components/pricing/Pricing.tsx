@@ -98,9 +98,9 @@ export default function PricingSection() {
             case 'starter':
                 return [...baseFeatures, 'Email support', 'Basic analytics'];
             case 'growth':
-                return [...baseFeatures, 'Priority support', 'Advanced analytics', 'API access', 'Custom presets'];
+                return [...baseFeatures, 'Priority support', 'Advanced analytics', 'API access'];
             case 'scale':
-                return [...baseFeatures, '24/7 Premium support', 'Advanced analytics', 'Full API access', 'Custom presets', 'Dedicated account manager'];
+                return [...baseFeatures, '24/7 Premium support', 'Advanced analytics', 'Full API access', 'Dedicated account manager'];
             default:
                 return baseFeatures;
         }
