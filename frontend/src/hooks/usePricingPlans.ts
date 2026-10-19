@@ -24,8 +24,8 @@ export function usePricingPlans() {
     useEffect(() => {
         const fetchPlans = async () => {
             try {
-                const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
-                const response = await fetch(`${API_BASE_URL}/plans`);
+                // Same-origin read avoids CORS failures after a deployment domain change.
+                const response = await fetch('/api/plans', { cache: 'no-store' });
                 if (!response.ok) {
                     throw new Error('Failed to fetch pricing plans');
                 }

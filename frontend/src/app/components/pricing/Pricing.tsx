@@ -88,9 +88,9 @@ export default function PricingSection() {
 
     const getPlanFeatures = (planName: string) => {
         const baseFeatures = [
-            'Layer-aware recomposition',
-            'Standard, custom and OOH/QMS sizes',
-            'Exact pixel dimensions',
+            'AI image transformation',
+            'Five supported preset formats',
+            'Gemini-native output sizes',
             'Compliance report on every output',
         ];
 

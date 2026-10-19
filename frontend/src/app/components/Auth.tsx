@@ -15,6 +15,7 @@ import {
 import { extractApiErrorMessage } from "@/lib/errorMessage";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LayersIcon from "@mui/icons-material/Layers";
+import { IMAGE_PRESETS } from "@/lib/presets";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -40,18 +41,14 @@ type FormData = {
 
 export type ActiveForm = "signup" | "login" | "forgot" | "reset";
 
-// Real media-site sizes from the dimension profiles, shown as a spec table.
-const SPEC_ROWS = [
-  { w: 2640, h: 288, label: "QMS ultra-wide strip" },
-  { w: 1344, h: 432, label: "OOH wide billboard" },
-  { w: 504, h: 1008, label: "OOH tall portrait" },
-];
+// Native output sizes of the supported presets.
+const SPEC_ROWS = IMAGE_PRESETS;
 
 const BRAND_FEATURES = [
-  { icon: <GridViewIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,    text: "Built-in OOH and QMS media-site dimensions" },
-  { icon: <LayersIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,      text: "Recomposed layer by layer: photo, logo, copy" },
-  { icon: <FactCheckIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,   text: "Every output checked against its spec" },
-  { icon: <CheckCircleIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />, text: "Exact pixel dimensions, every time" },
+  { icon: <GridViewIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,    text: "Five supported image formats" },
+  { icon: <LayersIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,      text: "Image transformation and prompt-based creation" },
+  { icon: <FactCheckIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,   text: "Technical checks and AI image reports" },
+  { icon: <CheckCircleIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />, text: "Review generated artwork before use" },
 ];
 
 const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, redirectTo }) => {
@@ -167,7 +164,7 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, re
                 One creative.<br />Every screen size.<br /><span style={{ color: "#7B92EA" }}>Checked to spec.</span>
               </h2>
               <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.65, maxWidth: 320 }}>
-                Upload the approved artwork and Versa recomposes it for every billboard and digital screen on your media plan.
+                Upload an image or write a prompt, then choose one of five supported formats.
               </p>
             </>
           )}

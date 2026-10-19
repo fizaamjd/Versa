@@ -9,18 +9,18 @@ export default function PurposeSection() {
     const features = [
         {
             icon: <LayersIcon sx={{ fontSize: 40, color: 'rgba(35, 70, 217, 1)' }} />,
-            title: "AI-Powered Precision",
-            desc: "Our advanced neural engines transform raw concepts into studio-quality media assets with surgical precision."
+            title: "Image transformation",
+            desc: "Upload an image and select one of five preset formats to request an AI-transformed output."
         },
         {
             icon: <SpeedIcon sx={{ fontSize: 40, color: 'rgba(35, 70, 217, 1)' }} />,
-            title: "Unmatched Velocity",
-            desc: "Bypass manual design cycles. Generate, iterate, and deploy professional visuals at the speed of thought."
+            title: "Prompt-based creation",
+            desc: "Describe an image and choose a supported format. Generation time depends on the image service."
         },
         {
             icon: <AccessibilityIcon sx={{ fontSize: 40, color: 'rgba(35, 70, 217, 1)' }} />,
-            title: "Inclusive Design",
-            desc: "Every asset is automatically optimized for ADA compliance, ensuring your message reaches everyone."
+            title: "Review before use",
+            desc: "Review generated artwork and its technical and AI image report. Check text, branding and accessibility before publishing."
         }
     ];
 

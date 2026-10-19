@@ -35,7 +35,7 @@ Use compatible, reviewed updates within the existing framework constraints. Do n
 
 ## Remaining source and verification limitations
 
-- The backend accepts five standard presets. The web UI exposes 15 OOH presets and additional custom dimensions that this backend rejects. Dedicated OOH/QMS dimension modules and layer decomposition are absent in this branch.
+- The backend, web and mobile pickers support five standard presets. Unsupported OOH/QMS and custom-dimension choices have been removed from the web UI. The landing preview uses local crops, not live generation. Dedicated OOH/QMS dimension modules and layer decomposition are absent in this branch.
 - JWT configuration can fall back to the storage secret or a predictable default. Set a strong independent `JWT_SECRET`; configuration guidance does not repair this source behavior. API-key hashing should use an independent `API_KEY_SECRET`.
 - Administrative access includes a hard-coded owner-email fallback. Tenant ownership and organization-token trust boundaries need a dedicated review; the isolated tests do not establish tenant isolation.
 - Validation errors include a request-body preview, and SMTP-failure handling logs reset tokens. Review sensitive-data exposure before deployment.

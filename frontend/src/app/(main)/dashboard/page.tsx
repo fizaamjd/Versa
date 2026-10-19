@@ -140,18 +140,18 @@ export default function DashboardPage() {
     {
       key: "transformation" as EngineType,
       title: "Transformation Engine",
-      description: "Recompose an approved creative for every size on the media plan, layer by layer, with a compliance report on each output.",
+      description: "Transform an uploaded image into a supported format, then review the result and its image report.",
       accent: "#2346D9",
       icon: <AspectRatioIcon sx={{ fontSize: 20 }} />,
-      chips: ["Layer-aware recomposition", "Background extension", "OOH and QMS sizes"],
+      chips: ["Image transformation", "Five preset formats", "Image reports"],
     },
     {
       key: "creation" as EngineType,
       title: "Creation Engine",
-      description: "Generate new creatives from templates and specifications, sized for each channel you deliver to.",
+      description: "Generate artwork from a text prompt in one of five supported formats.",
       accent: "#101418",
       icon: <AddPhotoAlternateIcon sx={{ fontSize: 20 }} />,
-      chips: ["Template-based generation", "Brand layout", "Custom dimensions"],
+      chips: ["Prompt-based generation", "Five preset formats", "Image reports"],
     },
   ];
 

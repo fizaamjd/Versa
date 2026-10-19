@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   Box,
@@ -14,16 +14,13 @@ import {
   CircularProgress,
   ThemeProvider,
   createTheme,
-  Switch,
-  FormControlLabel,
-  Tooltip,
 } from "@mui/material";
+import { IMAGE_PRESETS } from "@/lib/presets";
 import ComplianceBadge from "./compliance/ComplianceBadge";
 import { useUser } from "../context/AuthContext";
 import { usePageHeader } from "../context/PageHeaderContext";
 import { toast } from "react-toastify";
 import { extractApiErrorMessage } from "@/lib/errorMessage";
-import { decodeJwtToken } from "@/lib/jwtUtils";
 import {
   Tune as EnhanceIcon,
   Engineering as EngineeringIcon,
@@ -33,11 +30,9 @@ import {
   Image as ImageIcon,
   AspectRatio as SizeIcon,
   FactCheck as CheckIcon,
-  ExpandMore as ExpandMoreIcon,
   CheckCircle as CheckCircleIcon,
   CloudUpload as CloudUploadIcon,
   WarningAmberRounded as WarningAmberIcon,
-  ViewQuilt as PipelineIcon,
 } from "@mui/icons-material";
 
 interface ProcessedImage {
@@ -138,39 +133,11 @@ async function compressImage(file: File): Promise<File> {
   });
 }
 
-type PresetGroup = 'standard' | 'client' | 'ooh' | 'custom';
+const STANDARD_PRESETS = IMAGE_PRESETS;
 
-const STANDARD_PRESETS: { id: string; label: string; ratio: string; group: PresetGroup }[] = [
-  { id: 'landscape', label: 'Landscape', ratio: '16:9', group: 'standard' },
-  { id: 'story', label: 'Story/Reel', ratio: '9:16', group: 'standard' },
-  { id: 'square', label: 'Square', ratio: '1:1', group: 'standard' },
-  { id: 'portrait', label: 'Portrait', ratio: '3:4', group: 'standard' },
-  { id: 'ultrawide', label: 'Ultrawide', ratio: '21:9', group: 'standard' },
-];
-
-const OOH_MEDIA_PRESETS: { id: string; label: string; ratio: string; group: PresetGroup }[] = [
-  { id: 'ooh_792x216',  label: 'OOH 792×216',   ratio: 'OOH_792x216',  group: 'ooh' },
-  { id: 'ooh_800x400',  label: 'OOH 800×400',   ratio: 'OOH_800x400',  group: 'ooh' },
-  { id: 'ooh_840x360',  label: 'OOH 840×360',   ratio: 'OOH_840x360',  group: 'ooh' },
-  { id: 'ooh_960x576',  label: 'OOH 960×576',   ratio: 'OOH_960x576',  group: 'ooh' },
-  { id: 'ooh_1024x320', label: 'OOH 1024×320',  ratio: 'OOH_1024x320', group: 'ooh' },
-  { id: 'ooh_1060x360', label: 'OOH 1060×360',  ratio: 'OOH_1060x360', group: 'ooh' },
-  { id: 'ooh_1232x672', label: 'OOH 1232×672',  ratio: 'OOH_1232x672', group: 'ooh' },
-  { id: 'ooh_1280x384', label: 'OOH 1280×384',  ratio: 'OOH_1280x384', group: 'ooh' },
-  { id: 'ooh_1344x432', label: 'OOH 1344×432',  ratio: 'OOH_1344x432', group: 'ooh' },
-  { id: 'ooh_1836x432', label: 'OOH 1836×432',  ratio: 'OOH_1836x432', group: 'ooh' },
-  { id: 'ooh_1952x896', label: 'OOH 1952×896',  ratio: 'OOH_1952x896', group: 'ooh' },
-  { id: 'ooh_2072x252', label: 'OOH 2072×252',  ratio: 'OOH_2072x252', group: 'ooh' },
-  { id: 'ooh_3924x972', label: 'OOH 3924×972',  ratio: 'OOH_3924x972', group: 'ooh' },
-  { id: 'ooh_504x1008', label: 'OOH 504×1008',  ratio: 'OOH_504x1008', group: 'ooh' },
-  { id: 'ooh_768x1152', label: 'OOH 768×1152',  ratio: 'OOH_768x1152', group: 'ooh' },
-];
-
-// Parses a ratio string ("16:9", "OOH_792x216", ...) into [w, h] for the chip glyph.
+// Parses a supported ratio into [w, h] for the chip glyph.
 function parseRatioDims(ratio: string): [number, number] {
-  const cleaned = ratio.replace(/^OOH_/, "");
-  const sep = cleaned.includes(":") ? ":" : "x";
-  const parts = cleaned.split(sep).map(Number);
+  const parts = ratio.split(":").map(Number);
   if (parts.length === 2 && parts.every((n) => Number.isFinite(n) && n > 0)) {
     return [parts[0], parts[1]];
   }
@@ -204,10 +171,8 @@ function RatioGlyph({ ratio, color, selected = false }: { ratio: string; color: 
   );
 }
 
-/* Label a preset as a real size when it has pixel dimensions, else as a ratio. */
 function specLabel(ratio: string): string {
-  const [w, h] = parseRatioDims(ratio);
-  return /x/i.test(ratio.replace(/^OOH_/, "")) ? `${w} × ${h}` : ratio;
+  return ratio;
 }
 
 /* One output frame drawn as a dimensioned drawing with a hatched safe margin. */
@@ -269,27 +234,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
   const [isLimitExceeded, setIsLimitExceeded] = useState(false);
   const [showOriginal, setShowOriginal] = useState(false);
   const [showPresetLimit, setShowPresetLimit] = useState(false);
-  const [canViewCustomRatios, setCanViewCustomRatios] = useState(false);
-  const [expandedOoh, setExpandedOoh] = useState(false);
-  const [useJsonPipeline, setUseJsonPipeline] = useState(false);
-
-  const presets: { id: string; label: string; ratio: string; group: PresetGroup }[] = [
-    ...STANDARD_PRESETS,
-    ...OOH_MEDIA_PRESETS,
-  ];
-
-  const isCustomDimPreset = (presetId: string) => {
-    const preset = presets.find((p) => p.id === presetId);
-    return preset?.group === "client" || preset?.group === "ooh" || preset?.group === "custom";
-  };
-
-  const parseDims = (ratio: string): { w: number; h: number } | null => {
-    const parts = ratio.split(":").map(Number);
-    if (parts.length === 2 && parts[0] > 0 && parts[1] > 0) {
-      return { w: parts[0], h: parts[1] };
-    }
-    return null;
-  };
+  const presets = STANDARD_PRESETS;
 
   const getEngineRemainingCredits = () => {
     const engineCredits =
@@ -383,74 +328,6 @@ const ImageProcessor = (props: { engineType?: string }) => {
     }
     setSelectedPresets([...selectedPresets, presetId]);
   };
-
-  useEffect(() => {
-    const GLEN_ORG_ID = "d9f031dc-ba8f-4397-9534-81612cc8a686";
-    const HAMZA_ORG_ID = "35cd976c-d4ac-4e76-8dde-d8065334fa42";
-
-    let hasAccess = false;
-
-    // Check 1: User object's _org_context
-    const orgContext = (user as any)?._org_context || {};
-    const orgId = String(orgContext.org_id || "").trim();
-    const parentOrgId = String(orgContext.parent_org_id || "").trim();
-    
-    if (orgId === HAMZA_ORG_ID || parentOrgId === HAMZA_ORG_ID) {
-      hasAccess = true;
-    }
-    // Only Glen's main org, NOT sub-orgs
-    if (orgId === GLEN_ORG_ID) {
-      hasAccess = true;
-    }
-
-    // Check 2: JWT token (fallback)
-    if (!hasAccess) {
-      try {
-        const token = localStorage.getItem("auth_token");
-        const decoded = token ? decodeJwtToken(token) : null;
-        const jwtOrgId = String(decoded?.orgId || decoded?.org_id || "").trim();
-        const jwtParentOrgId = String(
-          decoded?.parentOrgId ||
-            decoded?.org_parent_id ||
-            decoded?.orgParentId ||
-            "",
-        ).trim();
-        
-        if (jwtOrgId === HAMZA_ORG_ID || jwtParentOrgId === HAMZA_ORG_ID) {
-          hasAccess = true;
-        }
-        if (jwtOrgId === GLEN_ORG_ID) {
-          hasAccess = true;
-        }
-      } catch {
-        hasAccess = false;
-      }
-    }
-
-    // Check 3: Email/domain fallback for testing
-    if (!hasAccess) {
-      const email = String(user?.email || "")
-        .trim()
-        .toLowerCase();
-      const domain = email.includes("@") ? email.split("@")[1] : "";
-      hasAccess =
-        email === "muhammadhamzafaisal146@gmail.com" ||
-        domain === "fmctv.co.nz";
-    }
-
-    setCanViewCustomRatios(hasAccess);
-  }, [user]);
-
-  useEffect(() => {
-    if (!canViewCustomRatios) {
-      setSelectedPresets((prev) =>
-        prev.filter((id) => {
-          const preset = presets.find((p) => p.id === id);
-          return preset?.group !== "client" && preset?.group !== "ooh";
-        }),
-      );
-    }
-  }, [canViewCustomRatios]);
 
   // Helper: extract the image URL + compliance reportId from a response (handles binary and JSON)
   const extractResult = async (
@@ -569,28 +446,15 @@ const ImageProcessor = (props: { engineType?: string }) => {
         aspectRatio: string,
         label: string,
         id: string,
-        useCustomEndpoint = false,
       ): Promise<ProcessedImage | null> => {
         const formData = new FormData();
         if (imageToUpload) formData.append("file", imageToUpload);
         formData.append("engine_type", engineType);
         if (prompt.trim()) formData.append("prompt", prompt);
 
-        let endpoint = `${API_BASE_URL}/resize`;
-        if (useCustomEndpoint) {
-          const dimMatch = aspectRatio.match(/^(\d+)[x:](\d+)$/i);
-          if (!dimMatch) {
-            throw new Error("Invalid custom dimensions format");
-          }
-          formData.append("width", dimMatch[1]);
-          formData.append("height", dimMatch[2]);
-          endpoint = `${API_BASE_URL}/custom-resize`;
-        } else {
-          formData.append("aspect_ratio", aspectRatio);
-          if (useJsonPipeline) formData.append("use_json_pipeline", "true");
-        }
+        formData.append("aspect_ratio", aspectRatio);
 
-        const response = await fetch(endpoint, {
+        const response = await fetch(`${API_BASE_URL}/resize`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
@@ -632,15 +496,10 @@ const ImageProcessor = (props: { engineType?: string }) => {
         if (!preset) return;
 
         try {
-          const dims = parseDims(preset.ratio);
-          const useCustomEndpoint =
-            canViewCustomRatios && isCustomDimPreset(preset.id) && !!dims;
-
           const result = await callResize(
             preset.ratio,
             preset.label,
             `res-${Date.now()}-${preset.id}-${index}`,
-            useCustomEndpoint,
           );
           if (result) {
             results.push(result);
@@ -860,18 +719,14 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 {
                   icon: <ImageIcon sx={{ fontSize: 20 }} />,
                   label: "Sizes",
-                  value: canViewCustomRatios
-                    ? `${STANDARD_PRESETS.length + OOH_MEDIA_PRESETS.length} sizes`
-                    : `${STANDARD_PRESETS.length} standard ratios`,
-                  sub: canViewCustomRatios
-                    ? `${STANDARD_PRESETS.length} standard, ${OOH_MEDIA_PRESETS.length} OOH`
-                    : "OOH sizes where your organisation has them enabled",
+                  value: `${STANDARD_PRESETS.length} standard ratios`,
+                  sub: "Square, story, landscape, portrait and ultrawide",
                 },
                 {
                   icon: <SizeIcon sx={{ fontSize: 20 }} />,
                   label: "Output",
-                  value: "Exact pixels",
-                  sub: "Every size to spec",
+                  value: "Preset sizes",
+                  sub: "Gemini-native output dimensions",
                 },
                 {
                   icon: <CheckIcon sx={{ fontSize: 20 }} />,
@@ -1382,11 +1237,10 @@ const ImageProcessor = (props: { engineType?: string }) => {
                             display: "grid",
                             gridTemplateColumns: "repeat(2, 1fr)",
                             gap: 1,
-                            mb: canViewCustomRatios ? 3 : 0,
+                            mb: 0,
                           }}
                         >
                           {presets
-                            .filter((p) => p.group === "standard")
                             .map((preset) => {
                               const selected = selectedPresets.includes(preset.id);
                               return (
@@ -1445,222 +1299,13 @@ const ImageProcessor = (props: { engineType?: string }) => {
                             })}
                         </Box>
 
-                        {canViewCustomRatios && (
-                          <>
-                            {/* OOH Media Screens Section */}
-                            <Box sx={{ borderTop: "1px solid #e5e7eb", my: 2.5 }} />
-                            <Typography
-                              sx={{
-                                fontSize: "11px",
-                                fontWeight: 600,
-                                color: "#4A5260",
-                                mb: 1.5,
-                              }}
-                            >
-                              OOH media sizes
-                            </Typography>
 
-                            <Box sx={{ mb: 0.75 }}>
-                              <Box
-                                onClick={() => setExpandedOoh((v) => !v)}
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "space-between",
-                                  px: 1.5,
-                                  py: 0.9,
-                                  bgcolor: OOH_MEDIA_PRESETS.some((p) => selectedPresets.includes(p.id))
-                                    ? "#F4F6FE"
-                                    : "#f3f4f6",
-                                  border: `1px solid ${OOH_MEDIA_PRESETS.some((p) => selectedPresets.includes(p.id)) ? "rgba(35,70,217,0.35)" : "#e5e7eb"}`,
-                                  borderRadius: "4px",
-                                  cursor: "pointer",
-                                  userSelect: "none",
-                                  transition: "all 0.15s ease",
-                                  "&:hover": { bgcolor: "#e6f9f2" },
-                                }}
-                              >
-                                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                  <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "#374151" }}>
-                                    OOH media sizes
-                                  </Typography>
-                                  <Typography sx={{ fontSize: "11px", color: "#9ca3af", fontWeight: 500 }}>
-                                    {OOH_MEDIA_PRESETS.length}
-                                  </Typography>
-                                </Box>
-                                <ExpandMoreIcon
-                                  sx={{
-                                    fontSize: 16,
-                                    color: "#9ca3af",
-                                    transform: expandedOoh ? "rotate(180deg)" : "rotate(0deg)",
-                                    transition: "transform 0.2s ease",
-                                  }}
-                                />
-                              </Box>
-
-                              {expandedOoh && (
-                                <Box
-                                  sx={{
-                                    display: "grid",
-                                    gridTemplateColumns: "repeat(2, 1fr)",
-                                    gap: 0.75,
-                                    mt: 0.75,
-                                    pl: 0.5,
-                                  }}
-                                >
-                                  {OOH_MEDIA_PRESETS.map((preset) => {
-                                    const selected = selectedPresets.includes(preset.id);
-                                    return (
-                                      <Paper
-                                        key={preset.id}
-                                        elevation={0}
-                                        component="label"
-                                        onClick={() => handlePresetChange(preset.id)}
-                                        sx={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          gap: 1,
-                                          px: 1.25,
-                                          py: 1,
-                                          position: "relative",
-                                          border: `1.5px solid ${selected ? "#2346D9" : "#e5e7eb"}`,
-                                          bgcolor: selected ? "#F4F6FE" : "#fff",
-                                          borderRadius: "4px",
-                                          cursor: "pointer",
-                                          transition: "all 0.15s ease",
-                                          "&:hover": { borderColor: "#4F6CE1", bgcolor: "#F4F6FE" },
-                                        }}
-                                      >
-                                        <RatioGlyph ratio={preset.ratio} color="#2346D9" selected={selected} />
-                                        <Box sx={{ minWidth: 0 }}>
-                                          <Typography
-                                            sx={{
-                                              fontSize: "12px",
-                                              color: selected ? "#2346D9" : "#374151",
-                                              fontWeight: selected ? 600 : 500,
-                                              lineHeight: 1.3,
-                                              whiteSpace: "nowrap",
-                                            }}
-                                          >
-                                            {preset.ratio.replace("OOH_", "").replace("x", "×")}
-                                          </Typography>
-                                          <Typography sx={{ fontSize: "10px", color: "#9ca3af" }}>
-                                            OOH · px
-                                          </Typography>
-                                        </Box>
-                                        {selected && (
-                                          <CheckCircleIcon
-                                            sx={{
-                                              position: "absolute",
-                                              top: 5,
-                                              right: 5,
-                                              fontSize: 13,
-                                              color: "#2346D9",
-                                            }}
-                                          />
-                                        )}
-                                      </Paper>
-                                    );
-                                  })}
-                                </Box>
-                              )}
-                            </Box>
-                          </>
-                        )}
                       </Box>
                     </Paper>
                   </Stack>
                 </Box>
               </Box>
             </Box>
-
-            {/* JSON Pipeline toggle — transformation engine only */}
-            {engineType === "transformation" && (
-              <Tooltip
-                title="Converts the image to a structured JSON layout, mathematically resizes every element, then reconstructs the image. More precise than prompt-only resizing."
-                placement="top"
-                arrow
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1.25,
-                    px: 2,
-                    py: 1.25,
-                    borderRadius: "6px",
-                    border: useJsonPipeline
-                      ? "1.5px solid rgba(35, 70, 217, 0.4)"
-                      : "1px solid #e5e7eb",
-                    bgcolor: useJsonPipeline
-                      ? "rgba(35, 70, 217, 0.05)"
-                      : "#fff",
-                    boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
-                    transition: "all 0.2s ease",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => setUseJsonPipeline((v) => !v)}
-                >
-                  <Box
-                    sx={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: "4px",
-                      flexShrink: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      bgcolor: useJsonPipeline ? "rgba(35, 70, 217, 0.10)" : "#f3f4f6",
-                      color: useJsonPipeline ? "rgba(35, 70, 217, 1)" : "#9ca3af",
-                      transition: "all 0.2s ease",
-                    }}
-                  >
-                    <PipelineIcon sx={{ fontSize: 17 }} />
-                  </Box>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={useJsonPipeline}
-                        onChange={(e) => {
-                          e.stopPropagation();
-                          setUseJsonPipeline(e.target.checked);
-                        }}
-                        size="small"
-                        sx={{
-                          "& .MuiSwitch-switchBase.Mui-checked": {
-                            color: "rgba(35, 70, 217, 1)",
-                          },
-                          "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                            {
-                              bgcolor: "rgba(35, 70, 217, 0.45)",
-                            },
-                        }}
-                      />
-                    }
-                    label={
-                      <Box>
-                        <Typography
-                          sx={{
-                            fontSize: "13px",
-                            fontWeight: 600,
-                            color: useJsonPipeline ? "rgba(35, 70, 217, 1)" : "#374151",
-                            lineHeight: 1.3,
-                          }}
-                        >
-                          Layout plan (JSON)
-                        </Typography>
-                        <Typography
-                          sx={{ fontSize: "11px", color: "#9ca3af", lineHeight: 1.3 }}
-                        >
-                          Advanced: review the layer plan before recomposing
-                        </Typography>
-                      </Box>
-                    }
-                    sx={{ m: 0, gap: 0.5 }}
-                  />
-                </Box>
-              </Tooltip>
-            )}
 
             {/* Main Action Button */}
             <Button
@@ -2073,7 +1718,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     </Typography>
                     <Typography sx={{ fontSize: 13, color: "#4A5260", maxWidth: 340, mt: 0.5 }}>
                       {selectedPresets.length > 0
-                        ? "Each output is recomposed to these exact dimensions and gets a compliance report. The hatched margin is the safe zone."
+                        ? "These frames illustrate your selected ratios. Generated outputs use native preset sizes; review the actual image and its report before use."
                         : engineType === "creation"
                           ? "Add edit instructions and choose sizes. Outlines above are examples."
                           : "Upload the approved artwork and choose sizes. Outlines above are examples."}

@@ -51,6 +51,7 @@ ALLOWED_ORIGINS = [
     o.strip() for o in (
         os.getenv("CORS_ORIGINS") or
         "http://localhost:3000,http://127.0.0.1:3000,"
+        "https://versa-workspace.vercel.app,"
         "https://transformation.slidexy.ai,https://recreative.slidexy.ai,"
         "https://transformation.signagexai.com"
     ).split(",") if o.strip()

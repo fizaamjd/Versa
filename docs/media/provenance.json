@@ -11,5 +11,8 @@
     "logo"
   ],
   "font": "Archivo from the application Next.js font build",
-  "brand": "Original Versa SVG from frontend/public/logo.svg"
+  "brand": "Original Versa SVG from frontend/public/logo.svg",
+  "assetOrigins": {
+    "history": "GenFrame-AI/.impeccable/review/native-transform-square.png"
+  }
 }
