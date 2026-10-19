@@ -253,7 +253,7 @@ Responsive behavior: the auth ink panel appears from 900px and stacks away below
 ### Named Rules
 **The Hairline Rule.** Use a 1px rule between things before reaching for a box. Tables, figure rows and nav groups are divided by rules, not by card stacks.
 
-**The Distinct Landing Rule.** The landing must not look like the owner's other products (CacheNet, Infinium). It never uses a left-headline/right-panel hero, ruled feature tables or step tracks, a blueprint grid ground, a centered badge over the headline, a feature-card grid, or any scrolling ticker or marquee. It demonstrates the mechanism instead: the recomposer, the layers row and verdict-carrying outputs.
+**The Distinct Landing Rule.** The landing must not look like the owner's other products (CacheNet, Infinium). It never uses a left-headline/right-panel hero, ruled feature tables or step tracks, a blueprint or checkered grid ground, a centered badge over the headline, a feature-card grid, or any scrolling ticker or marquee. It demonstrates the mechanism instead: the recomposer, the layers row and verdict-carrying outputs.
 
 ## Elevation & Depth
 
@@ -328,14 +328,10 @@ Size presets in the engines are 6px tiles with a 1.5px border: rule-gray at rest
 ### Spec Stage and Spec Frame (signature)
 The engine Outputs area is a sheet stage with a 24px drawing-sheet grid and 4px corners. Each chosen size is drawn as a Spec Frame: scaled to fit 200 × 150, with ink width ticks and a hairline above, a spec-blue 1px border at 2px corners, a hatched margin around a spec-tint safe area (12% inset), and a condensed `W × H` figure below. Before any size is chosen, the stage shows dashed rule-strong example outlines (16:9, 9:16, 1:1) with ink-3 figures and says they are examples.
 
-### Public pages: sample campaigns as the visual material
-- **Sample campaigns** (`frontend/src/app/components/home/Campaigns.tsx`): three fictional brands (Northline cold brew, Halo headphones, Fieldwork shoes), each composed for the five supported presets by `CampaignAd` / `FitCampaign`. Each brand keeps its own ad palette; Versa chrome stays ink, paper and spec blue. Every page that shows them labels them as illustrative sample artwork.
-- **Landing hero:** a two-part head (large ink headline left, lead plus CTAs right) over a full-bleed campaign wall: one row per campaign, all five formats at true aspect and a shared row height, rows offset and repeated so they always run past the viewport edge. Static, never auto-scrolling.
-- **Format preview:** a sheet stage with the selected campaign × format, a side panel of campaign swatches, format tiles (glyph + name + native size) and the size figure.
-- **How it works:** three content panels with real material (source photo with file chip, format chips, outputs).
-- **Report:** a large output beside a ruled sample report (check, value, Pass), labelled illustrative.
-- **Engines:** two image-led panels showing input to output.
-- **Auth panel:** ink with a campaign collage; **Pricing:** a five-format strip under the title.
+### Public pages and stage surfaces
+- **Landing:** large ink headline ("One image. Five supported formats.") over the format preview (one sample photograph cropped to the selected preset, its native size as a figure, preset buttons), then the five-format row, sample outputs with their report notes, the two engines, and an ink closing band. Copy stays exact about what the product does: five presets, up to two per batch, reports are not a certification.
+- **No checkered or grid fills.** Stage and panel backgrounds are plain sheet or ink. Where a surface needs a measuring cue, use edge rulers (tick marks along the top and left edges only, as on the engine Outputs stage) or the Versa mark drawn large and faint (as in the sign-in panel's corner), never a full-surface grid.
+- **The reel must match the product.** `docs/media/versa-demo.html` embeds real UI captures; whenever a captured screen changes visibly, re-capture it, replace the embedded image, re-export the MP4 and update `checksums.json` and `provenance.json`.
 ### Spec Title Block
 The header strip of the landing demo card: a sheet band with a 1px rule beneath, the Versa mark, a 12px 600 ink panel name ("Transformation Engine") and, at the right, an 11px ink-2 status with a spec-blue icon ("Spec check on"). Use it for any panel that stands in for a tool window. It replaces browser chrome.
 

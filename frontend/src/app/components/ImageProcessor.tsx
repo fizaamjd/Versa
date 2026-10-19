@@ -1697,12 +1697,14 @@ const ImageProcessor = (props: { engineType?: string }) => {
                     justifyContent: "center",
                     gap: 3,
                     bgcolor: "#F6F7F9",
-                    backgroundImage: "linear-gradient(#EEF0F3 1px,transparent 1px),linear-gradient(90deg,#EEF0F3 1px,transparent 1px)",
-                    backgroundSize: "24px 24px",
                     borderRadius: "4px",
+                    position: "relative",
                     p: 3,
                   }}
                 >
+                  {/* Spec-sheet rulers along the top and left edges, not a full grid */}
+                  <Box aria-hidden sx={{ position: "absolute", left: 0, right: 0, top: 0, height: 8, borderBottom: "1px solid #E3E6EB", backgroundImage: "repeating-linear-gradient(90deg,#C7CCD5 0 1px,transparent 1px 12px),repeating-linear-gradient(90deg,#9AA1AC 0 1px,transparent 1px 60px)", backgroundSize: "100% 4px, 100% 8px", backgroundRepeat: "no-repeat", backgroundPosition: "0 100%, 0 100%" }} />
+                  <Box aria-hidden sx={{ position: "absolute", top: 0, bottom: 0, left: 0, width: 8, borderRight: "1px solid #E3E6EB", backgroundImage: "repeating-linear-gradient(180deg,#C7CCD5 0 1px,transparent 1px 12px),repeating-linear-gradient(180deg,#9AA1AC 0 1px,transparent 1px 60px)", backgroundSize: "4px 100%, 8px 100%", backgroundRepeat: "no-repeat", backgroundPosition: "100% 0, 100% 0" }} />
                   {/* The outputs, drawn as a spec sheet before they exist */}
                   <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "center", gap: 4 }}>
                     {(selectedPresets.length > 0

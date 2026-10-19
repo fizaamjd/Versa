@@ -13,7 +13,7 @@
   "font": "Archivo from the application Next.js font build",
   "brand": "Original Versa SVG from frontend/public/logo.svg",
   "assetOrigins": {
-    "engine": "GenFrame-AI/.impeccable/review/app-transformation-engine-selected-desktop.png",
+    "engine": "Versa/.impeccable/review/app-transformation-engine-selected-desktop.png",
     "creation": "GenFrame-AI/.impeccable/review/app-creation-engine-desktop.png",
     "history": "GenFrame-AI/.impeccable/review/native-transform-square.png"
   },
@@ -21,8 +21,10 @@
     "frontend": "http://localhost:3121",
     "sourceCommit": "040e38c",
     "sampleData": "Local preview only; users/me fulfilled with synthetic Sample Producer account; external requests intercepted",
-    "engineDimensions": "1440 x 2222",
+    "engineDimensions": "1440 x 1554",
     "creationDimensions": "1440 x 2214",
-    "scope": "OOH options removed; five supported standard ratios"
+    "scope": "OOH options removed; five supported standard ratios",
+    "engineRecapture": "Engine scene re-captured after replacing the Outputs stage grid with edge rulers; same sample account and local preview method",
+    "export": "Frame-by-frame render of versa-demo.html via its __seekReel hook at 1200 x 1200, 30 fps, H.264 (libx264, yuv420p, crf 18)"
   }
 }
