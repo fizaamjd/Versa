@@ -39,7 +39,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.1",
     "@types/country-list": "^2.1.4",
-    "@types/node": "^20",
+    "@types/node": "^26",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cross-env": "^7.0.3",
