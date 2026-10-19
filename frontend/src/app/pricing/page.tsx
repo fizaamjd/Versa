@@ -25,7 +25,7 @@ export default function PricingPage() {
 
       {/* Hero */}
       <div style={{ textAlign: "center", padding: "52px 20px 12px" }}>
-        <h1 style={{ fontSize: "clamp(26px,5vw,48px)", fontWeight: 700, color: "#101418", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 14 }}>
+        <h1 style={{ fontSize: "clamp(28px,3.2vw,36px)", fontWeight: 600, color: "#101418", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 14 }}>
           Plans & Pricing
         </h1>
         <p style={{ fontSize: 16, color: "#6b7380", maxWidth: 480, margin: "0 auto", lineHeight: 1.65 }}>

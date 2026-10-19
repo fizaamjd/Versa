@@ -184,7 +184,7 @@ export default function DashboardPage() {
             sx={{ p: { xs: 2.5, md: 3.5 } }}
           >
             <Box>
-              <Typography sx={{ fontSize: { xs: "28px", md: "34px" }, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.03em", color: "#101418", mb: 0.75 }}>
+              <Typography sx={{ fontSize: { xs: "25px", md: "28px" }, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.03em", color: "#101418", mb: 0.75 }}>
                 This period
               </Typography>
               <Typography sx={{ color: "#4A5260", fontSize: 15, lineHeight: 1.6 }}>

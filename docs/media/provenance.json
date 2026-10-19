@@ -1,30 +1,45 @@
 {
-  "source": "Existing local Versa design-review captures in GenFrame-AI/.impeccable/review",
-  "captureNotice": "Local interface previews with sample account data. Native screens captured via React Native Web. No production/customer data or actual model run is claimed.",
-  "assets": [
-    "engine",
-    "creation",
-    "reports",
-    "team",
-    "native",
-    "history",
-    "logo"
-  ],
-  "font": "Archivo from the application Next.js font build",
-  "brand": "Original Versa SVG from frontend/public/logo.svg",
-  "assetOrigins": {
-    "engine": "Versa/.impeccable/review/app-transformation-engine-selected-desktop.png",
-    "creation": "GenFrame-AI/.impeccable/review/app-creation-engine-desktop.png",
-    "history": "GenFrame-AI/.impeccable/review/native-transform-square.png"
+  "captureNotice": "Actual revised frontend using a synthetic sample account and original SVG sample creative. No customer data, paid generation, or fabricated results.",
+  "source": "Versa frontend at http://localhost:3122",
+  "duration_seconds": 64,
+  "font": "Archivo, shared with frontend",
+  "assets": {
+    "landing": {
+      "source": "/Users/fizaamjad/Versa/.impeccable/review/compact-ui/landing-desktop.png",
+      "sha256": "def179e3f6a3e7ab09f77b79b33374b49273efefa655867d9a72cd822a7379bb"
+    },
+    "engine": {
+      "source": "/Users/fizaamjad/Versa/.impeccable/review/compact-ui/engine.png",
+      "sha256": "bc40b1cc55431f906227928e3a44545a05ec64d93a5fa98e86304f849bda6fec"
+    },
+    "creation": {
+      "source": "/Users/fizaamjad/Versa/.impeccable/review/compact-ui/creation.png",
+      "sha256": "47c4b35d855bf598cbfcb610440ced754cdd1c046524a65819ed2be578de7409"
+    },
+    "reports": {
+      "source": "/Users/fizaamjad/Versa/.impeccable/review/compact-ui/reports.png",
+      "sha256": "2f32cc2b2fb3e90655a18e69d9bebddb0be101b178eee1b1a8f499d24c6dfb31"
+    },
+    "archive": {
+      "source": "/Users/fizaamjad/Versa/.impeccable/review/compact-ui/archive.png",
+      "sha256": "15383df282ec17fdcd9e7a48d1566000a8c825b0c7ad364c8bb1b004ad0f3668"
+    },
+    "dashboard": {
+      "source": "/Users/fizaamjad/Versa/.impeccable/review/compact-ui/dashboard.png",
+      "sha256": "77b6166211268884c3da3c512404fea493edb4c0d5747a25a9355983930f6cdb"
+    }
   },
-  "captureRefresh": {
-    "frontend": "http://localhost:3121",
-    "sourceCommit": "040e38c",
-    "sampleData": "Local preview only; users/me fulfilled with synthetic Sample Producer account; external requests intercepted",
-    "engineDimensions": "1440 x 1554",
-    "creationDimensions": "1440 x 2214",
-    "scope": "OOH options removed; five supported standard ratios",
-    "engineRecapture": "Engine scene re-captured after replacing the Outputs stage grid with edge rulers; same sample account and local preview method",
-    "export": "Frame-by-frame render of versa-demo.html via its __seekReel hook at 1200 x 1200, 30 fps, H.264 (libx264, yuv420p, crf 18)"
+  "frontendSources": {
+    "frontend/src/app/page.tsx": "13e1f185e592935dd64a72226f89e8cfd5e1898e25b72d2ecb3ee4c0c998ac22",
+    "frontend/src/app/landing.module.css": "89cd911a8f7995ecb8761ddf2463052587ad602f3f393d20983d9179f2e11800",
+    "frontend/src/app/components/ImageProcessor.tsx": "5a0ca0b0cd095471e3f9af0d47775d504821c5f4af210fcd590a9885473dc47e"
+  },
+  "export": {
+    "dimensions": [
+      1200,
+      1200
+    ],
+    "fps": 24,
+    "format": "H.264 MP4 rendered from the HTML timeline"
   }
 }

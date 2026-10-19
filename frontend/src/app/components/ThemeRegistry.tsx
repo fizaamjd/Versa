@@ -34,8 +34,8 @@ const theme = createTheme({
     },
     typography: {
         fontFamily,
-        h1: { fontSize: '2.5rem', fontWeight: 600, letterSpacing: '-0.02em' },
-        h2: { fontSize: '2rem', fontWeight: 600, letterSpacing: '-0.02em' },
+        h1: { fontSize: '1.875rem', fontWeight: 600, letterSpacing: '-0.02em' },
+        h2: { fontSize: '1.5rem', fontWeight: 600, letterSpacing: '-0.02em' },
         h3: { fontSize: '1.5rem', fontWeight: 600, letterSpacing: '-0.01em' },
         h4: { fontSize: '1.25rem', fontWeight: 600 },
         h5: { fontSize: '1.1rem', fontWeight: 600 },

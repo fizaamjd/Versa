@@ -27,15 +27,15 @@ colors:
 typography:
   display:
     fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(28px, 3.8vw, 54px)"
-    fontWeight: 600
-    lineHeight: 1.08
-    letterSpacing: "-0.03em"
+    fontSize: "clamp(34px, 3.7vw, 50px)"
+    fontWeight: 500
+    lineHeight: 1.12
+    letterSpacing: "-0.035em"
   headline:
     fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(22px, 4vw, 48px)"
-    fontWeight: 600
-    lineHeight: 1.15
+    fontSize: "clamp(25px, 2.5vw, 32px)"
+    fontWeight: 500
+    lineHeight: 1.2
     letterSpacing: "-0.025em"
   title:
     fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
@@ -199,7 +199,7 @@ Ink and paper carry the structure, spec blue is the single voice of action, and 
 - **Hatch Ink** (hatch-ink): Text on hatch-tinted warning surfaces wherever ink would be too heavy.
 
 ### Neutral
-- **Ink** (ink): Primary text, headings, the brand wordmark, dark brand panels (auth left panel, the intro screen), the landing closing band, the Settings initial avatar, and the dimension lines of the ink-tone mark.
+- **Ink** (ink): Primary text, headings, the brand wordmark, dark brand panels (auth left panel), the landing closing band, the Settings initial avatar, and the dimension lines of the ink-tone mark.
 - **Ink 2** (ink-2): Secondary text: descriptions, plan blurbs, feature lists. MUI `text.secondary`.
 - **Ink 3** (ink-3): Tertiary text and meta: sidebar group labels, placeholders, the scrollbar thumb on hover.
 - **Paper** (paper): Cards, inputs, the app canvas, the auth form panel.
@@ -228,9 +228,9 @@ Ink and paper carry the structure, spec blue is the single voice of action, and 
 **Character:** A sturdy grotesque that reads like the type on technical drawings. It is set tight and semibold for headings, open for body, and condensed for the numbers that matter.
 
 ### Hierarchy
-- **Display** (600, clamp(28px, 3.8vw, 54px), 1.08): Landing hero and auth panel statements. Set tight (-0.03em).
-- **Headline** (600, clamp(22px, 4vw, 48px), 1.15): Landing section titles, the pricing page title.
-- **Title** (600, 20px, -0.02em): App page headings and card titles. The CSS heading scale runs h1 30/36, h2 20/32, subhead 14/20, and MUI h1–h6 runs 2.5rem to 0.95rem, all at 600.
+- **Display**: Landing hero uses the display token, reaching 50px on desktop. At widths up to 700px it is 36px with a 1.14 line-height override; desktop uses 1.12. Weight is 500.
+- **Headline**: Landing section headings use the headline token; desktop sections range from 28–32px, mobile from 25–26px. Pricing uses a separate 36px title; auth titles are 28px.
+- **Title** (600, 20px, -0.02em): Card titles. App MUI h1 is 30px and h2 is 24px; h3–h6 are 24px, 20px, 17.6px and 15.2px. Local component overrides remain source-specific.
 - **Body** (400, 14px, 1.65): Marketing and auth copy, held to about 320–560px measure. App body is denser at 12/16 and 13px (MUI body1 0.85rem).
 - **Label** (500, 13px): Form labels, nav items, button text (600, no text-transform).
 - **Figure** (600, condensed 78% width, tabular-nums, +0.01em): Every measurement and quantity: pixel dimensions, prices, credit counts, the recomposer readout. Apply it with the `.spec-figure` utility.
@@ -244,7 +244,7 @@ Ink and paper carry the structure, spec blue is the single voice of action, and 
 
 ## Layout
 
-The app is a fixed left sidebar plus a workspace. The sidebar carries the Versa mark, nav groups split by a small uppercase group label with a trailing hairline ("Engines"), and a white credit panel above the account menu at its foot. The workspace sits on paper or sheet, with content in paper cards. Marketing pages center a 1280px max container with clamp-based gutters (clamp(28px, 4vw, 60px) between hero columns), and content sections cap at 1120px. The landing hero is the Live Recomposer: a full-width ink headline on plain paper, then one resizable frame holding a sample ad that re-lays its layers as it snaps through real OOH sizes, with its readout and size snaps beneath. No drawing-grid ground, no left/right split, no ticker. Pricing centers three plan cards.
+The app is a fixed left sidebar plus a workspace. The sidebar carries the Versa mark, nav groups split by a small uppercase group label with a trailing hairline ("Engines"), and a white credit panel above the account menu at its foot. The workspace sits on paper or sheet, with content in paper cards. The current landing centers an 1120px container with 32px side gutters, reduced to 18px at widths up to 700px. Restrained two-column headline and supporting copy sit above a full-width actual workspace image with a sample-account caption. The copy stacks on mobile; the image retains its full width and natural aspect ratio. There is no blocking intro. Pricing centers three plan cards. Main engine panels stack below MUI lg (1200px), then share two columns with a 24px gap; the creative brief is 220px high below lg and 260px at lg and above.
 
 Spacing follows a 4px base used in 8px steps (4, 8, 12, 16, 24, 32). Controls are 8px vertical and 16px horizontal, and cards are padded 24–32px. MUI spacing is the default 8px unit.
 
@@ -253,7 +253,7 @@ Responsive behavior: the auth ink panel appears from 900px and stacks away below
 ### Named Rules
 **The Hairline Rule.** Use a 1px rule between things before reaching for a box. Tables, figure rows and nav groups are divided by rules, not by card stacks.
 
-**The Distinct Landing Rule.** The landing must not look like the owner's other products (CacheNet, Infinium). It never uses a left-headline/right-panel hero, ruled feature tables or step tracks, a blueprint or checkered grid ground, a centered badge over the headline, a feature-card grid, or any scrolling ticker or marquee. It demonstrates the mechanism instead: the recomposer, the layers row and verdict-carrying outputs.
+**The Distinct Landing Rule.** The landing leads with restrained two-column copy above a real, full-width workspace capture. Demonstrate the actual creative workflow and five standard presets. Abstract marketing diagrams and endpoint narratives do not substitute for the interface.
 
 ## Elevation & Depth
 
@@ -307,7 +307,7 @@ There are no pill chips. Every chip is a squared tag.
 
 ### Navigation
 - **Sidebar:** Nav items are 14px, 500, ink, with 8px corners and 10px × 8px padding. Hover and active both fill gray-200. Expandable groups use a spec-select border and spec-blue label text. Group labels are 11px, 600, uppercase, 0.08em tracking, in ink-3, followed by a hairline. The foot holds the credit panel and the account menu.
-- **Top bar (marketing):** Mark left, ink-2 text links center, outline "Sign In" plus a primary "Get Started" right, with a 1px rule beneath. Mobile collapses to a menu button on a spec-wash tile.
+- **Top bar (landing):** Sticky paper header with a rule beneath, mark left, Workspace / Formats / Pricing links, then plain Sign in and a primary Get started action. At widths up to 700px the middle links hide; the two account actions remain visible.
 - **Mobile app:** A bottom tab bar with the spec-blue active tint and ink-3 inactive, on paper with a rule above. Tab icons are drawn from plain Views in the brand grammar (frame plus width dimension, frame plus cross, stacked frames, head and shoulders) in `mobile/src/components/spec.tsx`. Never emoji, never a sparkle. The same kit supplies the lockup, `RatioGlyph` size tiles with a selection mark, `SpecFrame` (dimension line, frame, dashed hatch-yellow safe zone, tabular label) and `RuledRow` label/value rows. Headers are paper with a hairline rule and a 17pt 600 ink title; the engine screens do not repeat that title in the body. Outputs are viewed on ink.
 
 ### Segmented Control
@@ -329,7 +329,8 @@ Size presets in the engines are 6px tiles with a 1.5px border: rule-gray at rest
 The engine Outputs area is a sheet stage with a 24px drawing-sheet grid and 4px corners. Each chosen size is drawn as a Spec Frame: scaled to fit 200 × 150, with ink width ticks and a hairline above, a spec-blue 1px border at 2px corners, a hatched margin around a spec-tint safe area (12% inset), and a condensed `W × H` figure below. Before any size is chosen, the stage shows dashed rule-strong example outlines (16:9, 9:16, 1:1) with ink-3 figures and says they are examples.
 
 ### Public pages and stage surfaces
-- **Landing mirrors the reel** (`docs/media/versa-demo.html`), scene for scene, with no photographs or screenshots: "One creative. More formats." beside the drawn frame study (16:9, 9:16, 1:1 with hatched safe zones and width dimensions); the five-format ratio board whose active box fills spec blue in turn; "Generate. Fit. Store." pipeline with travelling packets and the `POST /api/resize` box; "Review the output." check row with PASS / WARN / FAIL; the team and mobile scenes as text and tags; and "Create. Adapt. Review. Export." to close. When the reel changes, the landing changes with it.
+- **Landing and reel share actual UI evidence.** The landing opens with “One creative. More possibilities.” and a full-width workspace screenshot below two-column copy, then five formats, workflow, review and teamwork, and a closing action. The reel (`docs/media/versa-demo.html`) is a separate 64-second, eight-chapter walkthrough with actual interface captures and sample-account disclosure. Retire the old no-screenshots, drawn marketing-diagram and `POST /api/resize` narrative.
+- **Motion typography is source-specific.** The 1200 × 1200 reel uses 44px desktop chapter titles and 20px support; at viewport widths up to 600px these become 60px and 38px native canvas pixels (about 19.5px / 12.35px when fitted to 390px). These are not global web UI font tokens. Mobile UI captures use responsive crops. Review and Archive each hold focused empty states for five seconds. Chapter transitions crossfade over 420ms with 12px lateral travel; captured screens zoom by at most 1.2%. Preserve reduced-motion and playback controls. See the motion surface brief for chapter timing and evidence limits.
 - **No checkered or grid fills.** Stage and panel backgrounds are plain sheet or ink. Where a surface needs a measuring cue, use edge rulers (tick marks along the top and left edges only, as on the engine Outputs stage) or the Versa mark drawn large and faint (as in the sign-in panel's corner), never a full-surface grid.
 - **The reel must match the product.** `docs/media/versa-demo.html` embeds real UI captures; whenever a captured screen changes visibly, re-capture it, replace the embedded image, re-export the MP4 and update `checksums.json` and `provenance.json`.
 ### Spec Title Block
@@ -342,7 +343,7 @@ Empty and failed surfaces say what happened and offer the next step in a paper p
 A list of real media-site sizes set as a ruled table on the ink auth brand panel: a top rule, then each row with a 12px white/60 label on the left and a 15px figure on the right ("2640 × 288"), rows divided by 1px white/14% rules, and the × in hatch yellow. Use it wherever sizes are listed for reading rather than picking.
 
 ### Dimension Callout (signature)
-A frame drawn at true relative scale. Above it, extension ticks and a hairline mark its width. Inside it, a hatched margin surrounds a safe area. Below it sits the size figure. The landing recomposer frame, the engine Spec Frames, the Ratio Glyphs and the brand mark all use it.
+A frame drawn at true relative scale. Above it, extension ticks and a hairline mark its width. Inside it, a hatched margin surrounds a safe area. Below it sits the size figure. The engine Spec Frames, the Ratio Glyphs and the brand mark use it; the current landing leads with a workspace capture.
 
 ### Brand Mark
 `VersaMark` / `VersaLogo` in two tones. The **ink** tone has a spec-blue frame with ink dimensions and wordmark, for paper grounds. The **light** tone has a white frame, hatch dimensions and a white wordmark, for ink grounds. The app icon is the light mark on a spec-blue tile. The wordmark is Archivo Bold Semi-Expanded (wdth 112), outlined. `scripts/brand/build-brand.mjs` generates every SVG and PNG from one geometry, so change the geometry there and in the component together.

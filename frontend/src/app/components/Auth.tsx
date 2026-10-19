@@ -152,7 +152,7 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, re
 
           {isB2C && activeForm === "signup" ? (
             <>
-              <h2 style={{ fontSize: "clamp(22px,2.8vw,32px)", fontWeight: 700, color: "white", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: 14 }}>
+              <h2 style={{ fontSize: "clamp(23px,2.5vw,28px)", fontWeight: 700, color: "white", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: 14 }}>
                 Almost there!<br />Your images are<br /><span style={{ color: "rgba(255,255,255,0.55)" }}>ready to unlock.</span>
               </h2>
               <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.65, maxWidth: 320 }}>
@@ -161,7 +161,7 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, re
             </>
           ) : (
             <>
-              <h2 style={{ fontSize: "clamp(22px,2.8vw,32px)", fontWeight: 700, color: "white", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: 14 }}>
+              <h2 style={{ fontSize: "clamp(23px,2.5vw,28px)", fontWeight: 700, color: "white", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: 14 }}>
                 One creative.<br />Every screen size.<br /><span style={{ color: "#7B92EA" }}>Checked to spec.</span>
               </h2>
               <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.65, maxWidth: 320 }}>

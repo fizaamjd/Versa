@@ -667,7 +667,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
               <Typography
                 variant="h4"
                 sx={{
-                  fontSize: { xs: '32px', md: '42px', lg: '48px' },
+                  fontSize: { xs: '26px', md: '30px', lg: '32px' },
                   fontWeight: 500,
                   color: '#101418',
                   mb: 2.5,
@@ -830,14 +830,14 @@ const ImageProcessor = (props: { engineType?: string }) => {
           sx={{
             display: "flex",
             gap: { xs: 2, lg: 3 },
-            flexDirection: { xs: "column", xl: "row" },
+            flexDirection: { xs: "column", lg: "row" },
             alignItems: "flex-start",
           }}
         >
           {/* Column 1 - Prompt + Upload/Presets (with sub-columns) + Button */}
           <Box
             sx={{
-              width: { xs: "100%", xl: "calc(50% - 16px)" },
+              width: { xs: "100%", lg: "calc(50% - 12px)" },
               flexShrink: 0,
               display: "flex",
               flexDirection: "column",
@@ -865,7 +865,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                       mb: 1.5,
                     }}
                   >
-                    Edit instructions
+                    Creative brief
                   </Typography>
                   <Paper
                     elevation={0}
@@ -876,7 +876,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                       overflow: "hidden",
                       display: "flex",
                       flexDirection: "column",
-                      height: "500px",
+                      height: { xs: "220px", lg: "260px" },
                       cursor: "text",
                       bgcolor: "white",
                       boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
@@ -908,7 +908,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               lineHeight: 1.5,
                             }}
                           >
-                            Describe the change you want...
+                            Describe the creative you want...
                           </Typography>
                           <Typography
                             sx={{
@@ -917,7 +917,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                               lineHeight: 1.5,
                             }}
                           >
-                            e.g. &apos;Keep the logo top-right and extend the sky&apos;
+                            e.g. &apos;Create a clean campaign visual with a warm palette&apos;
                           </Typography>
                         </Box>
                       )}
@@ -925,6 +925,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                         multiline
                         fullWidth
                         value={prompt}
+                        inputProps={{ "aria-label": "Creative brief" }}
                         onChange={(e) => setPrompt(e.target.value)}
                         inputRef={promptInputRef}
                         variant="standard"
@@ -968,7 +969,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                           fontWeight: 500,
                         }}
                       >
-                        Optional: describe changes to apply
+                        Describe the result you want to create
                       </Typography>
                       <EnhanceIcon
                         sx={{ fontSize: 18, color: "rgba(35, 70, 217, 0.5)" }}
@@ -1247,7 +1248,9 @@ const ImageProcessor = (props: { engineType?: string }) => {
                                 <Paper
                                   key={preset.id}
                                   elevation={0}
-                                  component="label"
+                                  component="button"
+                                  type="button"
+                                  aria-pressed={selected}
                                   onClick={() => handlePresetChange(preset.id)}
                                   sx={{
                                     display: "flex",
@@ -1411,7 +1414,7 @@ const ImageProcessor = (props: { engineType?: string }) => {
                 flexDirection: "column",
                 alignItems: "stretch",
                 justifyContent: "flex-start",
-                height: "590px",
+                height: { xs: "390px", md: "520px", lg: "590px" },
                 overflowY: "auto",
                 position: "relative",
                 boxShadow: "0 1px 2px rgba(16, 20, 24, 0.06)",
