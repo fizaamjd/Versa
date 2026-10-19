@@ -13,13 +13,9 @@ import {
   resetPassword,
 } from "@/lib/organisationApi";
 import { extractApiErrorMessage } from "@/lib/errorMessage";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import LayersIcon from "@mui/icons-material/Layers";
-import { IMAGE_PRESETS } from "@/lib/presets";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import FactCheckIcon from "@mui/icons-material/FactCheck";
-import GridViewIcon from "@mui/icons-material/GridView";
 import { useRouter } from "next/navigation";
+import { CAMPAIGNS, FitCampaign } from "@/app/components/home/Campaigns";
 import { VersaLogo } from "@/components/brand/VersaLogo";
 
 interface AuthProps {
@@ -42,15 +38,6 @@ type FormData = {
 export type ActiveForm = "signup" | "login" | "forgot" | "reset";
 
 // Native output sizes of the supported presets.
-const SPEC_ROWS = IMAGE_PRESETS;
-
-const BRAND_FEATURES = [
-  { icon: <GridViewIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,    text: "Five supported image formats" },
-  { icon: <LayersIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,      text: "Image transformation and prompt-based creation" },
-  { icon: <FactCheckIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />,   text: "Technical checks and AI image reports" },
-  { icon: <CheckCircleIcon sx={{ fontSize: 16, color: "rgba(255,255,255,0.9)" }} />, text: "Review generated artwork before use" },
-];
-
 const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, redirectTo }) => {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -135,12 +122,6 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, re
 
       {/* ── LEFT: Brand panel ────────────────────────────── */}
       <div className="auth-brand" style={{ flex: "0 0 42%", background: "#101418", flexDirection: "column", padding: "52px 44px", position: "relative", overflow: "hidden" }}>
-        {/* Drawing-sheet grid */}
-        <svg aria-hidden style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
-          <defs><pattern id="auth-sheet-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" /></pattern></defs>
-          <rect width="100%" height="100%" fill="url(#auth-sheet-grid)" />
-        </svg>
-
         {/* Logo mark */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 40, position: "relative", zIndex: 1 }}>
           <VersaLogo height={30} tone="light" />
@@ -161,7 +142,7 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, re
           ) : (
             <>
               <h2 style={{ fontSize: "clamp(22px,2.8vw,32px)", fontWeight: 700, color: "white", letterSpacing: "-0.03em", lineHeight: 1.2, marginBottom: 14 }}>
-                One creative.<br />Every screen size.<br /><span style={{ color: "#7B92EA" }}>Checked to spec.</span>
+                One image.<br />Every format.
               </h2>
               <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.65, maxWidth: 320 }}>
                 Upload an image or write a prompt, then choose one of five supported formats.
@@ -187,29 +168,22 @@ const Auth: React.FC<AuthProps> = ({ onAuthSuccess, initialTab, initialToken, re
                 {step.active && <div style={{ marginLeft: "auto", background: "rgba(255,255,255,0.15)", borderRadius: 100, padding: "2px 8px", fontSize: 9, color: "rgba(255,255,255,0.8)", fontWeight: 600, letterSpacing: "0.05em" }}>NOW</div>}
               </div>
             ))
-          ) : (
-            BRAND_FEATURES.map((f, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 32, height: 32, borderRadius: 4, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  {f.icon}
-                </div>
-                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", lineHeight: 1.4 }}>{f.text}</span>
-              </div>
-            ))
-          )}
+          ) : null}
         </div>
 
-        {/* Spec table: real media-site sizes */}
-        <div style={{ position: "relative", zIndex: 1, marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.14)" }}>
-          {SPEC_ROWS.map((row) => (
-            <div key={row.label} style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, padding: "11px 0", borderBottom: "1px solid rgba(255,255,255,0.14)" }}>
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}>{row.label}</span>
-              <span className="spec-figure" style={{ fontSize: 15, color: "white", fontWeight: 600 }}>
-                {row.w} <span style={{ color: "#F2B705" }}>×</span> {row.h}
-              </span>
-            </div>
-          ))}
+        {/* Sample campaigns in the supported formats */}
+        <div aria-hidden style={{ position: "relative", zIndex: 1, marginTop: "auto", display: "grid", gridTemplateColumns: "1.15fr 0.55fr 0.85fr", gap: 10, alignItems: "end" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <FitCampaign c={CAMPAIGNS[1]} presetId="landscape" label={false} />
+            <FitCampaign c={CAMPAIGNS[0]} presetId="ultrawide" label={false} />
+          </div>
+          <FitCampaign c={CAMPAIGNS[2]} presetId="story" label={false} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <FitCampaign c={CAMPAIGNS[0]} presetId="square" label={false} />
+            <FitCampaign c={CAMPAIGNS[1]} presetId="square" label={false} />
+          </div>
         </div>
+        <p style={{ position: "relative", zIndex: 1, fontSize: 11, color: "rgba(255,255,255,0.45)", margin: "10px 0 0" }}>Sample artwork for fictional brands.</p>
       </div>
 
       {/* ── RIGHT: Form panel ────────────────────────────── */}

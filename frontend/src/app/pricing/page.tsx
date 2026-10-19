@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Pricing from "@/app/components/pricing/Pricing";
+import { CAMPAIGNS, FitCampaign } from "@/app/components/home/Campaigns";
 import { VersaLogo } from "@/components/brand/VersaLogo";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -28,10 +29,20 @@ export default function PricingPage() {
         <h1 style={{ fontSize: "clamp(26px,5vw,48px)", fontWeight: 700, color: "#101418", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 14 }}>
           Plans & Pricing
         </h1>
-        <p style={{ fontSize: 16, color: "#6b7380", maxWidth: 480, margin: "0 auto", lineHeight: 1.65 }}>
+        <p style={{ fontSize: 16, color: "#4A5260", maxWidth: 480, margin: "0 auto", lineHeight: 1.65 }}>
           Start with 2 free generations. No credit card required. Upgrade when you need more.
         </p>
       </div>
+
+      {/* Every plan covers all five formats: shown, not listed */}
+      <div aria-hidden className="pricing-strip" style={{ maxWidth: 1100, margin: "36px auto 8px", padding: "0 20px", display: "flex", gap: 10, alignItems: "flex-end", justifyContent: "center" }}>
+        {[["northline", "ultrawide", 2.3], ["halo", "square", 1], ["fieldwork", "story", 0.56], ["northline", "portrait", 0.78], ["halo", "landscape", 1.75]].map(([cid, pid, a]) => (
+          <div key={`${cid}-${pid}`} style={{ flex: `${a} 1 0`, minWidth: 0 }}>
+            <FitCampaign c={CAMPAIGNS.find((c) => c.id === cid)!} presetId={pid as string} />
+          </div>
+        ))}
+      </div>
+      <p style={{ textAlign: "center", fontSize: 12, color: "#6B7380", margin: "6px 0 0" }}>Every plan covers all five formats. Sample artwork for fictional brands.</p>
 
       {/* Pricing component */}
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 20px 80px" }}>
