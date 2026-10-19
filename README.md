@@ -4,7 +4,7 @@ Versa is an AI image workspace with a Next.js web client, an Expo mobile client,
 
 ## Live demo video
 
-https://github.com/user-attachments/assets/9dfc5154-b554-43ac-bcc3-5b377d48e76e
+https://github.com/user-attachments/assets/dc7a05a9-1991-46ba-8b04-bc575befb9b1
 
 [Open Versa](https://versa-workspace.vercel.app/) · [Download video](docs/media/versa-demo.mp4) · [HTML presentation source](docs/media/versa-demo.html)
 

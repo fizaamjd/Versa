@@ -13,6 +13,16 @@
   "font": "Archivo from the application Next.js font build",
   "brand": "Original Versa SVG from frontend/public/logo.svg",
   "assetOrigins": {
+    "engine": "GenFrame-AI/.impeccable/review/app-transformation-engine-selected-desktop.png",
+    "creation": "GenFrame-AI/.impeccable/review/app-creation-engine-desktop.png",
     "history": "GenFrame-AI/.impeccable/review/native-transform-square.png"
+  },
+  "captureRefresh": {
+    "frontend": "http://localhost:3121",
+    "sourceCommit": "040e38c",
+    "sampleData": "Local preview only; users/me fulfilled with synthetic Sample Producer account; external requests intercepted",
+    "engineDimensions": "1440 x 2222",
+    "creationDimensions": "1440 x 2214",
+    "scope": "OOH options removed; five supported standard ratios"
   }
 }
